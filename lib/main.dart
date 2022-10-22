@@ -18,16 +18,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
-        appBar: AppBar(
-          actions: [
-            Icon(Icons.star), // 리스트다보니 여러 개 넣을 수 있음
-            Icon(Icons.star)
-          ],  // 우측 아이콘
-          leading: Icon(Icons.star), // leading은 앱 왼쪽위에 앱 서랍같은 것을 넣고 싶을 때 사용
-          title: Text('어플리케이션')
+        appBar: AppBar( title: Text('ddd'), ),
+        body: Row(
+          children: [
+            // 컨테이너 박스 두 개를 넣고 3:7 비율로 할 때 이런식으로 써 넣으면 됨
+            Flexible(child: Container(color: Colors.blue), flex: 3), // %를 이용하려면 Flexible로 감싸줘야 한다.
+            Flexible(child: Container(color: Colors.green), flex: 7)
+          ],
         ),
-        body: SizedBox(),
-        ),
+        )
       );
   }
 }

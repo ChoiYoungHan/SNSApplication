@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Text('안녕') // 글자 위젯을 사용하고 싶을때는 Text라는 위젯을 사용
+      home: Icon(Icons.star) // Icon 위젯을 사용할때는 Icon(Icons.아이콘이름)해서 사용, 아이콘의 이름은 flutter 홈페이지에 있어서 찾아쓰면 됨
     );
   }
 }

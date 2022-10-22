@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar( title: Text('어플리케이션')), // 앱의 상단바에 텍스트 위젯을 넣음
         body: SizedBox(
           child: Text('안녕하세요', // Text()는 style: 안에 스타일을 넣을 수 있음
-            style: TextStyle( fontSize: 30 ), // 크기는 fontSize, 배경색 background 등 등 찾아볼 것
+            style: TextStyle( fontWeight: FontWeight.w300 ), // 크기는 fontSize, 배경색 background 등 등 찾아볼 것
           ),
         ),
       ),

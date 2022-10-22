@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         body: Align( // 정렬할 때 사용
           alignment: Alignment.centerLeft, // 중앙 왼쪽으로 정렬, 뒤에 입력한 값에 따라 바뀜
           child: Container(
-            width: 150, height: 50, color: Colors.blue,
+            width: double.infinity, height: 50, color: Colors.blue, // double.infinity는 무한히 주세요~
           ),
         )
       ),

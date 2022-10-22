@@ -18,14 +18,34 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
-        appBar: AppBar( title: Text('ddd'), ),
-        body: Row(
-          children: [
-            // 컨테이너 박스 두 개를 넣고 3:7 비율로 할 때 이런식으로 써 넣으면 됨
-            Flexible(child: Container(color: Colors.blue), flex: 3), // %를 이용하려면 Flexible로 감싸줘야 한다.
-            Flexible(child: Container(color: Colors.green), flex: 7)
-          ],
-        ),
+        appBar: AppBar( ),
+        body: Container(
+          height: 150,
+          padding: EdgeInsets.all(20),
+          child: Row(
+            children: [
+              Image.asset('assets/Camera.jpg', width: 150),
+              Container(
+                width: 300,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                  children: [
+                    Text('카메라 팝니다.'),
+                    Text('금호동 3가'),
+                    Text('7000원'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end, // 오른쪽으로 보내주세요.
+                      children: [
+                        Icon(Icons.favorite),
+                        Text('4')
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        )
         )
       );
   }

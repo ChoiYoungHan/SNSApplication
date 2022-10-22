@@ -20,33 +20,35 @@ class MyApp extends StatelessWidget {
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
         appBar: AppBar( ),
         body: Container(
-          height: 150,
-          padding: EdgeInsets.all(20),
-          child: Row(
+          height: 150, // 세로 150
+          padding: EdgeInsets.all(20), // 여백 20
+          child: Row( // 가로 배치
             children: [
-              Image.asset('assets/Camera.jpg', width: 150),
-              Container(
-                width: 300,
+              Flexible(child: Image.asset('assets/Camera.jpg', width: 150), flex: 3), // 사진불러오는 것 비율은 3
+              Flexible(child: Container(
+                width: double.infinity, // 가로길이를 최대로
+                padding: EdgeInsets.all(10), // 여백 10
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                  crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽정렬
                   children: [
-                    Text('카메라 팝니다.'),
-                    Text('금호동 3가'),
-                    Text('7000원'),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end, // 오른쪽으로 보내주세요.
+                    Flexible(child: Text('카메라 팝니다'), flex: 1),
+                    Flexible(child: Text('금호동 3가'), flex: 1),
+                    Flexible(child: Text('7000원'), flex: 1),
+                    Flexible(child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Icon(Icons.favorite),
                         Text('4')
                       ],
-                    )
+                    ), flex: 1)
                   ],
                 ),
-              )
+              ), flex: 7)
             ],
           ),
-        )
-        )
-      );
+        ),
+      )
+    );
+
   }
 }

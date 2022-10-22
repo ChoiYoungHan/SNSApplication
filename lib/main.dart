@@ -15,10 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Image.asset('Github_Image.jpg') // 이미지 위젯은 Image.asset('경로') 사용
-      // 이미지를 사용할 때는 프로젝트 내에 이미지가 있어야함
-      // 이미지 쓰겠다고 pubspec.yaml 아래의 flutter에 등록을 해줘야 함
-      // assets 아래의 모든 파일을 가져다 쓰겠다.
+      home: Container( width: 50, height: 50, color: Colors.blue) // 박스 위젯을 사용할 때는 Container 혹은 SizedBox 사용 // 컨테이너만 넣으면 투명함
+      // 위젯 안에다가 스타일을 주고 싶을때는 소괄호 안에다가 작성하면 됨 // Flutter의 단위는 LP, 50LP = 1.2cm 정도라고 생각하면 됨
+
     );
   }
 }

@@ -15,7 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Icon(Icons.star) // Icon 위젯을 사용할때는 Icon(Icons.아이콘이름)해서 사용, 아이콘의 이름은 flutter 홈페이지에 있어서 찾아쓰면 됨
+      home: Image.asset('Github_Image.jpg') // 이미지 위젯은 Image.asset('경로') 사용
+      // 이미지를 사용할 때는 프로젝트 내에 이미지가 있어야함
+      // 이미지 쓰겠다고 pubspec.yaml 아래의 flutter에 등록을 해줘야 함
+      // assets 아래의 모든 파일을 가져다 쓰겠다.
     );
   }
 }

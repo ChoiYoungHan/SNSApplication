@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
-        body: Row( // 여러 위젯을 가로로 배치하는법
+        body: Column( // 여러 위젯을 세로로 배치하는법
           children: [
             Icon(Icons.star),
             Icon(Icons.star),

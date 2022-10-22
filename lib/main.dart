@@ -18,12 +18,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
         appBar: AppBar( title: Text('어플리케이션')), // 앱의 상단바에 텍스트 위젯을 넣음
-        body: Align( // 정렬할 때 사용
-          alignment: Alignment.centerLeft, // 중앙 왼쪽으로 정렬, 뒤에 입력한 값에 따라 바뀜
-          child: Container(
-            width: double.infinity, height: 50, color: Colors.blue, // double.infinity는 무한히 주세요~
+        body: SizedBox(
+          child: Text('안녕하세요', // Text()는 style: 안에 스타일을 넣을 수 있음
+            style: TextStyle( color: Color(0xff000000)), // Hax칼라를 줄때는 Color를 사용하고 앞에 0xff를 써줘야함
           ),
-        )
+        ),
       ),
     );
   }

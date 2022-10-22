@@ -17,14 +17,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
-        body: Row( // 여러 위젯을 세로로 배치하는법
-          mainAxisAlignment: MainAxisAlignment.center, // MainAxisAlignment의 .뒤에 입력하는 값에 따라 정렬 방법이 달라짐 - 가로정렬 할 때 사용
-          crossAxisAlignment: CrossAxisAlignment.center, // CrossAxisAlignment의 .뒤에 입력하는 값에 따라 정렬 방법이 달라짐 - 세로정렬 할 때 사용
-          children: [
-            Icon(Icons.star),
-            Icon(Icons.star),
-            Icon(Icons.star),
-          ],
+        appBar: AppBar( title: Text('어플리케이션')), // 앱의 상단바에 텍스트 위젯을 넣음
+        body: Text('안녕하세요.'), // 앱의 중앙에 텍스트 위젯을 넣음
+        bottomNavigationBar: BottomAppBar( 
+          child: Row( // 가로 정렬을 할 것임
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬할 것임
+            children: [ // 여러 아이콘
+              Icon(Icons.phone),
+              Icon(Icons.message),
+              Icon(Icons.contact_page),
+            ],
+          ),
         ),
       ),
     );

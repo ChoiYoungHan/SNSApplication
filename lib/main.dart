@@ -18,14 +18,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
-        appBar: AppBar( title: Text('어플리케이션')), // 앱의 상단바에 텍스트 위젯을 넣음
-        body: SizedBox(
-            child: IconButton( // 버튼에는 TextButton, IconButton, ElevatedButton이 있는데 child와 onPressed는 꼭 넣어줘야함
-              icon: Icon(Icons.star),
-              onPressed: () {},
-
-            ),
-          ),
+        appBar: AppBar(
+          actions: [
+            Icon(Icons.star), // 리스트다보니 여러 개 넣을 수 있음
+            Icon(Icons.star)
+          ],  // 우측 아이콘
+          leading: Icon(Icons.star), // leading은 앱 왼쪽위에 앱 서랍같은 것을 넣고 싶을 때 사용
+          title: Text('어플리케이션')
+        ),
+        body: SizedBox(),
         ),
       );
   }

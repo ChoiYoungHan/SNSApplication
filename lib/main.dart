@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp()); // 앱 구동시켜 달라는 의미 // runApp 안에 메인페이지를 입력해줌
@@ -19,7 +20,14 @@ class MyApp extends StatelessWidget {
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
         appBar: AppBar( title: Text('어플리케이션')), // 앱의 상단바에 텍스트 위젯을 넣음
         body: SizedBox(
-            child: Icon(Icons.star, color: Colors.blue, size: 30), // 아이콘은 Color와 size만 있음
+            child: ElevatedButton( // 버튼에는 TextButton, IconButton, ElevatedButton이 있는데 child와 onPressed는 꼭 넣어줘야함
+              child: Text('버튼'),
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.green)
+              ),
+            ),
           ),
         ),
       );

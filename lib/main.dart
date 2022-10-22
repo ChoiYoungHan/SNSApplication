@@ -18,7 +18,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
-        appBar: AppBar( ),
+        appBar: AppBar(
+          leading: Icon(Icons.menu),
+          title: Text('어플리케이션'),
+          actions: [
+            Icon(Icons.search), // 검색 아이콘
+            Icon(Icons.shopping_cart), // 장바구니 아이콘
+            Icon(Icons.notifications) // 알림(종) 아이콘
+          ],
+        ),
         body: Container(
           height: 150, // 세로 150
           padding: EdgeInsets.all(20), // 여백 20

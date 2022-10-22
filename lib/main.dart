@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Container( width: 50, height: 50, color: Colors.blue) // 박스 위젯을 사용할 때는 Container 혹은 SizedBox 사용 // 컨테이너만 넣으면 투명함
-      // 위젯 안에다가 스타일을 주고 싶을때는 소괄호 안에다가 작성하면 됨 // Flutter의 단위는 LP, 50LP = 1.2cm 정도라고 생각하면 됨
-
+      home: Center( // 내 자식 위젯의 기준점을 정중앙으로 해라.
+        child: Container( width: 50, height: 50, color: Colors.blue)
+      )
     );
   }
 }

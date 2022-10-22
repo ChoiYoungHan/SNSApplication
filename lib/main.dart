@@ -11,10 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // debug 없애기
+      debugShowCheckedModeBanner: false,
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
         appBar: AppBar(
           leading: IconButton(icon: Icon(Icons.menu), onPressed: null) , // 좌측에 배치
-          title: TextButton(onPressed: null, child: Text('어플리케이션')), // 텍스트 버튼
+          title: TextButton(onPressed: null, child: Text('어플리케이션')),
           actions: [ // 우측에 배치
             IconButton(icon: Icon(Icons.search), onPressed: null), // 검색 아이콘
             IconButton(icon: Icon(Icons.shopping_cart), onPressed: null), // 장바구니 아이콘

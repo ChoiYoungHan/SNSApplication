@@ -6,8 +6,9 @@ void main() {
 
 // Flutter에서 앱을 만드는 것은 위젯을 짜깁기 하는 것이라 보면 됨.
 /*
-Flutter에는 위젯이 4개가 있다.
-글자 위젯, 이미지 위젯, 아이콘 위젯, 박스 위젯
+ # Flutter에는 위젯이 4개가 있다.
+ # 글자 위젯, 이미지 위젯, 아이콘 위젯, 박스 위젯
+ # 위젯 디자인을 구글 or 커스텀 → MaterialApp, 아이폰 디자인이면 CupertinoApp 하면 됨
  */
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -15,9 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Center( // 내 자식 위젯의 기준점을 정중앙으로 해라.
-        child: Container( width: 50, height: 50, color: Colors.blue)
-      )
+      home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
+        appBar: AppBar(), // 상단
+        body: Container(), // 중앙
+        bottomNavigationBar: BottomAppBar(), // 하단
+      ),
     );
   }
 }

@@ -17,7 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold( // Scaffold는 앱을 상 중 하 나눠주는 위젯
-        body: Column( // 여러 위젯을 세로로 배치하는법
+        body: Row( // 여러 위젯을 세로로 배치하는법
+          mainAxisAlignment: MainAxisAlignment.center, // MainAxisAlignment의 .뒤에 입력하는 값에 따라 정렬 방법이 달라짐 - 가로정렬 할 때 사용
+          crossAxisAlignment: CrossAxisAlignment.center, // CrossAxisAlignment의 .뒤에 입력하는 값에 따라 정렬 방법이 달라짐 - 세로정렬 할 때 사용
           children: [
             Icon(Icons.star),
             Icon(Icons.star),

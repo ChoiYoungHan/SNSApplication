@@ -20,13 +20,16 @@ class MyApp extends StatelessWidget {
         appBar: AppBar( title: Text('어플리케이션')), // 앱의 상단바에 텍스트 위젯을 넣음
         body: Text('안녕하세요.'), // 앱의 중앙에 텍스트 위젯을 넣음
         bottomNavigationBar: BottomAppBar( 
-          child: Row( // 가로 정렬을 할 것임
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬할 것임
-            children: [ // 여러 아이콘
-              Icon(Icons.phone),
-              Icon(Icons.message),
-              Icon(Icons.contact_page),
-            ],
+          child: Container( // 크기나 마진을 주기 위해 Container를 사용, Row에는 줄 수 없음
+            height: 70,
+            child: Row( // 가로 정렬을 할 것임
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬할 것임
+              children: [ // 여러 아이콘
+                Icon(Icons.phone),
+                Icon(Icons.message),
+                Icon(Icons.contact_page),
+              ],
+            ),
           ),
         ),
       ),

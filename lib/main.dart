@@ -38,14 +38,18 @@ class HomeScreen extends StatelessWidget{
         height: 100, // 세로 150
         child: Row(
           children: [
-            Flexible(child: ClipRRect(
-              borderRadius: BorderRadius.circular(35),
-              child: Image.asset('assets/Camera.jpg', width: 100, height: 100)), flex: 2
+            Flexible(child: Padding( // 여백을 주기 위해 사용하는 위젯
+              padding: EdgeInsets.fromLTRB(15, 0, 0, 0), // 좌측에 15만큼 여백을 줌
+              child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용
+                  borderRadius: BorderRadius.circular(55), // 4면을 55만큼 줄여서 둥글게 함
+                  child: Image.asset('assets/Camera.jpg', width: 100, height: 100))
+            ), flex: 2
             ),
             Flexible(child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(10),
-              child: Column(
+              width: double.infinity, // 길이를 최대로
+              padding: EdgeInsets.all(10), // 모든 면의 여백을 10
+              child: Column( // 세로
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(child: Text('이름'), flex: 1),

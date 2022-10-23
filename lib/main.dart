@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-        home: new HomeScreen());
+      debugShowCheckedModeBanner: false,
+      home: new HomeScreen());
   }
 }
 
@@ -24,14 +25,13 @@ class HomeScreen extends StatelessWidget{
   Widget build(BuildContext context){
     return new Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const chat_List()));
-        }) , // 좌측에 배치
-        title: TextButton(onPressed: null, child: Text('어플리케이션')),
+        backgroundColor: Colors.white,
+        title: Text('친구', style: TextStyle(fontWeight: FontWeight.w300, color: Color(
+            0xff797979))), // 글자의 두께를 줄임
         actions: [ // 우측에 배치
           IconButton(icon: Icon(Icons.search), onPressed: null), // 검색 아이콘
-          IconButton(icon: Icon(Icons.shopping_cart), onPressed: null), // 장바구니 아이콘
-          IconButton(icon: Icon(Icons.notifications), onPressed: null) // 알림(종) 아이콘
+          IconButton(icon: Icon(Icons.person_add_alt), onPressed: null), // 친구추가 아이콘
+          IconButton(icon: Icon(Icons.settings), onPressed: null) // 설정 아이콘
         ],
       ),
       body: Container(
@@ -59,6 +59,17 @@ class HomeScreen extends StatelessWidget{
                 ],
               ),
             ), flex: 7)
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row( // 가로로 정렬
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬
+          children: [
+            IconButton(onPressed: null, icon: Icon(Icons.person_outline)), // 친구목록 아이콘
+            IconButton(onPressed: null, icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘
+            IconButton(onPressed: null, icon: Icon(Icons.list_alt)), // 게시글목록 아이콘
+            IconButton(onPressed: null, icon: Icon(Icons.segment)) // 전체목록 아이콘
           ],
         ),
       ),

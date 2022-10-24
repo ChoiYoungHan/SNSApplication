@@ -34,32 +34,27 @@ class HomeScreen extends StatelessWidget{
           IconButton(icon: Icon(Icons.settings), onPressed: null) // 설정 아이콘
         ],
       ),
-      body: Container(
-        height: 100, // 세로 150
-        child: Row(
-          children: [
-            Flexible(child: Padding( // 여백을 주기 위해 사용하는 위젯
-              padding: EdgeInsets.fromLTRB(15, 0, 0, 0), // 좌측에 15만큼 여백을 줌
-              child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용
-                  borderRadius: BorderRadius.circular(55), // 4면을 55만큼 줄여서 둥글게 함
-                  child: Image.asset('assets/Camera.jpg', width: 100, height: 100))
-            ), flex: 2
-            ),
-            Flexible(child: Container(
-              width: double.infinity, // 길이를 최대로
-              padding: EdgeInsets.all(10), // 모든 면의 여백을 10
-              child: Column( // 세로
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(child: Text('이름'), flex: 1),
-                  Flexible(child: Text('상태메시지'), flex: 1)
-                ],
-              ),
-            ), flex: 8
-            )
-          ],
-        ),
+      body: ListView(
+        padding: EdgeInsets.zero,
+        scrollDirection: Axis.vertical,
+        children: [
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+          fritend_list(),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container( // 가로로 정렬
@@ -74,6 +69,49 @@ class HomeScreen extends StatelessWidget{
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class fritend_list extends StatelessWidget {
+  const fritend_list({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80, // 박스의 세로 길이를 100으로 함
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(
+              color: Color(0xffC6C8C6),
+              width: 1.5
+          ))
+      ),
+      child: Row( // 박스 안에는 가로로 박스를 두 개 더 넣을 것임
+        children: [
+          Flexible(child: Container(
+              width: double.infinity, height: double.infinity,
+              child: Padding( // 여백을 주기 위해 사용하는 위젯
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10), // 좌측에 15만큼의 여백을 줌
+                child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용
+                  borderRadius: BorderRadius.circular(45), // 네 면을 45만큼 줄임
+                  child: Image.asset('assets/sky.jpg', width: 100, height: 100),
+                ),
+              )
+          ), flex: 2),
+          Flexible(child: Container(
+            width: double.infinity, height: double.infinity, // 가로 세로를 비율 최대로
+            padding: EdgeInsets.all(10), // 모든 면의 여백을 10
+            child: Column( // 텍스트 위젯을 2개 세로로 줄 것이기에 사용
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(child: Text('이름'), flex: 1),
+                Flexible(child: Text('상태메시지'), flex: 1)
+              ],
+            ),
+          ), flex: 8)
+        ],
       ),
     );
   }

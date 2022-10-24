@@ -62,8 +62,10 @@ class HomeScreen extends StatelessWidget{
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬
             children: [
-              IconButton(onPressed: null, icon: Icon(Icons.person_outline)), // 친구목록 아이콘
-              IconButton(onPressed: null, icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘
+              IconButton(onPressed: null, icon: Icon(Icons.person_outline, color: Colors.blue)), // 친구목록 아이콘
+              IconButton(onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => chat_List()));
+              }, icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘
               IconButton(onPressed: null, icon: Icon(Icons.list_alt)), // 게시글목록 아이콘
               IconButton(onPressed: null, icon: Icon(Icons.segment)) // 전체목록 아이콘
             ],
@@ -82,7 +84,7 @@ class fritend_list extends StatelessWidget {
     return Container(
       height: 80, // 박스의 세로 길이를 100으로 함
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(
+          border: Border(bottom: BorderSide( // 박스의 아래 테두리를 설정
               color: Color(0xffC6C8C6),
               width: 1.5
           ))
@@ -92,10 +94,10 @@ class fritend_list extends StatelessWidget {
           Flexible(child: Container(
               width: double.infinity, height: double.infinity,
               child: Padding( // 여백을 주기 위해 사용하는 위젯
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 10), // 좌측에 15만큼의 여백을 줌
+                padding: EdgeInsets.all(13), // 네 면을 13만큼의 여백을 줌
                 child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용
                   borderRadius: BorderRadius.circular(45), // 네 면을 45만큼 줄임
-                  child: Image.asset('assets/sky.jpg', width: 100, height: 100),
+                  child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover),
                 ),
               )
           ), flex: 2),
@@ -106,7 +108,7 @@ class fritend_list extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(child: Text('이름'), flex: 1),
+                Flexible(child: Text('이름', style: TextStyle(fontSize: 18),), flex: 1),
                 Flexible(child: Text('상태메시지'), flex: 1)
               ],
             ),

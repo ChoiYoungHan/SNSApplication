@@ -18,14 +18,15 @@ class post_List extends StatelessWidget{
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.all(10),
         scrollDirection: Axis.vertical,
         children: [
-          post_List(), post_List()
+          postlist_screen(),Container(height: 10),
+          postlist_screen()
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Container( // 가로로 정렬
+        child: Container(
           height: 60,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬
@@ -51,58 +52,67 @@ class  postlist_screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container( // 박스
       width: double.infinity,
       height: 400, // 높이 400
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(
-          color: Color(0xffC6C8C6),
-          width: 1.5
-        ))
+        border: Border.all(
+          width: 1.5,
+          color: Color(0xffC6C8C6)
+        )
       ),
-      child: Column(
-        children: [
-          Expanded(child: Row( // Container가 2개 들어갈 것임
-            children: [
-              Expanded(child: Container( // Image가 들어감
-                width: 100, height: 100,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(22, 5, 22, 5),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(45),
-                    child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover),
+      child: Column( // 세로로 정렬
+        children: [ // Container 3개 줄 것임
+          Expanded(child: Container(
+            width: double.infinity, height: 40,
+            child: Row( // 가로로 정렬 Container 2개 줄 것임
+              children: [
+                Expanded(child: Container(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(45),
+                      child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover),
+                    ),
+                  )
+                ), flex: 2),
+                Expanded(child: Container(
+                  child: Column( // Container 2개가 들어갈 것임
+                    children: [
+                      Expanded(child: Container(
+                        child: Row( // Text와 Icon 2개가 들어갈 것임
+                          children: [
+                            Expanded(child: Container(
+                              child: Text('최영한', style: TextStyle(fontSize: 16)),
+                            ), flex: 2),
+                            Expanded(child: Container(
+                              alignment: Alignment.centerRight,
+                              child: Row( // 가로로 Icon 2개 넣어줄 것임
+                                children: [
+                                  IconButton(onPressed: null, icon: Icon(Icons.more_horiz, color: Color(0xffC6C8C6))),
+                                  IconButton(onPressed: null, icon: Icon(Icons.close, color: Color(0xffC6C8C6)))
+                                ],
+                              ),
+                            ), flex: 8)
+                          ],
+                        ),
+                      ), flex: 1),
+                      Expanded(child: Container(
+                        child: Text('3시간 전', style: TextStyle(fontSize: 13)),
+                      ), flex: 1)
+                    ],
                   ),
-                ),
-              ), flex: 2),
-              Expanded(child: Container( // Column이 들어감
-                child: Column( // Row와 Container가 들어감
-                  children: [
-                    Expanded(child: Row( // Text, Icon, Icon 들어감
-                      children: [
-                        Expanded(child: Text('최영한')),
-                        Expanded(child: Icon(Icons.more_horiz)),
-                        Expanded(child: Icon(Icons.close))
-                      ],
-                    ), flex: 1),
-                    Expanded(child: Container( // Text가 들어감
-                      child: Text('3시간 전', style: TextStyle(color: Color(0xffC6C8C6), fontSize: 10)),
-                    ), flex: 1)
-                  ],
-                ),
-              ), flex: 8)
-            ],
-          ), flex: 1),
-          Expanded(child: Container( // Text가 들어갈 것임
-            width: double.infinity, height: double.infinity,
-            padding: EdgeInsets.all(5),
-            child: Text('텍스트가 들어갈 영역입니다.', style: TextStyle(fontSize: 15), textAlign: TextAlign.left),
-          ), flex: 2),
-          Expanded(child: Container( // Padding과 ClipRrect가 들어갈 것임
-            width: double.infinity, height: double.infinity,
-            child: Padding(
-              padding: EdgeInsets.all(13),
-              child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover)
+                ), flex: 8)
+              ],
             ),
+          ), flex: 1),
+          Expanded(child: Container(
+            width: double.infinity, height: 80,
+            child: Text('텍스트가 출력될 영역'),
+          ), flex: 2),
+          Expanded(child: Container(
+            width: double.infinity, height: 280,
+            child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover), // 사진으로 화면을 꽉 채움
           ), flex: 7)
         ],
       ),

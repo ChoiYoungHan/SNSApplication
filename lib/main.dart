@@ -1,4 +1,5 @@
 import 'package:application_20221022/chat_List.dart';
+import 'package:application_20221022/post_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -66,7 +67,9 @@ class HomeScreen extends StatelessWidget{
               IconButton(onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => chat_List()));
               }, icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘
-              IconButton(onPressed: null, icon: Icon(Icons.list_alt)), // 게시글목록 아이콘
+              IconButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => post_List()));
+              }, icon: Icon(Icons.list_alt)), // 게시글목록 아이콘
               IconButton(onPressed: null, icon: Icon(Icons.segment)) // 전체목록 아이콘
             ],
           ),

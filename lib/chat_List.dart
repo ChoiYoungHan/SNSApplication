@@ -1,5 +1,6 @@
 import 'package:application_20221022/chat_List.dart';
 import 'package:application_20221022/main.dart';
+import 'package:application_20221022/post_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,7 +15,7 @@ class chat_List extends StatelessWidget{
             0xff797979))), // 글자의 두께를 줄임
         actions: [ // 우측에 배치
           IconButton(icon: Icon(Icons.search), onPressed: null), // 검색 아이콘
-          IconButton(icon: Icon(Icons.add_circle_outline_outlined), onPressed: null), // 친구추가 아이콘
+          IconButton(icon: Icon(Icons.add_circle_outline_outlined), onPressed: null), // 채팅방 추가 아이콘
           IconButton(icon: Icon(Icons.settings), onPressed: null) // 설정 아이콘
         ],
       ),
@@ -50,7 +51,9 @@ class chat_List extends StatelessWidget{
                 Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
               }, icon: Icon(Icons.person_outline)), // 친구목록 아이콘
               IconButton(onPressed: null, icon: Icon(Icons.chat_bubble_outline, color: Colors.blue)), // 채팅목록 아이콘
-              IconButton(onPressed: null, icon: Icon(Icons.list_alt)), // 게시글목록 아이콘
+              IconButton(onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => post_List()));
+              }, icon: Icon(Icons.list_alt)), // 게시글목록 아이콘
               IconButton(onPressed: null, icon: Icon(Icons.segment)) // 전체목록 아이콘
             ],
           ),

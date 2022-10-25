@@ -22,7 +22,16 @@ class post_List extends StatelessWidget{
         scrollDirection: Axis.vertical,
         children: [
           postlist_screen(),Container(height: 10),
-          postlist_screen()
+          postlist_screen(),Container(height: 10),
+          postlist_screen(),Container(height: 10),
+          postlist_screen(),Container(height: 10),
+          postlist_screen(),Container(height: 10),
+          postlist_screen(),Container(height: 10),
+          postlist_screen(),Container(height: 10),
+          postlist_screen(),Container(height: 10),
+          postlist_screen(),Container(height: 10),
+          postlist_screen(),Container(height: 10),
+          postlist_screen(),Container(height: 10)
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -53,13 +62,13 @@ class  postlist_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container( // 박스
-      width: double.infinity,
+      width: double.infinity, //
       height: 400, // 높이 400
       decoration: BoxDecoration(
         border: Border.all(
           width: 1.5,
           color: Color(0xffC6C8C6)
-        )
+        ),
       ),
       child: Column( // 세로로 정렬
         children: [ // Container 3개 줄 것임
@@ -69,7 +78,7 @@ class  postlist_screen extends StatelessWidget {
               children: [
                 Expanded(child: Container(
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(45),
                       child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover),
@@ -88,6 +97,7 @@ class  postlist_screen extends StatelessWidget {
                             Expanded(child: Container(
                               alignment: Alignment.centerRight,
                               child: Row( // 가로로 Icon 2개 넣어줄 것임
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   IconButton(onPressed: null, icon: Icon(Icons.more_horiz, color: Color(0xffC6C8C6))),
                                   IconButton(onPressed: null, icon: Icon(Icons.close, color: Color(0xffC6C8C6)))
@@ -98,6 +108,7 @@ class  postlist_screen extends StatelessWidget {
                         ),
                       ), flex: 1),
                       Expanded(child: Container(
+                        alignment: Alignment.centerLeft,
                         child: Text('3시간 전', style: TextStyle(fontSize: 13)),
                       ), flex: 1)
                     ],
@@ -105,14 +116,25 @@ class  postlist_screen extends StatelessWidget {
                 ), flex: 8)
               ],
             ),
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(
+                width: 1.5,
+                color: Color(0xffC6C8C6)
+              ))
+            ),
           ), flex: 1),
           Expanded(child: Container(
             width: double.infinity, height: 80,
+            padding: EdgeInsets.all(3),
             child: Text('텍스트가 출력될 영역'),
           ), flex: 2),
           Expanded(child: Container(
             width: double.infinity, height: 280,
-            child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover), // 사진으로 화면을 꽉 채움
+            padding: EdgeInsets.all(1.5),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(13),
+              child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover), // 사진으로 화면을 꽉 채움
+            )
           ), flex: 7)
         ],
       ),

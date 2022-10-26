@@ -21,7 +21,7 @@ class my_List extends StatelessWidget{
         padding: EdgeInsets.all(10),
         scrollDirection: Axis.vertical,
         children: [
-
+          profile(), Container(height: 5), list()
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -48,48 +48,48 @@ class my_List extends StatelessWidget{
   }
 }
 
-class  profile extends StatelessWidget {
+class profile extends StatelessWidget {
   const profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column( // Container가 2개 들어갈 것임
+    return Container( // Row를 이용하여 가로정렬 할 것임
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(
+          width: 1.5,
+          color: Color(0xffC6C8C6)
+        ))
+      ),
+      width: double.infinity, height: 100,
+      child: Row( // Row 안에는 Container가 2개 들어감
         children: [
-          Expanded(child: Container(
-            child: Row( // 가로로 Container 2개가 들어갈 것임
-              children: [
-                Expanded(child: Container(
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(45),
-                      child: Image.asset('assets/sky.jpg', width: double.infinity, height: double.infinity, fit: BoxFit.cover),
-                    ),
-                  ),
-                ), flex: 3),
-                Expanded(child: Container(
-                  child: Column( // Container가 2개 들어갈 것임
-                    children: [
-                      Expanded(child: Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text('이름', style: TextStyle(fontSize: 20, color: Colors.black)),
-                      ), flex: 1),
-                      Expanded(child: Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text('상태메시지', style: TextStyle(fontSize: 20, color: Colors.black)),
-                      ), flex: 1)
-                    ],
-                  ),
-                ), flex: 7)
-              ],
+          Expanded(child: Container( // Image가 들어갈 영역
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(35),
+                child: Image.asset('assets/sky.jpg', width: double.infinity, height: double.infinity, fit: BoxFit.cover),
+              ),
             ),
           ), flex: 3),
-          Expanded(child: Container(
-
+          Expanded(child: Container( // Container 2개가 Column을 이용하여 들어갈 것임
+            child: Column(
+              children: [
+                Expanded(child: Container(
+                  margin: EdgeInsets.all(10),
+                  alignment: Alignment.centerLeft,
+                  child: Text('이름', style: TextStyle(fontSize: 20, color: Colors.black))
+                ), flex: 1),
+                Expanded(child: Container(
+                  margin: EdgeInsets.all(10),
+                  alignment: Alignment.centerLeft,
+                  child: Text('상태메시지', style: TextStyle(fontSize: 20, color: Colors.black))
+                ), flex: 1)
+              ],
+            ),
           ), flex: 7)
         ],
-      )
+      ),
     );
   }
 }
@@ -99,6 +99,80 @@ class list extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container( // Column을 이용하여 Container 6개를 넣어줄 것임
+      width: double.infinity, height: 350,
+      child: Column(
+        children: [
+          Expanded(child: Container(
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(
+                    width: 1.5,
+                    color: Color(0xffC6C8C6)
+                ))
+            ),
+            child: Text('프로필 편집', style: TextStyle(fontSize: 16)),
+          ), flex: 1),
+          Expanded(child: Container(
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(
+                    width: 1.5,
+                    color: Color(0xffC6C8C6)
+                ))
+            ),
+            child: Text('차단친구관리', style: TextStyle(fontSize: 16)),
+          ), flex: 1),
+          Expanded(child: Container(
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(
+                    width: 1.5,
+                    color: Color(0xffC6C8C6)
+                ))
+            ),
+            child: Text('통화', style: TextStyle(fontSize: 16)),
+          ), flex: 1),
+          Expanded(child: Container( // Row를 이용하여
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(
+                    width: 1.5,
+                    color: Color(0xffC6C8C6)
+                ))
+            ),
+            child: Text('메시지 알림', style: TextStyle(fontSize: 16)),
+          ), flex: 1),
+          Expanded(child: Container(
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(
+                    width: 1.5,
+                    color: Color(0xffC6C8C6)
+                ))
+            ),
+            child: Text('공지사항', style: TextStyle(fontSize: 16)),
+          ), flex: 1),
+          Expanded(child: Container(
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(
+                    width: 1.5,
+                    color: Color(0xffC6C8C6)
+                ))
+            ),
+            child: Text('앱버전', style: TextStyle(fontSize: 16)),
+          ), flex: 1),
+        ],
+      )
+    );
   }
 }
+
+

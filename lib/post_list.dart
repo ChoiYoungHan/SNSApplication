@@ -3,6 +3,8 @@ import 'package:application_20221022/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'my_List.dart';
+
 class post_List extends StatelessWidget{
 
   @override
@@ -47,7 +49,9 @@ class post_List extends StatelessWidget{
                 Navigator.push(context, MaterialPageRoute(builder: (context) => chat_List()));
               }, icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘
               IconButton(onPressed: null, icon: Icon(Icons.list_alt, color: Colors.blue)), // 게시글목록 아이콘
-              IconButton(onPressed: null, icon: Icon(Icons.segment)) // 전체목록 아이콘
+              IconButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => my_List()));
+              }, icon: Icon(Icons.segment)) // 전체목록 아이콘
             ],
           ),
         ),

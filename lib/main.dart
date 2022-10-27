@@ -1,4 +1,5 @@
 import 'package:application_20221022/chat_List.dart';
+import 'package:application_20221022/friend_profilescreen.dart';
 import 'package:application_20221022/my_List.dart';
 import 'package:application_20221022/post_list.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,9 @@ class HomeScreen extends StatelessWidget{
         title: Text('친구', style: TextStyle(fontWeight: FontWeight.w300, color: Color(
             0xff797979))), // 글자의 두께를 줄임
         actions: [ // 우측에 배치
-          IconButton(icon: Icon(Icons.search), onPressed: null), // 검색 아이콘
+          IconButton(icon: Icon(Icons.search), onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => friend_profilescreen()));
+          }), // 검색 아이콘
           IconButton(icon: Icon(Icons.person_add_alt), onPressed: null), // 친구추가 아이콘
           IconButton(icon: Icon(Icons.settings), onPressed: null) // 설정 아이콘
         ],

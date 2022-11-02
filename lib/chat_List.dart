@@ -49,14 +49,23 @@ class chat_List extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬
             children: [
               IconButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ListViewPage()));
+                Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => ListViewPage(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
+                    transitionDuration: Duration.zero, // 속도 0
+                    reverseTransitionDuration: Duration.zero // 속도 0
+                ));
               }, icon: Icon(Icons.person_outline)), // 친구목록 아이콘
               IconButton(onPressed: null, icon: Icon(Icons.chat_bubble_outline, color: Colors.blue)), // 채팅목록 아이콘
               IconButton(onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => post_List()));
+                Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => post_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
+                    transitionDuration: Duration.zero, // 속도 0
+                    reverseTransitionDuration: Duration.zero // 속도 0
+                ));
               }, icon: Icon(Icons.list_alt)), // 게시글목록 아이콘
               IconButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => my_List()));
+                Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => my_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
+                    transitionDuration: Duration.zero, // 속도 0
+                    reverseTransitionDuration: Duration.zero // 속도 0
+                ));
               }, icon: Icon(Icons.segment)) // 전체목록 아이콘
             ],
           ),

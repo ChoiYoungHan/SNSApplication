@@ -183,17 +183,26 @@ class _ListViewPageState extends State<ListViewPage> {
                   icon: Icon(Icons.person_outline, color: Colors.blue)), // 친구목록 아이콘버튼
               IconButton(
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => chat_List())); // 채팅 목록으로 이동
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => chat_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
+                        transitionDuration: Duration.zero, // 속도 0
+                        reverseTransitionDuration: Duration.zero // 속도 0
+                    )); // 채팅 목록으로 이동
                   },
                   icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘버튼
               IconButton(
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => post_List())); // 게시글 목록으로 이동
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => post_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
+                    transitionDuration: Duration.zero, // 속도 0
+                    reverseTransitionDuration: Duration.zero // 속도 0
+                    ));// 게시글 목록으로 이동
                   },
                   icon: Icon(Icons.list_alt)), // 게시글목록 아이콘버튼
               IconButton(
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => my_List())); // 전체 목록으로 이동
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => my_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
+                        transitionDuration: Duration.zero, // 속도 0
+                        reverseTransitionDuration: Duration.zero // 속도 0
+                    )); // 전체 목록으로 이동
                   },
                   icon: Icon(Icons.segment)), // 전체목록 아이콘버튼
             ],

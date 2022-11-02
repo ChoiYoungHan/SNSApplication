@@ -31,7 +31,7 @@ class my_List extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬
             children: [
               IconButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ListViewPage()));
               }, icon: Icon(Icons.person_outline)), // 친구목록 아이콘
               IconButton(onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => chat_List()));

@@ -16,67 +16,143 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: new HomeScreen());
+      home: ListViewPage()
+    );
   }
 }
 
-class HomeScreen extends StatelessWidget{
+class ListViewPage extends StatefulWidget {
+  const ListViewPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text('친구', style: TextStyle(fontWeight: FontWeight.w300, color: Color(
-            0xff797979))), // 글자의 두께를 줄임
-        actions: [ // 우측에 배치
-          IconButton(icon: Icon(Icons.search), onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => friend_profilescreen()));
-          }), // 검색 아이콘
-          IconButton(icon: Icon(Icons.person_add_alt), onPressed: null), // 친구추가 아이콘
-          IconButton(icon: Icon(Icons.settings), onPressed: null) // 설정 아이콘
+  State<ListViewPage> createState() => _ListViewPageState();
+}
+
+class _ListViewPageState extends State<ListViewPage> {
+
+  // 데이터 리스트
+  var friendList = ['Ahnhyunsoo', 'Choihojin', 'Choiyounghan', 'Hwangsoohyun', 'Kimwon', 'Kimyongsoo', 'Leeeunsoo', 'Parkminki','Shinsangwoo', 'Yujin'];
+  var imagePath = [
+    'assets/Ahnhyunsoo.png',
+    'assets/Choihojin.png',
+    'assets/Choiyounghan.png',
+    'assets/Hwangsoohyun.png',
+    'assets/Kimwon.png',
+    'assets/Kimyongsoo.png',
+    'assets/Leeeunsoo.png',
+    'assets/Parkminki.png',
+    'assets/Shinsangwoo.png',
+    'assets/Yujin.png',
+  ];
+  var stateMsg = [
+    '오늘 날씨 좋다',
+    '매우편안',
+    '시험공부',
+    '귀여운 호두',
+    '틀린말은 아니지',
+    'so cool',
+    '꿈을 위하여',
+    '귀요미',
+    'Weekend',
+    '빵야'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold( // 상 중 하로 나눌때는 Scaffold 위젯을 사용
+      appBar: AppBar( // 상단바
+        backgroundColor: Colors.white, // 배경은 흰색
+        title: Text('친구', style: TextStyle(fontWeight: FontWeight.w300, color: Color(0xff797979))), // 상단바에 텍스트로 '친구' 출력, 글자의 두께를 줄임
+        actions: [ // 상단바의 우측에 배치
+          IconButton(
+              onPressed: null,
+              icon: Icon(Icons.search)), // 검색 아이콘 버튼
+          IconButton(
+              onPressed: null,
+              icon: Icon(Icons.person_add_alt)), // 친구 추가 아이콘 버튼
+          IconButton(
+              onPressed: null,
+              icon: Icon(Icons.settings)), // 설정 아이콘 버튼
         ],
       ),
-      body: ListView(
-        padding: EdgeInsets.zero,
-        scrollDirection: Axis.vertical,
-        children: [
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-          fritend_list(),
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container( // 가로로 정렬
+      body: ListView.builder( // ListView
+          itemCount: friendList.length, // List의 개수는 friendList의 개수만큼
+          itemBuilder: (context, index){
+            return GestureDetector( // 제스처를 사용할 때 사용하는 위젯
+              onLongPress: (){
+
+              },
+              child: Card( // Card 위젯 ( 모서리가 둥글다는 특징이 있음 )
+                child: Row( // 가로 정렬
+                  mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                  children: [
+                    Expanded(child: Container(
+                      child: Container(
+                        width: 100, height: 100,
+                        child: Padding( // 여백을 줄때 사용하는 위젯
+                          padding: EdgeInsets.all(10), // 모든 면의 여백을 10
+                          child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용
+                            borderRadius: BorderRadius.circular(35), // 각진 부분을 45만큼 둥글게 줄임
+                            child: Image.asset(imagePath[index], width: 100, height: 100, fit: BoxFit.cover)
+                          ),
+                        ),
+                      ),
+                    ), flex: 3),
+                    Expanded(child: Container(
+                      width: 100, height: 100,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                        children: [
+                          Expanded(child: Padding( // 여백을 줄 때 사용하는 위젯
+                            padding: EdgeInsets.fromLTRB(5, 20, 5, 5), // 좌 5 위 20 우 5 하 5의 여백을 줌
+                            child: Container(
+                              width: double.infinity, height: double.infinity,
+                              child: Text(friendList[index],
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), maxLines: 1),
+                            ),
+                          ), flex: 1),
+                          Expanded(child: Padding( // 여백을 줄 때 사용하는 위젯
+                            padding: EdgeInsets.all(5), // 모든 면의 여백을 5만큼 줌
+                            child: Container(
+                              width: double.infinity, height: double.infinity,
+                              child: Text(stateMsg[index],
+                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey), maxLines: 1),
+                            ),
+                          ), flex: 1)
+                        ],
+                      ),
+                    ), flex: 8)
+                  ],
+                ),
+              ),
+            );
+          }),
+      bottomNavigationBar: BottomAppBar( // 하단바
+        child: Container(
           height: 60,
-          child: Row(
+          child: Row( // 가로로 정렬
             mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬
             children: [
-              IconButton(onPressed: null, icon: Icon(Icons.person_outline, color: Colors.blue)), // 친구목록 아이콘
-              IconButton(onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => chat_List()));
-              }, icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘
-              IconButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => post_List()));
-              }, icon: Icon(Icons.list_alt)), // 게시글목록 아이콘
-              IconButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => my_List()));
-              }, icon: Icon(Icons.segment)) // 전체목록 아이콘
+              IconButton(
+                  onPressed: null,
+                  icon: Icon(Icons.person_outline, color: Colors.blue)), // 친구목록 아이콘버튼
+              IconButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => chat_List())); // 채팅 목록으로 이동
+                  },
+                  icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘버튼
+              IconButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => post_List())); // 게시글 목록으로 이동
+                  },
+                  icon: Icon(Icons.list_alt)), // 게시글목록 아이콘버튼
+              IconButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => my_List())); // 전체 목록으로 이동
+                  },
+                  icon: Icon(Icons.segment)), // 전체목록 아이콘버튼
             ],
           ),
         ),
@@ -85,45 +161,3 @@ class HomeScreen extends StatelessWidget{
   }
 }
 
-class fritend_list extends StatelessWidget {
-  const fritend_list({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 80, // 박스의 세로 길이를 100으로 함
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide( // 박스의 아래 테두리를 설정
-              color: Color(0xffC6C8C6),
-              width: 1.5
-          ))
-      ),
-      child: Row( // 박스 안에는 가로로 박스를 두 개 더 넣을 것임
-        children: [
-          Flexible(child: Container(
-              width: double.infinity, height: double.infinity,
-              child: Padding( // 여백을 주기 위해 사용하는 위젯
-                padding: EdgeInsets.all(13), // 네 면을 13만큼의 여백을 줌
-                child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용
-                  borderRadius: BorderRadius.circular(45), // 네 면을 45만큼 줄임
-                  child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover),
-                ),
-              )
-          ), flex: 2),
-          Flexible(child: Container(
-            width: double.infinity, height: double.infinity, // 가로 세로를 비율 최대로
-            padding: EdgeInsets.all(10), // 모든 면의 여백을 10
-            child: Column( // 텍스트 위젯을 2개 세로로 줄 것이기에 사용
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(child: Text('이름', style: TextStyle(fontSize: 18),), flex: 1),
-                Flexible(child: Text('상태메시지'), flex: 1)
-              ],
-            ),
-          ), flex: 8)
-        ],
-      ),
-    );
-  }
-}

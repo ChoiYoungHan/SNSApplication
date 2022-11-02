@@ -82,7 +82,50 @@ class _ListViewPageState extends State<ListViewPage> {
           itemBuilder: (context, index){
             return GestureDetector( // 제스처를 사용할 때 사용하는 위젯
               onLongPress: (){
-
+                showDialog( // 팝업화면을 띄울 것임
+                  context: context,
+                  barrierDismissible: true, // 바깥 영역 터치시 닫을지 여부
+                  builder: (context){
+                    return Dialog( 
+                      child: Container(
+                        width: 150,
+                        height: 200,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                          children: [
+                            Expanded(child: Container(
+                              decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide( // Container의 아래 테두리에 색을 줄 것임
+                                  color: Color(0xffC6C8C6),
+                                  width: 1.5
+                                ))
+                              ),
+                              alignment: Alignment.center, // 글자가 가운데로 오도록
+                              width: double.infinity, height: double.infinity,
+                              child: Text('즐겨찾기 추가', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                            ), flex: 1),
+                            Expanded(child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border(bottom: BorderSide( // Container의 아래 테두리에 색을 줄 것임
+                                        color: Color(0xffC6C8C6),
+                                        width: 1.5
+                                    ))
+                                ),
+                                alignment: Alignment.center, // 글자가 가운데로 오도록
+                                width: double.infinity, height: double.infinity,
+                                child: Text('이름 변경', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                            ), flex: 1),
+                            Expanded(child: Container(
+                                alignment: Alignment.center, // 글자가 가운데로 오도록
+                                width: double.infinity, height: double.infinity,
+                                child: Text('차단', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                            ), flex: 1)
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                );
               },
               child: Card( // Card 위젯 ( 모서리가 둥글다는 특징이 있음 )
                 child: Row( // 가로 정렬

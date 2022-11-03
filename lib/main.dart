@@ -44,7 +44,7 @@ class _ListViewPageState extends State<ListViewPage> {
     'assets/Leeeunsoo.png',
     'assets/Parkminki.png',
     'assets/Shinsangwoo.png',
-    'assets/Yujin.png',
+    'assets/Yujin.png'
   ];
   var stateMsg = [
     '오늘 날씨 좋다',
@@ -208,7 +208,7 @@ class _ListViewPageState extends State<ListViewPage> {
             ],
           ),
         ),
-      ),
+      )
     );
   }
 }

@@ -31,7 +31,7 @@ class my_List extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 간격을 두고 정렬
             children: [
               IconButton(onPressed: (){
-                Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => ListViewPage(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
+                Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => MyApp(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
                     transitionDuration: Duration.zero, // 속도 0
                     reverseTransitionDuration: Duration.zero // 속도 0
                 ));

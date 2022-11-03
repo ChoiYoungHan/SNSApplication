@@ -26,11 +26,11 @@ class ListViewPage extends StatefulWidget {
 
 class _ListViewPageState extends State<ListViewPage> {
 
-  var friendImage = ['assets/Ahnhyunsoo.png', 'assets/Choihojin.png', 'assets/Kimwon.png'];
-  var friendName = ['Ahnhyunsoo', 'Choihojin', 'Kimwon'];
-  var postTime = ['1분전', '1시간 전', '1일 전'];
-  var postContents = ['밤하늘 보러가실 분~', '안녕하세요.', '깃허브 봐바'];
-  var postImage = ['assets/sky.jpg', 'assets/Camera.jpg', 'assets/Github_Image.jpg'];
+  static List<String> friendImage = ['assets/Ahnhyunsoo.png', 'assets/Choihojin.png', 'assets/Kimwon.png'];
+  static List<String> friendName = ['Ahnhyunsoo', 'Choihojin', 'Kimwon'];
+  static List<String> postTime = ['1분전', '1시간 전', '1일 전'];
+  static List<String> postContents = ['밤하늘 보러가실 분~', '안녕하세요.', '깃허브 봐바'];
+  static List<String> postImage = ['assets/sky.jpg', 'assets/Camera.jpg', 'assets/Github_Image.jpg'];
 
   @override
   Widget build(BuildContext context) {

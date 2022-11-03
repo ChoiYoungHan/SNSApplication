@@ -2,6 +2,7 @@ import 'package:application_20221022/chat_List.dart';
 import 'package:application_20221022/friend_profilescreen.dart';
 import 'package:application_20221022/my_List.dart';
 import 'package:application_20221022/post_list.dart';
+import 'package:application_20221022/userProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -31,10 +32,9 @@ class ListViewPage extends StatefulWidget {
 }
 
 class _ListViewPageState extends State<ListViewPage> {
-
   // 데이터 리스트
-  var friendList = ['Ahnhyunsoo', 'Choihojin', 'Choiyounghan', 'Hwangsoohyun', 'Kimwon', 'Kimyongsoo', 'Leeeunsoo', 'Parkminki','Shinsangwoo', 'Yujin'];
-  var imagePath = [
+  static List<String> friendList = ['Ahnhyunsoo', 'Choihojin', 'Choiyounghan', 'Hwangsoohyun', 'Kimwon', 'Kimyongsoo', 'Leeeunsoo', 'Parkminki','Shinsangwoo', 'Yujin'];
+  static List<String> imagePath = [
     'assets/Ahnhyunsoo.png',
     'assets/Choihojin.png',
     'assets/Choiyounghan.png',
@@ -46,7 +46,7 @@ class _ListViewPageState extends State<ListViewPage> {
     'assets/Shinsangwoo.png',
     'assets/Yujin.png'
   ];
-  var stateMsg = [
+  static List<String> stateMsg = [
     '오늘 날씨 좋다',
     '매우편안',
     '시험공부',
@@ -58,6 +58,9 @@ class _ListViewPageState extends State<ListViewPage> {
     'Weekend',
     '빵야'
   ];
+
+  final List<userProfile> userData = List.generate(friendList.length, (index) =>
+        userProfile(friendList[index], imagePath[index], imagePath[index], stateMsg[index]));
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +84,9 @@ class _ListViewPageState extends State<ListViewPage> {
           itemCount: friendList.length, // List의 개수는 friendList의 개수만큼
           itemBuilder: (context, index){
             return GestureDetector( // 제스처를 사용할 때 사용하는 위젯
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => friend_profileScreen(profile: userData[index])));
+              },
               onLongPress: (){
                 showDialog( // 팝업화면을 띄울 것임
                   context: context,
@@ -138,7 +144,7 @@ class _ListViewPageState extends State<ListViewPage> {
                           padding: EdgeInsets.all(10), // 모든 면의 여백을 10
                           child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용
                             borderRadius: BorderRadius.circular(35), // 각진 부분을 45만큼 둥글게 줄임
-                            child: Image.asset(imagePath[index], width: 100, height: 100, fit: BoxFit.cover)
+                            child: Image.asset(userData[index].userImage, width: 100, height: 100, fit: BoxFit.cover)
                           ),
                         ),
                       ),
@@ -152,7 +158,7 @@ class _ListViewPageState extends State<ListViewPage> {
                             padding: EdgeInsets.fromLTRB(5, 20, 5, 5), // 좌 5 위 20 우 5 하 5의 여백을 줌
                             child: Container(
                               width: double.infinity, height: double.infinity,
-                              child: Text(friendList[index],
+                              child: Text(userData[index].userName,
                                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), maxLines: 1),
                             ),
                           ), flex: 1),
@@ -160,7 +166,7 @@ class _ListViewPageState extends State<ListViewPage> {
                             padding: EdgeInsets.all(5), // 모든 면의 여백을 5만큼 줌
                             child: Container(
                               width: double.infinity, height: double.infinity,
-                              child: Text(stateMsg[index],
+                              child: Text(userData[index].userState,
                                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey), maxLines: 1),
                             ),
                           ), flex: 1)

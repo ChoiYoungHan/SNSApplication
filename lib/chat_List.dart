@@ -27,7 +27,7 @@ class ListViewPage extends StatefulWidget {
 class _ListViewPageState extends State<ListViewPage> {
 
   // 데이터리스트
-  var roomImagePath = [
+  static List<String> roomImagePath = [
     'assets/Ahnhyunsoo.png',
     'assets/Choihojin.png',
     'assets/Choiyounghan.png',
@@ -39,10 +39,10 @@ class _ListViewPageState extends State<ListViewPage> {
     'assets/Shinsangwoo.png',
     'assets/Yujin.png'
   ];
-  var roomName = ['Ahnhyunsoo', 'Choihojin', 'Choiyounghan', 'Hwangsoohyun', 'Kimwon', 'Kimyongsoo', 'Leeeunsoo', 'Parkminki','Shinsangwoo', 'Yujin'];
-  var roomPersonnel = ['2', '2', '2', '2', '2', '2', '2', '2', '2', '2'];
-  var chatTime = ['23:20', '22:13', '22:10', '19:33', '15:33', '1일전', '1일전', '1일전', '3일전', '3일전'];
-  var chatMsg = [
+  static List<String> roomName = ['Ahnhyunsoo', 'Choihojin', 'Choiyounghan', 'Hwangsoohyun', 'Kimwon', 'Kimyongsoo', 'Leeeunsoo', 'Parkminki','Shinsangwoo', 'Yujin'];
+  static List<String> roomPersonnel = ['2', '2', '2', '2', '2', '2', '2', '2', '2', '2'];
+  static List<String> chatTime = ['23:20', '22:13', '22:10', '19:33', '15:33', '1일전', '1일전', '1일전', '3일전', '3일전'];
+  static List<String> chatMsg = [
     '오늘 날씨 좋다',
     '매우편안',
     '시험공부',

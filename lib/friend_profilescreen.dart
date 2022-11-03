@@ -1,121 +1,188 @@
+import 'package:application_20221022/userProfile.dart';
 import 'package:flutter/material.dart';
 
-class friend_profilescreen extends StatelessWidget {
-  const friend_profilescreen({Key? key}) : super(key: key);
+class friend_profileScreen extends StatelessWidget {
+  const friend_profileScreen({Key? key, required this.profile}) : super(key: key);
+
+  final userProfile profile;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: profile_Screen()
-    );
-  }
-}
-
-class profile_Screen extends StatelessWidget {
-  const profile_Screen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold( // 텍스트 출력에 오류가 있을때는 Scaffold로 감싸주면 해결된다.
-      body: Container( // Stack을 넣어줌
-        width: double.infinity, height: double.infinity,
-        child: Stack(
-          children: [
-            Image.asset('assets/sky.jpg', width: double.infinity, height: double.infinity, fit: BoxFit.cover),
-            Container(
+    return Scaffold(
+        body: GestureDetector(
+            child: Container(
               width: double.infinity, height: double.infinity,
-              decoration: BoxDecoration(
-                  color: Color(0x00FFFFFF)
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
+              child: Stack(
                 children: [
-                  Expanded(child: Container(
+                  Image.asset(profile.BackgroundImage, fit: BoxFit.cover),
+                  Container(
                     width: double.infinity, height: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Color(0x00FFFFFF),
-                        border: Border(bottom: BorderSide(
-                            width: 1,
-                            color: Color(0xffC6C8C6)
-                        ))
-                    ),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(child: Container(
                           width: double.infinity, height: double.infinity,
                           decoration: BoxDecoration(
-                              color: Color(0x00FFFFFF)
-                          ),
-                        ), flex: 6),
+                            color: Color(0x00FFFFFF)
+                          )
+                        ), flex: 2),
                         Expanded(child: Container(
                           width: double.infinity, height: double.infinity,
                           decoration: BoxDecoration(
-                              color: Color(0x00FFFFFF)
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(35),
+                              topRight: Radius.circular(35),
+                              bottomLeft: Radius.circular(0),
+                              bottomRight: Radius.circular(0)
+                            )
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Expanded(child: Container(
-                                padding: EdgeInsets.fromLTRB(0, 85, 0, 0),
-                                width: 100, height: 100,
+                                width: double.infinity, height: double.infinity,
                                 decoration: BoxDecoration(
-                                    color: Color(0x00FFFFFF),
-                                    borderRadius: BorderRadius.circular(45)
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(35),
+                                      topRight: Radius.circular(35),
+                                      bottomLeft: Radius.circular(0),
+                                      bottomRight: Radius.circular(0)
+                                  )
                                 ),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(45),
-                                    child: Image.asset('assets/sky.jpg', width: 100, height: 100, fit: BoxFit.cover)
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(child: Container(
+                                      width: double.infinity, height: 100,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(35),
+                                          child: Image.asset(profile.userImage, fit: BoxFit.cover)
+                                        ),
+                                      ),
+                                    ), flex: 3),
+                                    Expanded(child: Container(
+                                      width: double.infinity, height: 100,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(child: Padding(
+                                            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                            child: Container(
+                                              width: double.infinity, height: double.infinity,
+                                              child: Text(profile.userName,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18
+                                              ))
+                                            )
+                                          ), flex: 1),
+                                          Expanded(child: Padding(
+                                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                            child: Container(
+                                              width: double.infinity, height: double.infinity,
+                                              child: Text(profile.userState, style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 13,
+                                                color: Color(0xffC6C8C6)
+                                              )),
+                                            )
+                                          ))
+                                        ],
+                                      ),
+                                    ), flex: 8)
+                                  ],
                                 ),
                               ), flex: 2),
                               Expanded(child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text('최영한', style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600))
-                              ), flex: 1)
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0x1BC6C8C6))),
+                                  onPressed: null,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Icon(Icons.drive_file_rename_outline_rounded, size: 30),
+                                      Padding(padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                      child: Text('이름 변경', style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold
+                                      )))
+                                    ]
+                                  )
+                                ),
+                              )),
+                              Expanded(child: Container(
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                child: ElevatedButton(
+                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0x1BC6C8C6))),
+                                    onPressed: null,
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Icon(Icons.chat_bubble, size: 24),
+                                          Padding(padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                              child: Text('대화방', style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold
+                                              )))
+                                        ]
+                                    )
+                                ),
+                              )),
+                              Expanded(child: Container(
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                child: ElevatedButton(
+                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0x1BC6C8C6))),
+                                    onPressed: null,
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Icon(Icons.call, size: 30),
+                                          Padding(padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                              child: Text('보이스톡', style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold
+                                              )))
+                                        ]
+                                    )
+                                ),
+                              )),
+                              Expanded(child: Container(
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                child: ElevatedButton(
+                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0x1BC6C8C6))),
+                                    onPressed: null,
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Icon(Icons.list_alt, size: 24),
+                                          Padding(padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                              child: Text('게시글', style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold
+                                              )))
+                                        ]
+                                    )
+                                ),
+                              ))
                             ],
                           ),
-                        ), flex: 4)
+                        ), flex: 2)
                       ],
                     ),
-                  ), flex: 8),
-                  Expanded(child: Material(
-                    color: Color(0x00FFFFFF),
-                    child: Container(
-                      width: double.infinity, height: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Color(0x00FFFFFF)
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          IconButton(
-                              constraints: BoxConstraints(), // IConButton의 패딩을 없애주기 위한 작업
-                              onPressed: null,
-                              icon: Icon(Icons.drive_file_rename_outline_rounded, size: 40, color: Colors.white)),
-                          IconButton(
-                              constraints: BoxConstraints(), // IConButton의 패딩을 없애주기 위한 작업
-                              onPressed: null,
-                              icon: Icon(Icons.chat_bubble, size: 40, color: Colors.white)),
-                          IconButton(
-                              constraints: BoxConstraints(), // IConButton의 패딩을 없애주기 위한 작업
-                              onPressed: null,
-                              icon: Icon(Icons.call, size: 40, color: Colors.white)),
-                          IconButton(
-                              constraints: BoxConstraints(), // IConButton의 패딩을 없애주기 위한 작업
-                              onPressed: null,
-                              icon: Icon(Icons.list_alt, size: 40, color: Colors.white)),
-                        ],
-                      ),
-                    ),
-                  ), flex: 2)
+                  )
                 ],
               ),
             )
-          ],
-        ),
-      )
+        )
     );
   }
 }

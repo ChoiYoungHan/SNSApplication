@@ -1,5 +1,7 @@
 import 'package:application_20221022/chat_List.dart';
 import 'package:application_20221022/main.dart';
+import 'package:application_20221022/post.dart';
+import 'package:application_20221022/post_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -32,6 +34,10 @@ class _ListViewPageState extends State<ListViewPage> {
   static List<String> postContents = ['밤하늘 보러가실 분~', '안녕하세요.', '깃허브 봐바'];
   static List<String> postImage = ['assets/sky.jpg', 'assets/Camera.jpg', 'assets/Github_Image.jpg'];
 
+  final List<post> postData = List.generate(friendName.length, (index) => post(
+    friendImage[index], friendName[index], postTime[index], postContents[index], postImage[index]
+  ));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +53,9 @@ class _ListViewPageState extends State<ListViewPage> {
         itemCount: postContents.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onLongPress: (){},
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => post_Main(post_Data: postData[index])));
+            },
             child: Container(
               width: double.infinity, height: 450,
               padding: EdgeInsets.all(5),
@@ -72,7 +80,7 @@ class _ListViewPageState extends State<ListViewPage> {
                              padding: EdgeInsets.all(3),
                              child: ClipRRect(
                                borderRadius: BorderRadius.circular(35),
-                               child: Image.asset(friendImage[index], width: 100, height: 100, fit: BoxFit.cover)
+                               child: Image.asset(postData[index].friendImage, width: 100, height: 100, fit: BoxFit.cover)
                              )
                            )
                          ), flex: 2),
@@ -89,7 +97,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                      Expanded(child: Container(
                                        width: double.infinity, height: double.infinity,
                                        padding: EdgeInsets.fromLTRB(3, 6, 0, 0),
-                                       child: Text(friendName[index]),
+                                       child: Text(postData[index].friendName),
                                      ), flex: 3),
                                      Expanded(child: Container(
                                        width: double.infinity, height: double.infinity,
@@ -112,7 +120,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                Expanded(child: Container(
                                  width: double.infinity, height: double.infinity,
                                  padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
-                                 child: Text(postTime[index], style: TextStyle(color: Color(0xffC6C8C6)))
+                                 child: Text(postData[index].postTime, style: TextStyle(color: Color(0xffC6C8C6)))
                                ), flex: 1)
                              ]
                            )
@@ -123,11 +131,11 @@ class _ListViewPageState extends State<ListViewPage> {
                    Expanded(child: Container(
                      width: double.infinity, height: double.infinity,
                      padding: EdgeInsets.all(10),
-                     child: Text(postContents[index], maxLines: 3),
+                     child: Text(postData[index].postContents, maxLines: 3),
                    ), flex: 2),
                    Expanded(child: Container(
                      width: double.infinity, height: double.infinity,
-                     child: Image.asset(postImage[index], width: 100, height: 100, fit: BoxFit.cover),
+                     child: Image.asset(postData[index].postImage, width: 100, height: 100, fit: BoxFit.cover),
                    ), flex: 5)
                  ],
                )

@@ -2,7 +2,7 @@ import 'package:application_20221022/post.dart';
 import 'package:flutter/material.dart';
 
 class post_Main extends StatelessWidget {
-  const post_Main({Key? key, required this.post_Data}) : super(key: key);
+  post_Main({Key? key, required this.post_Data}) : super(key: key);
 
   final post post_Data;
 
@@ -10,6 +10,8 @@ class post_Main extends StatelessWidget {
   static List<String> comment_writeTime = ['2분전', '1시간 전'];
   static List<String> comment_writeImage = ['assets/Choiyounghan.png', 'assets/Leeeunsoo.png'];
   static List<String> comment = ['사진이 멋있네요', '캬~'];
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -162,6 +164,33 @@ class post_Main extends StatelessWidget {
           )
         )
       )
+        ,bottomNavigationBar: BottomAppBar(
+      child: Container(
+        height: 50,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(child: Container(
+              child: Form(
+                key: this.formKey,
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: TextField(
+                    decoration: InputDecoration(hintText: '댓글을 입력해주세요.'),
+                  )
+                )
+              )
+            ), flex: 8),
+            Expanded(child: Container(
+              padding: EdgeInsets.all(5),
+              child: IconButton(
+                onPressed: null,
+                icon: Icon(Icons.send, color: Colors.blue)
+            )), flex: 2)
+          ]
+        )
+      )
+    )
     );
   }
 }

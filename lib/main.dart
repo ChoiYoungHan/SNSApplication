@@ -5,6 +5,7 @@ import 'package:application_20221022/post_list.dart';
 import 'package:application_20221022/userProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 // 화면 전환을 할 때는 클래스를 따로 만들어서 구현
 
@@ -70,7 +71,9 @@ class _ListViewPageState extends State<ListViewPage> {
         title: Text('친구', style: TextStyle(fontWeight: FontWeight.w300, color: Color(0xff797979))), // 상단바에 텍스트로 '친구' 출력, 글자의 두께를 줄임
         actions: [ // 상단바의 우측에 배치
           IconButton(
-              onPressed: null,
+              onPressed: () async {
+                await http.get(Uri.parse('http://www.teamtoktok.kro.kr/insertpost.php?title=team&user=younghan&contents=good'));
+              },
               icon: Icon(Icons.search)), // 검색 아이콘 버튼
           IconButton(
               onPressed: null,

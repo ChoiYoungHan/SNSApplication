@@ -1,3 +1,4 @@
+import 'package:application_20221022/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -81,7 +82,7 @@ class _login_pageState extends State<login_page> {
                       controller: inputPassword,
                       obscureText: true,
                       decoration: InputDecoration(
-                        hintText: '비밀번호를 입력해주세요..',
+                        hintText: '비밀번호를 입력해주세요.',
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 2,
@@ -121,7 +122,9 @@ class _login_pageState extends State<login_page> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ElevatedButton(onPressed: null, child: Text('회원가입')),
+                      ElevatedButton(onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => register_page()));
+                      }, child: Text('회원가입')),
                       ElevatedButton(
                         onPressed: () async {
                           setState(() {

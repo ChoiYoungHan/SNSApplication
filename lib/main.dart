@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
+import 'login_page.dart';
+
 // 화면 전환을 할 때는 클래스를 따로 만들어서 구현
 
 void main() {
@@ -76,7 +78,9 @@ class _ListViewPageState extends State<ListViewPage> {
               },
               icon: Icon(Icons.search)), // 검색 아이콘 버튼
           IconButton(
-              onPressed: null,
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
+              },
               icon: Icon(Icons.person_add_alt)), // 친구 추가 아이콘 버튼
           IconButton(
               onPressed: null,

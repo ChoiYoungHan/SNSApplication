@@ -9,11 +9,6 @@ import 'package:http/http.dart' as http;
 
 import 'login_page.dart';
 
-// 화면 전환을 할 때는 클래스를 따로 만들어서 구현
-
-void main() {
-  runApp(const MyApp()); // 앱 구동시켜 달라는 의미 // runApp 안에 메인페이지를 입력해줌
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -73,18 +68,14 @@ class _ListViewPageState extends State<ListViewPage> {
         title: Text('친구', style: TextStyle(fontWeight: FontWeight.w300, color: Color(0xff797979))), // 상단바에 텍스트로 '친구' 출력, 글자의 두께를 줄임
         actions: [ // 상단바의 우측에 배치
           IconButton(
-              onPressed: () async {
-                await http.get(Uri.parse('http://www.teamtoktok.kro.kr/insertpost.php?title=team&user=younghan&contents=good'));
-              },
-              icon: Icon(Icons.search)), // 검색 아이콘 버튼
-          IconButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
-              },
-              icon: Icon(Icons.person_add_alt)), // 친구 추가 아이콘 버튼
+              onPressed: null,
+              icon: Icon(Icons.search, color: Colors.grey)), // 검색 아이콘 버튼
           IconButton(
               onPressed: null,
-              icon: Icon(Icons.settings)), // 설정 아이콘 버튼
+              icon: Icon(Icons.person_add_alt, color: Colors.grey)), // 친구 추가 아이콘 버튼
+          IconButton(
+              onPressed: null,
+              icon: Icon(Icons.settings, color: Colors.grey)), // 설정 아이콘 버튼
         ],
       ),
       body: ListView.builder( // ListView

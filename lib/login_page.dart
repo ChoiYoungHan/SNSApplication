@@ -169,7 +169,7 @@ class _login_pageState extends State<login_page> {
                                         ),
                                         alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
-                                        child: Text('일치하는 로그인 정보가 없습니다.',
+                                        child: Text('일치하는 회원정보가 없습니다.',
                                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                                       ), flex: 2),
                                       Expanded(child: Container(

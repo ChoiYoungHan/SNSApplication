@@ -237,51 +237,119 @@ class _registerState extends State<register> {
                         'http://www.teamtoktok.kro.kr/회원가입.php?id=' + Email + '&password=' + Password + '&name=' + Name + '&message=0&image=0&phone=' + Phone + '&birthday=' + Birthday));
 
                     dom.Document document = parse.parse(Register_response.body);
-                    
+
                     setState(() {
-                      final Register_msg = document.getElementsByClassName('register').toList();
+                      final Register_msg = document.getElementsByClassName('register');
 
+                      Register_read_Message = Register_msg.map((element) => element.getElementsByTagName('tr')[0].innerHtml).toList();
 
+                      Register_current_Message = Register_read_Message[0].replaceAll(RegExp('(<td>|</td>)'), '');
 
+                      print(Register_current_Message);
 
-                    });
-                    if(inputEmail.text == '' || inputPassword.text == '' || inputName.text == '' || inputPhone.text == '' || inputBirthday.text == ''){
-                      showDialog(context: context, builder: (context){return Dialog(
-                          child: Container(
-                              width: 150,
-                              height: 150,
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border(bottom: BorderSide(
-                                              color: Color(0xffC6C8C6),
-                                              width: 1.5
-                                          ))
-                                      ),
-                                      alignment: Alignment.center,
-                                      width: double.infinity, height: double.infinity,
-                                      child: Text('공백없이 입력해주세요.',
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                                    ), flex: 2),
-                                    Expanded(child: Container(
+                      if(Register_read_Message[0].contains('id가 이미 존재합니다.')){
+                        showDialog(context: context, builder: (context){return Dialog(
+                            child: Container(
+                                width: 150,
+                                height: 150,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(
+                                                color: Color(0xffC6C8C6),
+                                                width: 1.5
+                                            ))
+                                        ),
+                                        alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
-                                        child: ElevatedButton(
-                                            onPressed: (){
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text('확인')
-                                        )
-                                    ), flex: 1)
-                                  ]
-                              )
-                          )
-                      );});
-                    } else {
-                      
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
-                    }
+                                        child: Text('이미 존재하는 이메일입니다.',
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                      ), flex: 2),
+                                      Expanded(child: Container(
+                                          width: double.infinity, height: double.infinity,
+                                          child: ElevatedButton(
+                                              onPressed: (){
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('확인')
+                                          )
+                                      ), flex: 1)
+                                    ]
+                                )
+                            )
+                        );});
+                      } else if(Register_read_Message[0].contains('phone이 이미 존재합니다.')){
+                        showDialog(context: context, builder: (context){return Dialog(
+                            child: Container(
+                                width: 150,
+                                height: 150,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(
+                                                color: Color(0xffC6C8C6),
+                                                width: 1.5
+                                            ))
+                                        ),
+                                        alignment: Alignment.center,
+                                        width: double.infinity, height: double.infinity,
+                                        child: Text('이미 존재하는 전화번호입니다.',
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                      ), flex: 2),
+                                      Expanded(child: Container(
+                                          width: double.infinity, height: double.infinity,
+                                          child: ElevatedButton(
+                                              onPressed: (){
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('확인')
+                                          )
+                                      ), flex: 1)
+                                    ]
+                                )
+                            )
+                        );});
+                      } else if(inputEmail.text == '' || inputPassword.text == '' || inputName.text == '' || inputPhone.text == '' || inputBirthday.text == ''){
+                        showDialog(context: context, builder: (context){return Dialog(
+                            child: Container(
+                                width: 150,
+                                height: 150,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(
+                                                color: Color(0xffC6C8C6),
+                                                width: 1.5
+                                            ))
+                                        ),
+                                        alignment: Alignment.center,
+                                        width: double.infinity, height: double.infinity,
+                                        child: Text('공백없이 입력해주세요.',
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                      ), flex: 2),
+                                      Expanded(child: Container(
+                                          width: double.infinity, height: double.infinity,
+                                          child: ElevatedButton(
+                                              onPressed: (){
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('확인')
+                                          )
+                                      ), flex: 1)
+                                    ]
+                                )
+                            )
+                        );});
+                      } else {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
+                      }
+                    });
 
                     inputEmail.clear();
                     inputPassword.clear();

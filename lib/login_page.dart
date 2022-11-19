@@ -1,3 +1,4 @@
+import 'package:application_20221022/find_emailpassword.dart';
 import 'package:application_20221022/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -120,7 +121,9 @@ class _login_pageState extends State<login_page> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                     child: TextButton(
-                      onPressed: null,
+                      onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => find_email_password()));
+                      },
                       child: Text('이메일/비밀번호 찾기', style: TextStyle(color: Colors.blue))
                     )
                   ),

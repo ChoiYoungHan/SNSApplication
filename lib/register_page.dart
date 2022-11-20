@@ -233,13 +233,14 @@ class _registerState extends State<register> {
                       Phone = inputPhone.text;
                       Birthday = inputBirthday.text;
                     });
+
                     final Register_response = await http.get(Uri.parse(
                         'http://www.teamtoktok.kro.kr/회원가입.php?id=' + Email + '&password=' + Password + '&name=' + Name + '&message=0&image=0&phone=' + Phone + '&birthday=' + Birthday));
 
                     dom.Document document = parse.parse(Register_response.body);
 
                     setState(() {
-                      final Register_msg = document.getElementsByClassName('register');
+                      final Register_msg = document.getElementsByClassName('registerinfo');
 
                       Register_read_Message = Register_msg.map((element) => element.getElementsByTagName('tr')[0].innerHtml).toList();
 

@@ -31,6 +31,16 @@ class _find_email_passwordState extends State<find_email_password> {
   TextEditingController findPassword_phone = TextEditingController();
   TextEditingController findPassword_birthday = TextEditingController();
 
+  // 입력한 값을 저장할 변수
+  String findEm_ph = '', findEm_bi ='', findPa_em = '', findPa_ph = '', findPa_bi = '';
+
+  var findEm_read_Message = <String>[];
+
+  // split으로 나눠서 저장할 변수
+  var findEmPa_Result = '', findEmPa_Value = '';
+
+  String findEm_current_message = '', findPa_current_message = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,7 +135,67 @@ class _find_email_passwordState extends State<find_email_password> {
                     width: double.infinity, height: 50,
                     padding: EdgeInsets.fromLTRB(20, 0, 20, 15),
                     child: ElevatedButton(
-                      onPressed: (){},
+                      onPressed: () async {
+                        setState(() {
+                          findEm_ph = findEmail_phone.text;
+                          findEm_bi = findEmail_birthday.text;
+                        });
+
+                        final findEmPa_response =  await http.get(Uri.parse(
+                          'http://www.teamtoktok.kro.kr/회원정보찾기.php?phone=' + findEm_ph + '&birthday=' + findEm_bi
+                        ));
+
+                        dom.Document document = parse.parse(findEmPa_response.body);
+
+                        setState(() {
+                          final findEm_msg = document.getElementsByClassName('profileinfo');
+
+                          findEm_read_Message = findEm_msg.map((element) => element.getElementsByTagName('tr')[0].innerHtml).toList();
+
+                          findEm_current_message = findEm_read_Message[0].replaceAll(RegExp('(<td>|</td>)'), '');
+
+                          findEmPa_Result = findEm_current_message.split('::')[0];
+                          findEmPa_Value = findEm_current_message.split('::')[1];
+
+                          if(findEmPa_Result.contains('아이디 찾기에 성공했습니다.')){
+                            showDialog(context: context, builder: (context){
+                              return Dialog(
+                                child: Container(
+                                  width: 150, height: 150,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border(bottom: BorderSide(
+                                            color: Color(0xffC6C8C6),
+                                            width: 1.5
+                                          ))
+                                        ),
+                                        alignment: Alignment.center,
+                                        width: double.infinity, height: double.infinity,
+                                        child: Text(findEmPa_Value,
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                      ), flex: 2),
+                                      Expanded(child: Container(
+                                        width: double.infinity, height: double.infinity,
+                                        child: ElevatedButton(
+                                          onPressed: (){
+                                            Navigator.pop(context);
+                                            findEmail_phone.clear();
+                                            findEmail_birthday.clear();
+                                          },
+                                          child: Text('확인')
+                                        ),
+                                      ), flex: 1)
+                                    ]
+                                  )
+                                )
+                              );
+                            });
+                          }
+                        });
+                      },
                       child: Text('이메일 찾기'))
                   ),
                   Padding(

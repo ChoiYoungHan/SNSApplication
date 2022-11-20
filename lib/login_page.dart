@@ -31,6 +31,7 @@ class login_page extends StatefulWidget {
 }
 
 class _login_pageState extends State<login_page> {
+
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPassword = TextEditingController();
 
@@ -286,13 +287,3 @@ class _login_pageState extends State<login_page> {
     );
   }
 }
-
-void showToast(String message) {
-  Fluttertoast.showToast(
-      msg: message,
-      backgroundColor: Colors.white,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM);
-}
-
-

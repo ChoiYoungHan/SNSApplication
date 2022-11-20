@@ -217,3 +217,9 @@ class _ListViewPageState extends State<ListViewPage> {
   }
 }
 
+class Login_id{
+
+  String userID = '';
+
+  Login_id(this.userID);
+}

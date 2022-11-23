@@ -47,13 +47,14 @@ class _ListViewPageState extends State<ListViewPage> {
 
   static const routeName = '/main';
   // 데이터 리스트
+  static List<String> Friend_userUID = [];
   static List<String> Friend_userEmail = [];
   static List<String> Friend_userName = [];
   static List<String> Friend_userImage = [];
   static List<String> Friend_userStateMsg = [];
 
   String Email = '';
-  String Friend_Read_Email = '', Friend_Read_Name = '', Friend_Read_Image = '', Friend_Read_StateMsg = '';
+  String Friend_Read_UID = '', Friend_Read_Email = '', Friend_Read_Name = '', Friend_Read_Image = '', Friend_Read_StateMsg = '';
 
   String Friend_Read_All = '';
   var Friend_Read_Userinfo = <String>[];
@@ -68,6 +69,7 @@ class _ListViewPageState extends State<ListViewPage> {
   }
 
   void getFriendInfo() async {
+    Friend_userUID.clear();
     Friend_userEmail.clear();
     Friend_userName.clear();
     Friend_userImage.clear();
@@ -89,11 +91,13 @@ class _ListViewPageState extends State<ListViewPage> {
 
       for(int i = 0; i < Friend_Read_Userinfo.length-1; i++){
         Friend_split_info = Friend_Read_Userinfo[i].split('::');
-        Friend_Read_Email = Friend_split_info[0];
-        Friend_Read_Name = Friend_split_info[1];
-        Friend_Read_StateMsg = Friend_split_info[2];
-        Friend_Read_Image = Friend_split_info[3];
+        Friend_Read_UID = Friend_split_info[0];
+        Friend_Read_Email = Friend_split_info[1];
+        Friend_Read_Name = Friend_split_info[2];
+        Friend_Read_StateMsg = Friend_split_info[3];
+        Friend_Read_Image = Friend_split_info[4];
 
+        Friend_userUID.add(Friend_Read_UID.toString());
         Friend_userEmail.add(Friend_Read_Email.toString());
         Friend_userName.add(Friend_Read_Name.toString());
         Friend_userStateMsg.add(Friend_Read_StateMsg.toString());
@@ -109,7 +113,7 @@ class _ListViewPageState extends State<ListViewPage> {
   Widget build(BuildContext context) {
 
     final List<userProfile> userData = List.generate(Friend_userEmail.length, (index) =>
-        userProfile(Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index]));
+        userProfile(Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index]));
 
     return Scaffold( // 상 중 하로 나눌때는 Scaffold 위젯을 사용
         appBar: AppBar( // 상단바
@@ -241,6 +245,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                     child: TextButton(
                                         onPressed: () async {
                                           final Friend_Delete = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구차단.php?user1=' + widget.userEmailInfo + '&user2=' + userData[index].userEmail));
+                                          print('http://www.teamtoktok.kro.kr/친구차단.php?user1=' + widget.userEmailInfo + '&user2=' + userData[index].userEmail);
                                           showDialog(context: context, builder: (context){
                                             return Dialog(
                                               child: Container(

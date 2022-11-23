@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
-import 'package:fluttertoast/fluttertoast.dart'; // 토스트 메시지
 
 import 'main.dart';
 
@@ -17,6 +16,9 @@ class login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        routes: {
+          '/main': (context) => MyApp()
+        },
         debugShowCheckedModeBanner: false,
         home: login_page()
     );
@@ -262,7 +264,7 @@ class _login_pageState extends State<login_page> {
                                                                           Navigator.pop(context);
                                                                           inputEmail.clear();
                                                                           inputPassword.clear();
-                                                                          Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+                                                                          Navigator.pushNamed(context, '/main', arguments: UserEmail(userEmail: Login_Read_email));
                                                                         },
                                                                         child: Text('확인')
                                                                     )

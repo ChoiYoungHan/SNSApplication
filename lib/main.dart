@@ -11,21 +11,30 @@ import 'package:html/parser.dart' as parse;
 
 import 'login_page.dart';
 
+class UserEmail{
+  final String userEmail;
+
+  UserEmail({required this.userEmail});
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final usEmail = ModalRoute.of(context)?.settings.arguments as UserEmail;
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ListViewPage()
+        home: ListViewPage(userEmailInfo: usEmail.userEmail)
     );
   }
 }
 
 class ListViewPage extends StatefulWidget {
-  const ListViewPage({Key? key}) : super(key: key);
+  final userEmailInfo;
+
+  const ListViewPage({Key? key, this.userEmailInfo}) : super(key: key);
 
   @override
   State<ListViewPage> createState() => _ListViewPageState();
@@ -35,12 +44,13 @@ class _ListViewPageState extends State<ListViewPage> {
   _ListViewPageState(){
 
   }
+
+  static const routeName = '/main';
   // 데이터 리스트
   static List<String> Friend_userEmail = [];
   static List<String> Friend_userName = [];
   static List<String> Friend_userImage = [];
   static List<String> Friend_userStateMsg = [];
-
 
   String Email = '';
   String Friend_Read_Email = '', Friend_Read_Name = '', Friend_Read_Image = '', Friend_Read_StateMsg = '';
@@ -52,9 +62,19 @@ class _ListViewPageState extends State<ListViewPage> {
 
   TextEditingController inputFriendEmail = TextEditingController();
 
+  void initState(){
+
+    getFriendInfo();
+  }
+
   void getFriendInfo() async {
+    Friend_userEmail.clear();
+    Friend_userName.clear();
+    Friend_userImage.clear();
+    Friend_userStateMsg.clear();
+
     final Friend_response = await http.get(Uri.parse(
-        'http://www.teamtoktok.kro.kr/친구목록.php?user1=samron3'
+        'http://www.teamtoktok.kro.kr/친구목록.php?user1=' + widget.userEmailInfo
     ));
 
     dom.Document document = parse.parse(Friend_response.body);
@@ -83,10 +103,6 @@ class _ListViewPageState extends State<ListViewPage> {
 
 
     });
-  }
-
-  void initState(){
-    getFriendInfo();
   }
 
   @override
@@ -122,6 +138,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                       alignment: Alignment.center,
                                       width: double.infinity, height: double.infinity,
                                       child: TextField(
+                                          textAlign: TextAlign.center,
                                           controller: inputFriendEmail,
                                           decoration: InputDecoration(
                                               hintText: '친구 이메일을 입력해주세요.',
@@ -160,7 +177,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                               Email = inputFriendEmail.text;
                                             });
                                             final Friend_add_response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구추가.php?user1=samron3&user2=' + Email));
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+                                            Navigator.pushNamed(context, '/main', arguments: UserEmail(userEmail: widget.userEmailInfo));
                                           },
                                           child: Text('확인')
                                       )
@@ -221,7 +238,12 @@ class _ListViewPageState extends State<ListViewPage> {
                                 Expanded(child: Container(
                                     alignment: Alignment.center, // 글자가 가운데로 오도록
                                     width: double.infinity, height: double.infinity,
-                                    child: Text('차단', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                    child: TextButton(
+                                        onPressed: (){
+
+                                        },
+                                        child: Text('차단', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                    )
                                 ), flex: 1)
                               ],
                             ),
@@ -315,3 +337,4 @@ class _ListViewPageState extends State<ListViewPage> {
     );
   }
 }
+

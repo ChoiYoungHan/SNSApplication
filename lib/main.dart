@@ -109,7 +109,7 @@ class _ListViewPageState extends State<ListViewPage> {
   Widget build(BuildContext context) {
 
     final List<userProfile> userData = List.generate(Friend_userEmail.length, (index) =>
-        userProfile(Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index]));
+        userProfile(Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index]));
 
     return Scaffold( // 상 중 하로 나눌때는 Scaffold 위젯을 사용
         appBar: AppBar( // 상단바
@@ -239,10 +239,43 @@ class _ListViewPageState extends State<ListViewPage> {
                                     alignment: Alignment.center, // 글자가 가운데로 오도록
                                     width: double.infinity, height: double.infinity,
                                     child: TextButton(
-                                        onPressed: (){
-
+                                        onPressed: () async {
+                                          final Friend_Delete = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구차단.php?user1=' + widget.userEmailInfo + '&user2=' + userData[index].userEmail));
+                                          showDialog(context: context, builder: (context){
+                                            return Dialog(
+                                              child: Container(
+                                                width: 150, height: 150,
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(child: Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border(bottom: BorderSide(
+                                                          color: Color(0xffC6C8C6),
+                                                          width: 1.5
+                                                        ))
+                                                      ),
+                                                      alignment: Alignment.center,
+                                                      width: double.infinity, height: double.infinity,
+                                                      child: Text(userData[index].userName + '님을 차단하였습니다.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                                    ), flex: 2),
+                                                    Expanded(child: Container(
+                                                      width: double.infinity, height: double.infinity,
+                                                      child: ElevatedButton(
+                                                        onPressed: (){
+                                                          Navigator.pop(context);
+                                                          Navigator.pushNamed(context, '/main', arguments: UserEmail(userEmail: widget.userEmailInfo));
+                                                        },
+                                                        child: Text('확인')
+                                                      )
+                                                    ), flex: 1)
+                                                  ]
+                                                )
+                                              )
+                                            );
+                                          });
                                         },
-                                        child: Text('차단', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                        child: Text('차단', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black))
                                     )
                                 ), flex: 1)
                               ],

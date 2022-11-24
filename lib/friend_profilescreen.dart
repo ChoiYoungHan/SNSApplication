@@ -9,6 +9,7 @@ class friend_profileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, // 채팅바가 올라올 때 화면 밀림 방지
         body: GestureDetector(
             child: Container(
               width: double.infinity, height: double.infinity,

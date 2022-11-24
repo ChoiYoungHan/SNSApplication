@@ -1,5 +1,6 @@
 import 'package:application_20221022/chat_List.dart';
 import 'package:application_20221022/friend_profilescreen.dart';
+import 'package:application_20221022/friend_searchPage.dart';
 import 'package:application_20221022/my_List.dart';
 import 'package:application_20221022/post_list.dart';
 import 'package:application_20221022/userProfile.dart';
@@ -121,7 +122,9 @@ class _ListViewPageState extends State<ListViewPage> {
           title: Text('친구', style: TextStyle(fontWeight: FontWeight.w300, color: Color(0xff797979))), // 상단바에 텍스트로 '친구' 출력, 글자의 두께를 줄임
           actions: [ // 상단바의 우측에 배치
             IconButton(
-                onPressed: null,
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => FindUserPage()));
+                },
                 icon: Icon(Icons.search, color: Colors.grey)), // 검색 아이콘 버튼
             IconButton(
                 onPressed: (){

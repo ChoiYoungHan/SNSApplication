@@ -17,7 +17,7 @@ class login extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         routes: {
-          '/main': (context) => MyApp() // MyApp 페이지로 값을 넘겨주기 위한 선언
+          '/friendList': (context) => MyApp() // MyApp 페이지로 값을 넘겨주기 위한 선언
         },
         debugShowCheckedModeBanner: false,
         home: login_page()
@@ -264,7 +264,7 @@ class _login_pageState extends State<login_page> {
                                                                           Navigator.pop(context);
                                                                           inputEmail.clear();
                                                                           inputPassword.clear();
-                                                                          Navigator.pushNamed(context, '/main', arguments: UserEmail(userEmail: Login_Read_email));
+                                                                          Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: Login_Read_email));
                                                                         },
                                                                         child: Text('확인')
                                                                     )

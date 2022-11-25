@@ -13,10 +13,10 @@ import 'package:html/parser.dart' as parse;
 
 import 'friend_searchPage.dart';
 
-class UserEmail{
+class FriendList_UserEmail{
   final String userEmail;
 
-  UserEmail({required this.userEmail});
+  FriendList_UserEmail({required this.userEmail});
 }
 
 class MyApp extends StatelessWidget {
@@ -24,11 +24,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usEmail = ModalRoute.of(context)?.settings.arguments as UserEmail;
+    final usEmail = ModalRoute.of(context)?.settings.arguments as FriendList_UserEmail;
 
     return MaterialApp(
         routes: {
-          '/search' : (context) => FindUser() // FindUser 페이지로 값을 넘겨주기 위한 선언
+          '/search' : (context) => FindUser(), // FindUser 페이지로 값을 넘겨주기 위한 선언
+          '/chatList' : (context) => chat_List(), // chat_List 페이지로 값을 넘겨주기 위한 선언
+          '/postList' : (context) => post_List(), // post_List 페이지로 값을 넘겨주기 위한 선언
+          '/myList' : (context) => my_List() // my_List 페이지로 값을 넘겨주기 위함
         },
         debugShowCheckedModeBanner: false,
         home: ListViewPage(userEmailInfo: usEmail.userEmail)
@@ -50,7 +53,7 @@ class _ListViewPageState extends State<ListViewPage> {
 
   }
 
-  static const routeName = '/main';
+  static const routeName = '/friendList';
   // 데이터 리스트
   static List<String> Friend_userUID = [];
   static List<String> Friend_userEmail = [];
@@ -112,8 +115,6 @@ class _ListViewPageState extends State<ListViewPage> {
         Friend_userImage.add(Friend_Read_Image.toString());
         Friend_userNickname.add(Friend_Read_Nickname.toString());
       }
-
-
     });
   }
 
@@ -130,7 +131,7 @@ class _ListViewPageState extends State<ListViewPage> {
           actions: [ // 상단바의 우측에 배치
             IconButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/search', arguments: getEmail(getLoginEmail: widget.userEmailInfo));
+                  Navigator.pushNamed(context, '/search', arguments: SearchPage_UserEmail(getLoginEmail: widget.userEmailInfo));
                 },
                 icon: Icon(Icons.search, color: Colors.grey)), // 검색 아이콘 버튼
             IconButton(
@@ -191,7 +192,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                               Email = inputFriendEmail.text;
                                             });
                                             final Friend_add_response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구추가.php?user1=samron3&user2=' + Email));
-                                            Navigator.pushNamed(context, '/main', arguments: UserEmail(userEmail: widget.userEmailInfo));
+                                            Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmailInfo));
                                           },
                                           child: Text('확인')
                                       )
@@ -281,7 +282,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                                       child: ElevatedButton(
                                                         onPressed: (){
                                                           Navigator.pop(context);
-                                                          Navigator.pushNamed(context, '/main', arguments: UserEmail(userEmail: widget.userEmailInfo));
+                                                          Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmailInfo));
                                                         },
                                                         child: Text('확인')
                                                       )
@@ -358,26 +359,17 @@ class _ListViewPageState extends State<ListViewPage> {
                     icon: Icon(Icons.person_outline, color: Colors.blue)), // 친구목록 아이콘버튼
                 IconButton(
                     onPressed: (){
-                      Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => chat_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
-                          transitionDuration: Duration.zero, // 속도 0
-                          reverseTransitionDuration: Duration.zero // 속도 0
-                      )); // 채팅 목록으로 이동
+                      Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmailInfo)); // 채팅 목록 페이지로 이동 및 인자값 전달
                     },
                     icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘버튼
                 IconButton(
                     onPressed: (){
-                      Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => post_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
-                          transitionDuration: Duration.zero, // 속도 0
-                          reverseTransitionDuration: Duration.zero // 속도 0
-                      ));// 게시글 목록으로 이동
+                      Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmailInfo)); // 게시글 목록 페이지로 이동 및 인자값 전달
                     },
                     icon: Icon(Icons.list_alt)), // 게시글목록 아이콘버튼
                 IconButton(
                     onPressed: (){
-                      Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => my_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
-                          transitionDuration: Duration.zero, // 속도 0
-                          reverseTransitionDuration: Duration.zero // 속도 0
-                      )); // 전체 목록으로 이동
+                      Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmailInfo)); // 전체 목록 페이지로 이동 및 인자값 전달
                     },
                     icon: Icon(Icons.segment)), // 전체목록 아이콘버튼
               ],

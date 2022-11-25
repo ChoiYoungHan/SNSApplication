@@ -7,26 +7,43 @@ import 'package:flutter/services.dart';
 
 import 'my_List.dart';
 
+class PostList_UserEmail{ // 로그인한 사용자의 이메일 정보를 담아둘 클래스 객체 선언
+  final String userEmail;
+
+  PostList_UserEmail({required this.userEmail});
+}
+
 class post_List extends StatelessWidget {
   const post_List({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final usEmail = ModalRoute.of(context)?.settings.arguments as PostList_UserEmail; // PostList_UserEmail 클래스로부터 인자값을 받기 위함
+
     return MaterialApp(
+      routes: {
+        '/friendList' : (context) => MyApp(), // MyApp 페이지로 값을 넘겨주기 위한 선언
+        '/chatList' : (context) => chat_List(), // chat_List 페이지로 값을 넘겨주기 위한 선언
+        '/myList' : (context) => my_List() // my_List 페이지로 값을 넘겨주기 위함
+      },
       debugShowCheckedModeBanner: false,
-      home: ListViewPage()
+      home: ListViewPage(userEmail: usEmail.userEmail)
     );
   }
 }
 
 class ListViewPage extends StatefulWidget {
-  const ListViewPage({Key? key}) : super(key: key);
+  final userEmail;
+
+  const ListViewPage({Key? key, this.userEmail}) : super(key: key);
 
   @override
   State<ListViewPage> createState() => _ListViewPageState();
 }
 
 class _ListViewPageState extends State<ListViewPage> {
+
+  static const routeName = '/postList';
 
   static List<String> friendImage = ['assets/Ahnhyunsoo.png', 'assets/Choihojin.png', 'assets/Kimwon.png'];
   static List<String> friendName = ['Ahnhyunsoo', 'Choihojin', 'Kimwon'];
@@ -152,18 +169,12 @@ class _ListViewPageState extends State<ListViewPage> {
             children: [
               IconButton(
                   onPressed: (){
-                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => MyApp(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
-                        transitionDuration: Duration.zero, // 속도 0
-                        reverseTransitionDuration: Duration.zero // 속도 0
-                    )); // 친구 목록으로 이동
+                    Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail)); // 친구 목록으로 이동 및 인자값 전달
                   },
                   icon: Icon(Icons.person_outline)), // 친구목록 아이콘버튼
               IconButton(
                   onPressed: (){
-                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => chat_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
-                        transitionDuration: Duration.zero, // 속도 0
-                        reverseTransitionDuration: Duration.zero // 속도 0
-                    )); // 채팅 목록으로 이동
+                    Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail)); // 채팅 목록으로 이동 및 인자값 전달
                   },
                   icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘버튼
               IconButton(
@@ -171,10 +182,7 @@ class _ListViewPageState extends State<ListViewPage> {
                   icon: Icon(Icons.list_alt, color: Colors.blue)), // 게시글목록 아이콘버튼
               IconButton(
                   onPressed: (){
-                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation1, animation2) => my_List(), // 즉시 이동을 하고 싶을때는 PageRouteBuilder 사용
-                        transitionDuration: Duration.zero, // 속도 0
-                        reverseTransitionDuration: Duration.zero // 속도 0
-                    )); // 전체 목록으로 이동
+                    Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmail)); // 전체 목록으로 이동 및 인자값 전달
                   },
                   icon: Icon(Icons.segment)), // 전체목록 아이콘버튼
             ],

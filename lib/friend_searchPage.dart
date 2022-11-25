@@ -6,10 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
 
-class getEmail{ // 로그인한 사용자의 이메일 정보를 담아둘 클래스 객체 선언
+class SearchPage_UserEmail{ // 로그인한 사용자의 이메일 정보를 담아둘 클래스 객체 선언
   final String getLoginEmail;
 
-  getEmail({required this.getLoginEmail});
+  SearchPage_UserEmail({required this.getLoginEmail});
 }
 
 class FindUser extends StatelessWidget {
@@ -17,11 +17,11 @@ class FindUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final getUserEmail = ModalRoute.of(context)?.settings.arguments as getEmail;
+    final getUserEmail = ModalRoute.of(context)?.settings.arguments as SearchPage_UserEmail; // SearchPage_UserEmail 클래스의 인자값을 받아오기 위함
 
     return MaterialApp(
       routes: {
-        '/main' : (context) => MyApp() // MyApp 페이지로 값을 넘겨주기 위한 선언
+        '/friendList' : (context) => MyApp() // MyApp 페이지로 값을 넘겨주기 위한 선언
       },
       debugShowCheckedModeBanner: false,
       home: FindUserPage(userEmail: getUserEmail.getLoginEmail)
@@ -82,7 +82,7 @@ class _FindUserPageState extends State<FindUserPage> {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: (){ // 친구목록 페이지로 갈것임 & 로그인 한 사용자의 정보를 넘겨줘야 함
-            Navigator.pushNamed(context, '/main', arguments: UserEmail(userEmail: widget.userEmail));
+            Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail));
           },
           icon: Icon(Icons.arrow_back, color: Colors.black) // 뒤로가기 아이콘 & 색깔은 블랙
         ),
@@ -321,7 +321,7 @@ class _FindUserPageState extends State<FindUserPage> {
                                                             child: ElevatedButton( // 버튼 위젯
                                                               onPressed: (){ // 버튼을 누르면 친구목록으로 넘어갈 것임
                                                                 Navigator.pop(context);
-                                                                Navigator.pushNamed(context, '/main', arguments: UserEmail(userEmail: widget.userEmail));
+                                                                Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail));
                                                               },
                                                               child: Text('확인'),
                                                             )

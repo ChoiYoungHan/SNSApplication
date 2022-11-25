@@ -2,6 +2,11 @@ import 'package:application_20221022/chat_List.dart';
 import 'package:application_20221022/main.dart';
 import 'package:application_20221022/post_list.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:html/dom.dart' as dom;
+import 'package:html/parser.dart' as parse;
+
+import 'login_page.dart';
 
 class MyList_UserEmail{ // 로그인한 사용자의 이메일 정보를 담아둘 클래스 객체 선언
   final String userEmail;
@@ -41,10 +46,21 @@ class _MyListPageState extends State<MyListPage> {
 
   static const routeName = '/myList'; // 값을 받기 위함
 
+  // 회원탈퇴 시 입력한 이메일과 비밀번호 값을 저장할 변수
+  TextEditingController Delete_inputEmail = TextEditingController();
+  TextEditingController Delete_inputPassword = TextEditingController();
+
+  // 받아온 문자열 전체를 저장할 변수
+  String getAll = '';
+
+  // 읽어온 정보를 담아둘 배열
+  var getInfo = <String>[];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold( // 상 중 하로 나누는 위젯
-      appBar: AppBar(
+      resizeToAvoidBottomInset: false, // 채팅바가 올라올 때 화면 밀림 방지지
+     appBar: AppBar(
         backgroundColor: Colors.white, // 배경색을 흰색으로
         title: Text('My', style: TextStyle(fontWeight: FontWeight.w300, color: Color(0xff797979))) // 상단바에 텍스트로 'My' 출력, 글자의 두께를 줄임
       ),
@@ -178,7 +194,7 @@ class _MyListPageState extends State<MyListPage> {
                     ))
                   ),
                   child: TextButton( // 텍스트 버튼 위젯
-                    onPressed: (){
+                    onPressed: () {
 
                     },
                     child: Padding( // 여백을 주기 위해 사용하는 위젯
@@ -208,8 +224,304 @@ class _MyListPageState extends State<MyListPage> {
                   alignment: Alignment.center, // 가운데 정렬
                   width: double.infinity, height: 50, // 가로 무제한, 세로 60
                   child: TextButton( // 텍스트 버튼 위젯
-                    onPressed: (){
+                    onPressed: () async { // 버튼 클릭 시 회원 탈퇴를 할 것임 + 로그인 화면으로 이동
+                      // 회원 탈퇴 진행 시 팝업 화면을 띄운 뒤 이메일과 비밀번호를 입력받을 것임
+                      showDialog(
+                        context: context,
+                        barrierDismissible: true, // 바깥 영역 터치 시 닫을지 여부
+                        builder: (context) {
+                          return Dialog( // Dialog 위젯을 사용
+                            child: Container(
+                              width: 150, height: 240, // 가로 150, 세로 300
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                children: [
+                                  Expanded(child: Container( // 상자 위젯
+                                    decoration: BoxDecoration(
+                                      border: Border(bottom: BorderSide( // 박스 위젯의 아래 테두리에 색상을 주기 위함
+                                        color: Color(0xffC6C8C6),
+                                        width: 1.5
+                                      ))
+                                    ),
+                                    alignment: Alignment.center, // 가운데 정렬
+                                    width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                    child: Text('회원탈퇴', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)) // 볼드체, 크기는 16
+                                  ), flex: 2),
+                                  Expanded(child: Container( // 상자 위젯
+                                    child: Column( // 세로 정렬
+                                      mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 일정 간격을 두고 정렬
+                                      children: [
+                                        Padding( // 여백을 주기 위해 사용하는 위젯
+                                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5), // 왼 10 위 5 아래 10 우 5의 여백을 줌
+                                          child: TextField( // 텍스트 필드
+                                            textAlign: TextAlign.center, // 텍스트를 가운데로 정렬
+                                            controller: Delete_inputEmail, // 입력받은 값을 변수 Delete_inpustEmail에 저장
+                                            decoration: InputDecoration(
+                                              hintText: '이메일을 입력해주세요.',
+                                              enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xffC6C8C6)
+                                                )
+                                              ),
+                                              focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xffC6C8C6)
+                                                )
+                                              ),
+                                              focusedErrorBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xffC6C8C6)
+                                                )
+                                              ),
+                                              errorBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xffC6C8C6)
+                                                )
+                                              )
+                                            )
+                                          )
+                                        ),
+                                        Padding( // 여백을 주기 위해 사용하는 위젯
+                                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5), // 왼 10 위 5 아래 10 우 5의 여백을 줌
+                                          child: TextField( // 텍스트 필드
+                                            textAlign: TextAlign.center, // 텍스트를 가운데로 정렬
+                                            controller: Delete_inputPassword, // 입력받은 값을 변수 Delete_inpustPassword에 저장
+                                            decoration: InputDecoration(
+                                              hintText: '비밀번호를 입력해주세요.',
+                                              enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xffC6C8C6)
+                                                )
+                                              ),
+                                              focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xffC6C8C6)
+                                                )
+                                              ),
+                                              focusedErrorBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xffC6C8C6)
+                                                )
+                                              ),
+                                              errorBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xffC6C8C6)
+                                                )
+                                              )
+                                            )
+                                          )
+                                        )
+                                      ]
+                                    )
+                                  ), flex: 8),
+                                  Expanded(child: Container( // 박스 위젯
+                                    width: double.infinity, height: double.infinity, // 가로, 세로 무제한
+                                    child: ElevatedButton( // 버튼 위젯
+                                      onPressed: () async { // 버튼 클릭 시 회원탈퇴가 진행되고 회원탈퇴가 완료되면 로그인 페이지로 돌아간다.
+                                        // 만약 현재 로그인한 사용자의 이메일과 입력한 이메일이 일치하면
+                                        if(widget.userEmail == Delete_inputEmail.text){
+                                          // 일치하는 아이디의 이메일과 비밀번호 정보를 데이터베이스에서 불러올 것임
+                                          final Delete_response =
+                                            await http.get(Uri.parse('http://www.teamtoktok.kro.kr/회원탈퇴.php?id=' + Delete_inputEmail.text + '&password=' + Delete_inputPassword.text));
 
+                                          // 문서... Url의 body에 접근할 것임
+                                          dom.Document document = parse.parse(Delete_response.body);
+
+                                          // setState() 함수 안에서의 호출은 State에서 무언가 변경된 사항이 있음을 Flutter Framewordk에 알려주는 역할이다.
+                                          // 이로 인해 UI에 변경된 값이 반영될 수 있도록 build 메소드가 다시 실행된다.
+                                          setState(() {
+                                            // php 문서에서 className이 deleteprofile 아래에 있는 정보들을 가져와서 Delete_msg에 저장
+                                            final Delete_msg = document.getElementsByClassName('deleteprofile');
+                                            // TagName이 tr 아래에 있는 값들을 모두 가져와서 저장
+                                            getInfo = Delete_msg.map((element) => element.getElementsByTagName('tr')[0].innerHtml).toList();
+                                            // getInfo 배열의 0번째 index 값의 문자열 중 <td> & </td>를 제거함
+                                            getAll = getInfo[0].replaceAll(RegExp('(<td>|</td>)'), '');
+
+                                            print(getAll[0]);
+
+                                            if(getAll[0].contains('비밀번호가 일치하지 않습니다.')){ // 만약 비밀번호가 일치하지 않으면
+                                              showDialog( // 팝업 화면을 띄움
+                                                context: context,
+                                                barrierDismissible: true, // 바깥 영역 터치 시 닫을지 여부
+                                                builder: (context){
+                                                  return Dialog( // Dialog 위젯 사용
+                                                    child: Container( // 상자 위젯
+                                                      width: 150, height: 150, // 가로와 세로 150
+                                                      child: Column( // 세로 정렬
+                                                        mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                                        children: [
+                                                          Expanded(child: Container(
+                                                            decoration: BoxDecoration(
+                                                              border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
+                                                                width: 1.5,
+                                                                color: Color(0xffC6C8C6)
+                                                              ))
+                                                            ),
+                                                            alignment: Alignment.center, // 가운데 정렬
+                                                            width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                            child: Text('비밀번호가 일치하지 않습니다.',
+                                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체, 크기 16
+                                                          ), flex: 2),
+                                                          Expanded(child: Container( // 상자 위젯
+                                                            width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                            child: ElevatedButton( // 버튼 위젯
+                                                              onPressed: (){
+                                                                Navigator.pop(context);
+                                                                Delete_inputEmail.clear(); // 텍스트 필드 초기화
+                                                                Delete_inputPassword.clear(); // 텍스트 필드 초기화
+                                                              },
+                                                              child: Text('확인')
+                                                            )
+                                                          ), flex: 1)
+                                                        ]
+                                                      )
+                                                    )
+                                                  );
+                                                }
+                                              );
+                                            } else if(getAll[0].contains('회원탈퇴가 완료되었습니다.')){
+                                              showDialog( // 팝업 화면을 띄움
+                                                context: context,
+                                                barrierDismissible: true, // 바깥 영역 터치 시 닫을지 여부
+                                                builder: (context){
+                                                  return Dialog( // Dialog 위젯 사용
+                                                    child: Container( // 상자 위젯
+                                                      width: 150, height: 150, // 가로와 세로 150
+                                                      child: Column( // 세로 정렬
+                                                        mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                                        children: [
+                                                          Expanded(child: Container(
+                                                            decoration: BoxDecoration(
+                                                              border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
+                                                                width: 1.5,
+                                                                color: Color(0xffC6C8C6)
+                                                              ))
+                                                            ),
+                                                            alignment: Alignment.center, // 가운데 정렬
+                                                            width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                            child: Text('회원탈퇴가 완료되었습니다..',
+                                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체, 크기 16
+                                                          ), flex: 2),
+                                                          Expanded(child: Container( // 상자 위젯
+                                                            width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                            child: ElevatedButton( // 버튼 위젯
+                                                              onPressed: (){
+                                                                Delete_inputEmail.clear(); // 텍스트 필드 초기화
+                                                                Delete_inputPassword.clear(); // 텍스트 필드 초기화
+
+                                                                Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
+                                                              },
+                                                              child: Text('확인')
+                                                            )
+                                                          ), flex: 1)
+                                                        ]
+                                                      )
+                                                    )
+                                                  );
+                                                }
+                                              );
+                                            }
+                                          });
+                                        } else if (Delete_inputEmail.text == '' || Delete_inputPassword.text == ''){ // 만약 텍스트필드가 공백일 시
+                                          showDialog( // 팝업 화면을 띄움
+                                            context: context,
+                                            barrierDismissible: true, // 바깥 영역 터치 시 닫을지 여부
+                                            builder: (context){
+                                              return Dialog( // Dialog 위젯 사용
+                                                child: Container( // 상자 위젯
+                                                  width: 150, height: 150, // 가로와 세로 150
+                                                  child: Column( // 세로 정렬
+                                                    mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                                    children: [
+                                                      Expanded(child: Container(
+                                                        decoration: BoxDecoration(
+                                                          border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
+                                                            width: 1.5,
+                                                            color: Color(0xffC6C8C6)
+                                                          ))
+                                                        ),
+                                                        alignment: Alignment.center, // 가운데 정렬
+                                                        width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                        child: Text('공백없이 입력해주세요.',
+                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체, 크기 16
+                                                      ), flex: 2),
+                                                      Expanded(child: Container( // 상자 위젯
+                                                        width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                        child: ElevatedButton( // 버튼 위젯
+                                                          onPressed: (){
+                                                            Navigator.pop(context);
+                                                            Delete_inputEmail.clear(); // 텍스트 필드 초기화
+                                                            Delete_inputPassword.clear(); // 텍스트 필드 초기화
+                                                          },
+                                                          child: Text('확인')
+                                                        )
+                                                      ), flex: 1)
+                                                    ]
+                                                  )
+                                                )
+                                              );
+                                            }
+                                          );
+                                        } else if(widget.userEmail != Delete_inputEmail.text){ // 만약 현재 로그인한 사용자의 이메일과 입력한 이메일이 일치하지 않는다면
+                                          showDialog( // 팝업 화면을 띄움
+                                            context: context,
+                                            barrierDismissible: true, // 바깥 영역 터치 시 닫을지 여부
+                                            builder: (context){
+                                              return Dialog( // Dialog 위젯 사용
+                                                child: Container( // 상자 위젯
+                                                  width: 150, height: 150, // 가로와 세로 150
+                                                  child: Column( // 세로 정렬
+                                                    mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                                    children: [
+                                                      Expanded(child: Container(
+                                                        decoration: BoxDecoration(
+                                                          border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
+                                                            width: 1.5,
+                                                            color: Color(0xffC6C8C6)
+                                                          ))
+                                                        ),
+                                                        alignment: Alignment.center, // 가운데 정렬
+                                                        width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                        child: Text('로그인한 아이디와 일치하지 않습니다.',
+                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체, 크기 16
+                                                      ), flex: 2),
+                                                      Expanded(child: Container( // 상자 위젯
+                                                        width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                        child: ElevatedButton( // 버튼 위젯
+                                                          onPressed: (){
+                                                            Navigator.pop(context);
+                                                            Delete_inputEmail.clear(); // 텍스트 필드 초기화
+                                                            Delete_inputPassword.clear(); // 텍스트 필드 초기화
+                                                          },
+                                                          child: Text('확인')
+                                                        )
+                                                      ), flex: 1)
+                                                    ]
+                                                  )
+                                                )
+                                              );
+                                            }
+                                          );
+                                        }
+                                      },
+                                      child: Text('확인')
+                                    )
+                                  ), flex: 3)
+                                ]
+                              )
+                            )
+                          );
+                        }
+                      );
                     },
                     child: Text('회원탈퇴', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red)) // 볼드체, 색상은 빨강
                   )

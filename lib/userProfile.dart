@@ -6,6 +6,7 @@ class userProfile{
   final String BackgroundImage;
   final String userImage;
   final String userState;
+  final String userNickname;
 
-  userProfile(this.userUID, this.userEmail, this.userName, this.BackgroundImage, this.userImage, this.userState);
+  userProfile(this.userUID, this.userEmail, this.userName, this.BackgroundImage, this.userImage, this.userState, this.userNickname);
 }

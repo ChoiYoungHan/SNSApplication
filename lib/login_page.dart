@@ -17,7 +17,7 @@ class login extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         routes: {
-          '/main': (context) => MyApp()
+          '/main': (context) => MyApp() // MyApp 페이지로 값을 넘겨주기 위한 선언
         },
         debugShowCheckedModeBanner: false,
         home: login_page()

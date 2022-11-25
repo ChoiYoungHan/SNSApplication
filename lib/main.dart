@@ -1,4 +1,5 @@
 import 'package:application_20221022/chat_List.dart';
+import 'package:application_20221022/chat_page.dart';
 import 'package:application_20221022/friend_profilescreen.dart';
 import 'package:application_20221022/friend_searchPage.dart';
 import 'package:application_20221022/my_List.dart';
@@ -10,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
 
-import 'login_page.dart';
+import 'friend_searchPage.dart';
 
 class UserEmail{
   final String userEmail;
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
     final usEmail = ModalRoute.of(context)?.settings.arguments as UserEmail;
 
     return MaterialApp(
+        routes: {
+          '/search' : (context) => FindUser() // FindUser 페이지로 값을 넘겨주기 위한 선언
+        },
         debugShowCheckedModeBanner: false,
         home: ListViewPage(userEmailInfo: usEmail.userEmail)
     );
@@ -53,9 +57,10 @@ class _ListViewPageState extends State<ListViewPage> {
   static List<String> Friend_userName = [];
   static List<String> Friend_userImage = [];
   static List<String> Friend_userStateMsg = [];
+  static List<String> Friend_userNickname = [];
 
   String Email = '';
-  String Friend_Read_UID = '', Friend_Read_Email = '', Friend_Read_Name = '', Friend_Read_Image = '', Friend_Read_StateMsg = '';
+  String Friend_Read_UID = '', Friend_Read_Email = '', Friend_Read_Name = '', Friend_Read_Image = '', Friend_Read_StateMsg = '', Friend_Read_Nickname = '';
 
   String Friend_Read_All = '';
   var Friend_Read_Userinfo = <String>[];
@@ -75,6 +80,7 @@ class _ListViewPageState extends State<ListViewPage> {
     Friend_userName.clear();
     Friend_userImage.clear();
     Friend_userStateMsg.clear();
+    Friend_userNickname.clear();
 
     final Friend_response = await http.get(Uri.parse(
         'http://www.teamtoktok.kro.kr/친구목록.php?user1=' + widget.userEmailInfo
@@ -97,13 +103,14 @@ class _ListViewPageState extends State<ListViewPage> {
         Friend_Read_Name = Friend_split_info[2];
         Friend_Read_StateMsg = Friend_split_info[3];
         Friend_Read_Image = Friend_split_info[4];
+        Friend_Read_Nickname = Friend_split_info[5];
 
         Friend_userUID.add(Friend_Read_UID.toString());
         Friend_userEmail.add(Friend_Read_Email.toString());
         Friend_userName.add(Friend_Read_Name.toString());
         Friend_userStateMsg.add(Friend_Read_StateMsg.toString());
         Friend_userImage.add(Friend_Read_Image.toString());
-
+        Friend_userNickname.add(Friend_Read_Nickname.toString());
       }
 
 
@@ -114,7 +121,7 @@ class _ListViewPageState extends State<ListViewPage> {
   Widget build(BuildContext context) {
 
     final List<userProfile> userData = List.generate(Friend_userEmail.length, (index) =>
-        userProfile(Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index]));
+        userProfile(Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index], Friend_userNickname[index]));
 
     return Scaffold( // 상 중 하로 나눌때는 Scaffold 위젯을 사용
         appBar: AppBar( // 상단바
@@ -123,7 +130,7 @@ class _ListViewPageState extends State<ListViewPage> {
           actions: [ // 상단바의 우측에 배치
             IconButton(
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => FindUserPage()));
+                  Navigator.pushNamed(context, '/search', arguments: getEmail(getLoginEmail: widget.userEmailInfo));
                 },
                 icon: Icon(Icons.search, color: Colors.grey)), // 검색 아이콘 버튼
             IconButton(
@@ -197,7 +204,9 @@ class _ListViewPageState extends State<ListViewPage> {
                 },
                 icon: Icon(Icons.person_add_alt, color: Colors.grey)), // 친구 추가 아이콘 버튼
             IconButton(
-                onPressed: null,
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => chatMain()));
+                },
                 icon: Icon(Icons.settings, color: Colors.grey)), // 설정 아이콘 버튼
           ],
         ),

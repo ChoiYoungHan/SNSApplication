@@ -16,9 +16,11 @@ class chatMain extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final usEmail = ModalRoute.of(context)?.settings.arguments as ChatPage_UserEmail;
+
     return MaterialApp(
       routes: {
-        '/chatList' : (context) => chat_List()
+        '/chatList' : (context) => chat_List(),
+        '/chatPage' : (context) => chatMain()
       },
       debugShowCheckedModeBanner: false,
       home: chatPage(userEmail: usEmail.userEmail, userName: usEmail.userName, userStateMsg: usEmail.userStateMsg)
@@ -36,8 +38,6 @@ class chatPage extends StatefulWidget {
 }
 
 class _chatPageState extends State<chatPage> {
-
-  static const routeName = '/chatPage';
 
   TextEditingController inputMessage = TextEditingController();
 

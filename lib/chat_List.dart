@@ -31,8 +31,7 @@ class chat_List extends StatelessWidget {
         '/friendList' : (context) => MyApp(), // MyApp 페이지로 값을 넘겨주기 위한 선언
         '/postList' : (context) => post_List(), // post_List 페이지로 값을 넘겨주기 위한 선언
         '/myList' : (context) => my_List(), // my_List 페이지로 값을 넘겨주기 위함
-        '/chatList' : (context) => chat_List(),
-        '/chatPage' : (context) => chatMain()
+        '/chatMain' : (context) => chatMain()
       },
       debugShowCheckedModeBanner: false,
       home: ListViewPage(userEmail: usEmail.userEmail, userName: usEmail.userName, userStateMsg: usEmail.userStateMsg) // ListViewPage로 로그인한 사용자의 이메일 정보를 보내줌
@@ -50,8 +49,6 @@ class ListViewPage extends StatefulWidget {
 }
 
 class _ListViewPageState extends State<ListViewPage> {
-
-  static const routeName = '/chatList'; // 값을 받기 위함
 
   // 데이터리스트
   static List<String> chatImage = [];
@@ -200,8 +197,8 @@ class _ListViewPageState extends State<ListViewPage> {
                           width: double.infinity, height: double.infinity,
                           child: ElevatedButton(
                             onPressed: () async {
-                              final Friend_add_response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방만들기.php?user1=' + widget.userEmail + '&user2=' + inputFriendName.text));
-                              Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                              final Chat_add_response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방만들기.php?user1=' + widget.userEmail + '&user2=' + inputFriendName.text));
+                              Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));  // 전체 목록으로 이동 및 인자값 전달
                             },
                             child: Text('확인')
                           )

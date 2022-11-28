@@ -33,7 +33,8 @@ class MyApp extends StatelessWidget {
           '/search' : (context) => FindUser(), // FindUser 페이지로 값을 넘겨주기 위한 선언
           '/chatList' : (context) => chat_List(), // chat_List 페이지로 값을 넘겨주기 위한 선언
           '/postList' : (context) => post_List(), // post_List 페이지로 값을 넘겨주기 위한 선언
-          '/myList' : (context) => my_List() // my_List 페이지로 값을 넘겨주기 위함
+          '/myList' : (context) => my_List(), // my_List 페이지로 값을 넘겨주기 위함
+          '/chatPage' : (context) => chatMain()
         },
         debugShowCheckedModeBanner: false,
         home: ListViewPage(userEmailInfo: usEmail.userEmail, userNameInfo: usEmail.userName, userStateMsgInfo: usEmail.userStateMsg)
@@ -208,7 +209,7 @@ class _ListViewPageState extends State<ListViewPage> {
                 icon: Icon(Icons.person_add_alt, color: Colors.grey)), // 친구 추가 아이콘 버튼
             IconButton(
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => chatMain()));
+                  Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo));
                 },
                 icon: Icon(Icons.settings, color: Colors.grey)), // 설정 아이콘 버튼
           ],

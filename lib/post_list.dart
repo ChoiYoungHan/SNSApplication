@@ -9,8 +9,10 @@ import 'my_List.dart';
 
 class PostList_UserEmail{ // 로그인한 사용자의 이메일 정보를 담아둘 클래스 객체 선언
   final String userEmail;
+  final String userName;
+  final String userStateMsg;
 
-  PostList_UserEmail({required this.userEmail});
+  PostList_UserEmail({required this.userEmail, required this.userName, required this.userStateMsg});
 }
 
 class post_List extends StatelessWidget {
@@ -27,15 +29,15 @@ class post_List extends StatelessWidget {
         '/myList' : (context) => my_List() // my_List 페이지로 값을 넘겨주기 위함
       },
       debugShowCheckedModeBanner: false,
-      home: ListViewPage(userEmail: usEmail.userEmail)
+      home: ListViewPage(userEmail: usEmail.userEmail, userName: usEmail.userName, userStateMsg: usEmail.userStateMsg)
     );
   }
 }
 
 class ListViewPage extends StatefulWidget {
-  final userEmail;
+  final userEmail, userName, userStateMsg;
 
-  const ListViewPage({Key? key, this.userEmail}) : super(key: key);
+  const ListViewPage({Key? key, this.userEmail, this.userName, this.userStateMsg}) : super(key: key);
 
   @override
   State<ListViewPage> createState() => _ListViewPageState();
@@ -169,12 +171,12 @@ class _ListViewPageState extends State<ListViewPage> {
             children: [
               IconButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail)); // 친구 목록으로 이동 및 인자값 전달
+                    Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 친구 목록으로 이동 및 인자값 전달
                   },
                   icon: Icon(Icons.person_outline)), // 친구목록 아이콘버튼
               IconButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail)); // 채팅 목록으로 이동 및 인자값 전달
+                    Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 채팅 목록으로 이동 및 인자값 전달
                   },
                   icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘버튼
               IconButton(
@@ -182,7 +184,7 @@ class _ListViewPageState extends State<ListViewPage> {
                   icon: Icon(Icons.list_alt, color: Colors.blue)), // 게시글목록 아이콘버튼
               IconButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmail)); // 전체 목록으로 이동 및 인자값 전달
+                    Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 전체 목록으로 이동 및 인자값 전달
                   },
                   icon: Icon(Icons.segment)), // 전체목록 아이콘버튼
             ],

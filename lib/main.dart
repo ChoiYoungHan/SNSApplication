@@ -15,8 +15,10 @@ import 'friend_searchPage.dart';
 
 class FriendList_UserEmail{
   final String userEmail;
+  final String userName;
+  final String userStateMsg;
 
-  FriendList_UserEmail({required this.userEmail});
+  FriendList_UserEmail({required this.userEmail, required this.userName, required this.userStateMsg});
 }
 
 class MyApp extends StatelessWidget {
@@ -34,15 +36,15 @@ class MyApp extends StatelessWidget {
           '/myList' : (context) => my_List() // my_List 페이지로 값을 넘겨주기 위함
         },
         debugShowCheckedModeBanner: false,
-        home: ListViewPage(userEmailInfo: usEmail.userEmail)
+        home: ListViewPage(userEmailInfo: usEmail.userEmail, userNameInfo: usEmail.userName, userStateMsgInfo: usEmail.userStateMsg)
     );
   }
 }
 
 class ListViewPage extends StatefulWidget {
-  final userEmailInfo;
+  final userEmailInfo, userNameInfo, userStateMsgInfo;
 
-  const ListViewPage({Key? key, this.userEmailInfo}) : super(key: key);
+  const ListViewPage({Key? key, this.userEmailInfo, this.userNameInfo, this.userStateMsgInfo}) : super(key: key);
 
   @override
   State<ListViewPage> createState() => _ListViewPageState();
@@ -131,7 +133,7 @@ class _ListViewPageState extends State<ListViewPage> {
           actions: [ // 상단바의 우측에 배치
             IconButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/search', arguments: SearchPage_UserEmail(getLoginEmail: widget.userEmailInfo));
+                  Navigator.pushNamed(context, '/search', arguments: SearchPage_UserEmail(getLoginEmail: widget.userEmailInfo, getLoginName: widget.userNameInfo, getLoginStateMsg: widget.userStateMsgInfo));
                 },
                 icon: Icon(Icons.search, color: Colors.grey)), // 검색 아이콘 버튼
             IconButton(
@@ -156,7 +158,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                           textAlign: TextAlign.center,
                                           controller: inputFriendEmail,
                                           decoration: InputDecoration(
-                                              hintText: '친구 이메일을 입력해주세요.',
+                                              hintText: '친구 아이디를 입력해주세요.',
                                               enabledBorder: UnderlineInputBorder(
                                                   borderSide: BorderSide(
                                                       width: 2,
@@ -191,8 +193,8 @@ class _ListViewPageState extends State<ListViewPage> {
                                             setState(() {
                                               Email = inputFriendEmail.text;
                                             });
-                                            final Friend_add_response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구추가.php?user1=samron3&user2=' + Email));
-                                            Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmailInfo));
+                                            final Friend_add_response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구추가.php?user1=' + widget.userEmailInfo + '&user2=' + Email));
+                                            Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo));
                                           },
                                           child: Text('확인')
                                       )
@@ -282,7 +284,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                                       child: ElevatedButton(
                                                         onPressed: (){
                                                           Navigator.pop(context);
-                                                          Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmailInfo));
+                                                          Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo));
                                                         },
                                                         child: Text('확인')
                                                       )
@@ -359,17 +361,17 @@ class _ListViewPageState extends State<ListViewPage> {
                     icon: Icon(Icons.person_outline, color: Colors.blue)), // 친구목록 아이콘버튼
                 IconButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmailInfo)); // 채팅 목록 페이지로 이동 및 인자값 전달
+                      Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo)); // 채팅 목록 페이지로 이동 및 인자값 전달
                     },
                     icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘버튼
                 IconButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmailInfo)); // 게시글 목록 페이지로 이동 및 인자값 전달
+                      Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo)); // 게시글 목록 페이지로 이동 및 인자값 전달
                     },
                     icon: Icon(Icons.list_alt)), // 게시글목록 아이콘버튼
                 IconButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmailInfo)); // 전체 목록 페이지로 이동 및 인자값 전달
+                      Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo)); // 전체 목록 페이지로 이동 및 인자값 전달
                     },
                     icon: Icon(Icons.segment)), // 전체목록 아이콘버튼
               ],

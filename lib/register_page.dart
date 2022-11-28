@@ -68,7 +68,7 @@ class _registerState extends State<register> {
                       child: TextField(
                         controller: inputEmail,
                           decoration: InputDecoration(
-                            hintText: '이메일을 입력해주세요.',
+                            hintText: '아이디를 입력해주세요. (특수문자 제외)',
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2,
@@ -248,7 +248,40 @@ class _registerState extends State<register> {
 
                       print(Register_current_Message);
 
-                      if(Register_read_Message[0].contains('id가 이미 존재합니다.')){
+                      if(inputEmail.text.contains('!') | inputEmail.text.contains('@') | inputEmail.text.contains('#') | inputEmail.text.contains('%') | inputEmail.text.contains('^') | inputEmail.text.contains('&') | inputEmail.text.contains('*') | inputEmail.text.contains('(') | inputEmail.text.contains(')') | inputEmail.text.contains('-') | inputEmail.text.contains('_') | inputEmail.text.contains('=') | inputEmail.text.contains('+') | inputEmail.text.contains('<') | inputEmail.text.contains('>') | inputEmail.text.contains('.') | inputEmail.text.contains('? ')){
+                        showDialog(context: context, builder: (context){return Dialog(
+                            child: Container(
+                                width: 150,
+                                height: 150,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(
+                                                color: Color(0xffC6C8C6),
+                                                width: 1.5
+                                            ))
+                                        ),
+                                        alignment: Alignment.center,
+                                        width: double.infinity, height: double.infinity,
+                                        child: Text('특수문자는 입력하실 수 없습니다.',
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                      ), flex: 2),
+                                      Expanded(child: Container(
+                                          width: double.infinity, height: double.infinity,
+                                          child: ElevatedButton(
+                                              onPressed: (){
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('확인')
+                                          )
+                                      ), flex: 1)
+                                    ]
+                                )
+                            )
+                        );});
+                      } else if(Register_read_Message[0].contains('id가 이미 존재합니다.')){
                         showDialog(context: context, builder: (context){return Dialog(
                             child: Container(
                                 width: 150,
@@ -345,9 +378,46 @@ class _registerState extends State<register> {
                                       ), flex: 1)
                                     ]
                                 )
-                            )
+                        )
                         );});
                       } else {
+                        showDialog( // 팝업 화면을 띄움
+                          context: context,
+                          barrierDismissible: true, // 바깥 영역 터치 시 닫을지 여부
+                          builder: (context) {
+                            return Dialog( // Dialog 위젯 사용
+                              child: Container( // 상자 위젯
+                                width: 150, height: 150, // 가로와 세로 150
+                                child: Column( // 세로 정렬
+                                  mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                  children: [
+                                    Expanded(child: Container( // 상자 위젯
+                                      decoration: BoxDecoration(
+                                        border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
+                                          width: 1.5,
+                                          color: Color(0xffC6C8C6)
+                                        ))
+                                      ),
+                                      alignment: Alignment.center, // 가운데 정렬
+                                      width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                      child: Text('회원가입에 성공하셨습니다.',
+                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)) // 볼드체, 크기 16
+                                    ), flex: 2),
+                                    Expanded(child: Container( // 상자 위젯
+                                      width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                      child: ElevatedButton( // 버튼 위젯
+                                        onPressed: (){
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('확인')
+                                      )
+                                    ), flex: 1)
+                                  ]
+                                )
+                              )
+                            );
+                          }
+                        );
                         Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
                       }
                     });

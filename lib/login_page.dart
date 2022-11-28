@@ -61,7 +61,7 @@ class _login_pageState extends State<login_page> {
                                 child: TextField(
                                     controller: inputEmail,
                                     decoration: InputDecoration(
-                                      hintText: '이메일을 입력해주세요.',
+                                      hintText: '아이디를 입력해주세요.',
                                       enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               width: 2,
@@ -127,7 +127,7 @@ class _login_pageState extends State<login_page> {
                                     onPressed: (){
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => find_email_password()));
                                     },
-                                    child: Text('이메일/비밀번호 찾기', style: TextStyle(color: Colors.blue))
+                                    child: Text('아이디/비밀번호 찾기', style: TextStyle(color: Colors.blue))
                                 )
                             ),
                             Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -264,7 +264,7 @@ class _login_pageState extends State<login_page> {
                                                                           Navigator.pop(context);
                                                                           inputEmail.clear();
                                                                           inputPassword.clear();
-                                                                          Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: Login_Read_email));
+                                                                          Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: Login_Read_email, userName: Login_Read_name, userStateMsg: Login_Read_message));
                                                                         },
                                                                         child: Text('확인')
                                                                     )

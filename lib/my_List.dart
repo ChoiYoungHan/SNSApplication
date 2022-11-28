@@ -10,8 +10,10 @@ import 'login_page.dart';
 
 class MyList_UserEmail{ // 로그인한 사용자의 이메일 정보를 담아둘 클래스 객체 선언
   final String userEmail;
+  final String userName;
+  final String userStateMsg;
 
-  MyList_UserEmail({required this.userEmail});
+  MyList_UserEmail({required this.userEmail, required this.userName, required this.userStateMsg});
 }
 
 class my_List extends StatelessWidget {
@@ -28,15 +30,15 @@ class my_List extends StatelessWidget {
         '/postList' : (context) => post_List() // post_List 페이지로 값을 넘겨주기 위함
       },
       debugShowCheckedModeBanner: false,
-      home: MyListPage(userEmail: usEmail.userEmail)
+      home: MyListPage(userEmail: usEmail.userEmail, userName: usEmail.userName, userStateMsg: usEmail.userStateMsg)
     );
   }
 }
 
 class MyListPage extends StatefulWidget {
-  final userEmail;
+  final userEmail, userName, userStateMsg;
 
-  const MyListPage({Key? key, this.userEmail}) : super(key: key);
+  const MyListPage({Key? key, this.userEmail, this.userName, this.userStateMsg}) : super(key: key);
 
   @override
   State<MyListPage> createState() => _MyListPageState();
@@ -55,6 +57,15 @@ class _MyListPageState extends State<MyListPage> {
 
   // 읽어온 정보를 담아둘 배열
   var getInfo = <String>[];
+
+  @override
+  void initState() {
+    userInfo();
+  }
+
+  void userInfo(){
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,11 +111,11 @@ class _MyListPageState extends State<MyListPage> {
                           children: [
                             Align( // 정렬할 때 사용하는 위젯
                               alignment: Alignment.centerLeft, // 가운데 왼쪽에 배치
-                              child: Text('유저 이름', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)) // 볼드체, 사이즈 20
+                              child: Text(widget.userName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)) // 볼드체, 사이즈 20
                             ),
                             Align( // 정렬할 때 사용하는 위젯
                               alignment: Alignment.centerLeft, // 가운데 왼쪽에 배치
-                              child: Text('유저 상태메시지', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16, 색상은 회색
+                              child: Text(widget.userStateMsg, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16, 색상은 회색
                             )
                           ]
                         )
@@ -535,19 +546,19 @@ class _MyListPageState extends State<MyListPage> {
             children: [
               IconButton( // 아이콘 버튼 위젯
                 onPressed: (){
-                  Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail)); // 친구 목록 페이지로 이동 및 인자값 전달
+                  Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 친구 목록 페이지로 이동 및 인자값 전달
                 },
                 icon: Icon(Icons.person_outline) // 친구 목록 아이콘
               ),
               IconButton( // 아이콘 버튼 위젯
                 onPressed: (){
-                  Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail)); // 채팅 목록 페이지로 이동 및 인자값 전달
+                  Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 채팅 목록 페이지로 이동 및 인자값 전달
                 },
                 icon: Icon(Icons.chat_bubble_outline) // 채팅 목록 아이콘
               ),
               IconButton( // 아이콘 버튼 위젯
                 onPressed: (){
-                  Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail)); // 게시글 목록 페이지로 이동 및 인자값 전달
+                  Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 게시글 목록 페이지로 이동 및 인자값 전달
                 },
                 icon: Icon(Icons.list_alt) // 게시글 목록 아이콘
               ),

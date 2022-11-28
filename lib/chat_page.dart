@@ -1,25 +1,43 @@
+import 'package:application_20221022/chat_List.dart';
 import 'package:flutter/material.dart';
+
+class ChatPage_UserEmail{
+  final String userEmail;
+  final String userName;
+  final String userStateMsg;
+
+  ChatPage_UserEmail({required this.userEmail, required this.userName, required this.userStateMsg});
+}
 
 class chatMain extends StatelessWidget {
   const chatMain({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final usEmail = ModalRoute.of(context)?.settings.arguments as ChatPage_UserEmail;
     return MaterialApp(
+      routes: {
+        '/chatList' : (context) => chat_List()
+      },
       debugShowCheckedModeBanner: false,
-      home: chatPage()
+      home: chatPage(userEmail: usEmail.userEmail, userName: usEmail.userName, userStateMsg: usEmail.userStateMsg)
     );
   }
 }
 
 class chatPage extends StatefulWidget {
-  const chatPage({Key? key}) : super(key: key);
+  final userEmail, userName, userStateMsg;
+
+  const chatPage({Key? key, this.userEmail, this.userName, this.userStateMsg}) : super(key: key);
 
   @override
   State<chatPage> createState() => _chatPageState();
 }
 
 class _chatPageState extends State<chatPage> {
+
+  static const routeName = '/chatPage';
 
   TextEditingController inputMessage = TextEditingController();
 

@@ -8,8 +8,10 @@ import 'package:html/parser.dart' as parse;
 
 class SearchPage_UserEmail{ // 로그인한 사용자의 이메일 정보를 담아둘 클래스 객체 선언
   final String getLoginEmail;
+  final String getLoginName;
+  final String getLoginStateMsg;
 
-  SearchPage_UserEmail({required this.getLoginEmail});
+  SearchPage_UserEmail({required this.getLoginEmail, required this.getLoginName, required this.getLoginStateMsg});
 }
 
 class FindUser extends StatelessWidget {
@@ -24,15 +26,15 @@ class FindUser extends StatelessWidget {
         '/friendList' : (context) => MyApp() // MyApp 페이지로 값을 넘겨주기 위한 선언
       },
       debugShowCheckedModeBanner: false,
-      home: FindUserPage(userEmail: getUserEmail.getLoginEmail)
+      home: FindUserPage(userEmail: getUserEmail.getLoginEmail, userName: getUserEmail.getLoginName, userStateMsg: getUserEmail.getLoginStateMsg)
     );
   }
 }
 
 class FindUserPage extends StatefulWidget {
-  final userEmail;
+  final userEmail, userName, userStateMsg;
 
-  const FindUserPage({Key? key, this.userEmail}) : super(key: key);
+  const FindUserPage({Key? key, this.userEmail, this.userName, this.userStateMsg}) : super(key: key);
 
   @override
   State<FindUserPage> createState() => _FindUserPageState();
@@ -82,7 +84,7 @@ class _FindUserPageState extends State<FindUserPage> {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: (){ // 친구목록 페이지로 갈것임 & 로그인 한 사용자의 정보를 넘겨줘야 함
-            Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail));
+            Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
           },
           icon: Icon(Icons.arrow_back, color: Colors.black) // 뒤로가기 아이콘 & 색깔은 블랙
         ),
@@ -321,7 +323,7 @@ class _FindUserPageState extends State<FindUserPage> {
                                                             child: ElevatedButton( // 버튼 위젯
                                                               onPressed: (){ // 버튼을 누르면 친구목록으로 넘어갈 것임
                                                                 Navigator.pop(context);
-                                                                Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail));
+                                                                Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
                                                               },
                                                               child: Text('확인'),
                                                             )

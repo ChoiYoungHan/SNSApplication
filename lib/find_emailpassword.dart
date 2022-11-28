@@ -52,7 +52,7 @@ class _find_email_passwordState extends State<find_email_password> {
           },
           icon: Icon(Icons.arrow_back, color: Colors.grey)
         ),
-        title: Text('이메일/비밀번호 찾기')
+        title: Text('아이디/비밀번호 찾기')
       ),
       body: SafeArea(
         child: GestureDetector(
@@ -66,7 +66,7 @@ class _find_email_passwordState extends State<find_email_password> {
                     padding: EdgeInsets.fromLTRB(20, 30, 20, 7),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('이메일 찾기', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
+                      child: Text('아이디 찾기', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
                     )
                   ),
                   Padding(
@@ -235,7 +235,7 @@ class _find_email_passwordState extends State<find_email_password> {
                           }
                         });
                       },
-                      child: Text('이메일 찾기'))
+                      child: Text('아이디 찾기'))
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 0, 20, 7),
@@ -248,7 +248,7 @@ class _find_email_passwordState extends State<find_email_password> {
                     child: TextField(
                       controller: findPassword_email,
                       decoration: InputDecoration(
-                        hintText: ('이메일을 입력해주세요.'),
+                        hintText: ('아이디를 입력해주세요.'),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             width: 2,

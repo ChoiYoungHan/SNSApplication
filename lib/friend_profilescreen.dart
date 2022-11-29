@@ -131,7 +131,7 @@ class friend_profileScreen extends StatelessWidget {
                                   child: ElevatedButton(
                                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
                                       onPressed: (){
-                                        Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: profile.userEmail,  userName: profile.userName, userStateMsg: profile.userState));
+                                        Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: profile.LoginuserEmail,  userName: profile.LoginuserName, userStateMsg: profile.LoginuserStateMsg, OtheruserEmail: profile.userEmail, OtheruserName: profile.userName));
                                       },
                                       child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,

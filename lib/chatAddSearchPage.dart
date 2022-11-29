@@ -272,7 +272,7 @@ class _chatFindUserPageState extends State<chatFindUserPage> {
 
                                   return GestureDetector( // Container와 같이 Gesture를 감지할 수 없는 위젯들에게 Gesture 기능을 부여할 수 있는 위젯
                                       onTap: (){ // 한 번 클릭 시 friend_profilescreen으로 넘어가게 해 줄 것임. 값 전달 필요
-                                        Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                        Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg, OtheruserEmail: userData[index].userEmail, OtheruserName: userData[index].userName));
                                       },
                                       onLongPress: (){ // 길게 누를 시, 친구목록 화면과 같이 구현
                                         showDialog( // 팝업 화면을 띄우기 위함
@@ -329,7 +329,7 @@ class _chatFindUserPageState extends State<chatFindUserPage> {
                                                                                           ),
                                                                                           alignment: Alignment.center, // 글자를 가운데로 오도록 함
                                                                                           width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                                                                          child: Text(userData[index].userName + '님을 차단하였습니다.',
+                                                                                          child: Text(userData[index].userNickname + '님을 차단하였습니다.',
                                                                                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체, 크기 16
                                                                                       ), flex: 2),
                                                                                       Expanded(child: Container(
@@ -382,7 +382,7 @@ class _chatFindUserPageState extends State<chatFindUserPage> {
                                                                 padding: EdgeInsets.fromLTRB(5, 20, 5, 5), // 좌 5 위 20 우 5 하 5의 여백을 줌
                                                                 child: Container(
                                                                     width: double.infinity, height: double.infinity, // 가로와 세로를 무제한
-                                                                    child: Text(userData[index].userName,
+                                                                    child: Text(userData[index].userNickname,
                                                                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), maxLines: 1)
                                                                   // 텍스트의 사이즈 20, 볼드체, 색상은 검정, 최대 라인수 1
                                                                 )

@@ -221,7 +221,7 @@ class _ListViewPageState extends State<ListViewPage> {
                 icon: Icon(Icons.person_add_alt, color: Colors.grey)), // 친구 추가 아이콘 버튼
             IconButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo));
+
                 },
                 icon: Icon(Icons.settings, color: Colors.grey)), // 설정 아이콘 버튼
           ],

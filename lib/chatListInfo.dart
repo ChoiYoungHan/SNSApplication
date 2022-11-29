@@ -4,6 +4,7 @@ class chatListInfo {
   final String chatMsg;
   final String chatCount;
   final String chatTime;
+  final String chatEmail;
 
-  chatListInfo(this.chatImage, this.chatName, this.chatMsg, this.chatCount, this.chatTime);
+  chatListInfo(this.chatImage, this.chatName, this.chatMsg, this.chatCount, this.chatTime, this.chatEmail);
 }

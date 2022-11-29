@@ -58,9 +58,10 @@ class _chatListPageState extends State<chatListPage> {
   static List<String> chatMsg = [];
   static List<String> chatCount = [];
   static List<String> chatTime = [];
+  static List<String> chatEmail = [];
 
   // 읽어들인 각각의 인덱스 값을 저장할 변수
-  String Chat_Read_Image = '', Chat_Read_Name = '', Chat_Read_Msg = '', Chat_Read_Count = '', Chat_Read_Time = '';
+  String Chat_Read_Image = '', Chat_Read_Name = '', Chat_Read_Msg = '', Chat_Read_Count = '', Chat_Read_Time = '', Chat_Read_Email = '';
 
   // 읽어들인 문자열을 저장할 변수
   String Chat_Read_All = '';
@@ -85,6 +86,7 @@ class _chatListPageState extends State<chatListPage> {
     chatMsg.clear();
     chatCount.clear();
     chatTime.clear();
+    chatEmail.clear();
 
     // 채팅목록을 검색하기 위해 Url 실행
     final Chat_response =
@@ -119,6 +121,7 @@ class _chatListPageState extends State<chatListPage> {
         Chat_Read_Msg = Chat_Split_Info[2];
         Chat_Read_Count = Chat_Split_Info[3];
         Chat_Read_Time = Chat_Split_Info[4];
+        Chat_Read_Email = Chat_Split_Info[5];
 
         // 문자열을 각자의 배열에 삽입
         chatImage.add(Chat_Read_Image.toString());
@@ -126,6 +129,7 @@ class _chatListPageState extends State<chatListPage> {
         chatMsg.add(Chat_Read_Msg.toString());
         chatCount.add(Chat_Read_Count.toString());
         chatTime.add(Chat_Read_Time.toString());
+        chatEmail.add(Chat_Read_Email.toString());
       }
     });
   }
@@ -135,7 +139,7 @@ class _chatListPageState extends State<chatListPage> {
 
     // List.generate는 length 의 길이만큼 0부터 index - 1 까지 범위의 각 인덱스를 오름차순으로 호출하여 만든 값으로 리스트를 생성
     final List<chatListInfo> chatData = List.generate(chatName.length, (index) =>
-        chatListInfo(chatImage[index], chatName[index], chatMsg[index], chatCount[index], chatTime[index]));
+        chatListInfo(chatImage[index], chatName[index], chatMsg[index], chatCount[index], chatTime[index], chatEmail[index]));
 
     return Scaffold( // 상 중 하로 나누는 위젯
       appBar: AppBar(
@@ -167,7 +171,7 @@ class _chatListPageState extends State<chatListPage> {
         itemBuilder: (context, index){
           return GestureDetector( // Container와 같이 Gesture를 감지할 수 없는 위젯들에게 Gesture 기능을 부여할 수 있는 위젯
             onTap: (){ // 한 번 클릭 시, 클릭한 사람의 값도 같이 넘겨야 함
-              Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+              Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg, OtheruserEmail: chatData[index].chatEmail, OtheruserName: chatData[index].chatName));
             },
             onLongPress: (){ // 길게 누를 시
               showDialog(context: context, builder: (context){

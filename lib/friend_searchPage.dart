@@ -332,7 +332,7 @@ class _FindUserPageState extends State<FindUserPage> {
                                                             ),
                                                             alignment: Alignment.center, // 글자를 가운데로 오도록 함
                                                             width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                                            child: Text(userData[index].userName + '님을 차단하였습니다.',
+                                                            child: Text(userData[index].userNickname + '님을 차단하였습니다.',
                                                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체, 크기 16
                                                           ), flex: 2),
                                                           Expanded(child: Container(
@@ -385,7 +385,7 @@ class _FindUserPageState extends State<FindUserPage> {
                                           padding: EdgeInsets.fromLTRB(5, 20, 5, 5), // 좌 5 위 20 우 5 하 5의 여백을 줌
                                           child: Container(
                                             width: double.infinity, height: double.infinity, // 가로와 세로를 무제한
-                                            child: Text(userData[index].userName,
+                                            child: Text(userData[index].userNickname,
                                                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), maxLines: 1)
                                             // 텍스트의 사이즈 20, 볼드체, 색상은 검정, 최대 라인수 1
                                           )

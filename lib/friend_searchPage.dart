@@ -47,6 +47,11 @@ class _FindUserPageState extends State<FindUserPage> {
   // 친구 이름을 검색할 텍스트 필드
   TextEditingController inputFriendName = TextEditingController();
 
+  // 유저정보를 담아줄 배열
+  static List<String> LoginuserEmail = [];
+  static List<String> LoginuserName = [];
+  static List<String> LoginuserStateMsg = [];
+
   // 받아온 친구 정보를 담아둘 배열
   static List<String> Friend_userUID = [];
   static List<String> Friend_userEmail = [];
@@ -68,6 +73,10 @@ class _FindUserPageState extends State<FindUserPage> {
   @override
   void initState() {
     // 기존의 배열에 아무것도 들어있지 않게 비워줌
+    LoginuserEmail.clear();
+    LoginuserName.clear();
+    LoginuserStateMsg.clear();
+
     Friend_userUID.clear();
     Friend_userEmail.clear();
     Friend_userName.clear();
@@ -146,6 +155,10 @@ class _FindUserPageState extends State<FindUserPage> {
                         onPressed: () async { // 검색 버튼을 누를 시 DB에서 친구의 정보를 가져올 것임
 
                           // 기존의 배열에 아무것도 들어있지 않게 비워줌
+                          LoginuserEmail.clear();
+                          LoginuserName.clear();
+                          LoginuserStateMsg.clear();
+
                           Friend_userUID.clear();
                           Friend_userEmail.clear();
                           Friend_userName.clear();
@@ -190,6 +203,10 @@ class _FindUserPageState extends State<FindUserPage> {
                               Friend_Read_Nickname = Friend_Split_UserInfo[5];
 
                               // 문자열을 각자의 배열에 삽입
+                              LoginuserEmail.add(widget.userEmail.toString());
+                              LoginuserName.add(widget.userName.toString());
+                              LoginuserStateMsg.add(widget.userStateMsg.toString());
+
                               Friend_userUID.add(Friend_Read_UID.toString());
                               Friend_userEmail.add(Friend_Read_Email.toString());
                               Friend_userName.add(Friend_Read_Name.toString());
@@ -254,7 +271,7 @@ class _FindUserPageState extends State<FindUserPage> {
 
                         // List.generate는 length의 길이만큼 0부터 index - 1까지 범위의 각 인덱스를 오름차순으로 호출하여 만든 값으로 리스트를 생성
                         final List<userProfile> userData = List.generate(Friend_userEmail.length, (index) =>
-                            userProfile(Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index], Friend_userNickname[index]));
+                            userProfile(LoginuserEmail[index], LoginuserName[index], LoginuserStateMsg[index], Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index], Friend_userNickname[index]));
 
                         return GestureDetector( // Container와 같이 Gesture를 감지할 수 없는 위젯들에게 Gesture 기능을 부여할 수 있는 위젯
                           onTap: (){ // 한 번 클릭 시 friend_profilescreen으로 넘어가게 해 줄 것임. 값 전달 필요

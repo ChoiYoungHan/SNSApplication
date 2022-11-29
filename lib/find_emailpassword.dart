@@ -46,13 +46,14 @@ class _find_email_passwordState extends State<find_email_password> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
           },
           icon: Icon(Icons.arrow_back, color: Colors.grey)
         ),
-        title: Text('아이디/비밀번호 찾기')
+        title: Text('아이디/비밀번호 찾기', style: TextStyle(color: Colors.grey))
       ),
       body: SafeArea(
         child: GestureDetector(

@@ -44,12 +44,13 @@ class _registerState extends State<register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
             },
           icon: Icon(Icons.arrow_back, color: Colors.black)),
-        title: Text('회원가입')
+        title: Text('회원가입', style: TextStyle(color: Colors.grey))
       ),
       body: SafeArea(
         child: GestureDetector(

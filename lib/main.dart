@@ -58,6 +58,10 @@ class _ListViewPageState extends State<ListViewPage> {
 
   static const routeName = '/friendList';
   // 데이터 리스트
+  static List<String> LoginuserEmail = [];
+  static List<String> LoginuserName = [];
+  static List<String> LoginuserStateMsg = [];
+
   static List<String> Friend_userUID = [];
   static List<String> Friend_userEmail = [];
   static List<String> Friend_userName = [];
@@ -81,6 +85,10 @@ class _ListViewPageState extends State<ListViewPage> {
   }
 
   void getFriendInfo() async {
+    LoginuserEmail.clear();
+    LoginuserName.clear();
+    LoginuserStateMsg.clear();
+
     Friend_userUID.clear();
     Friend_userEmail.clear();
     Friend_userName.clear();
@@ -111,6 +119,10 @@ class _ListViewPageState extends State<ListViewPage> {
         Friend_Read_Image = Friend_split_info[4];
         Friend_Read_Nickname = Friend_split_info[5];
 
+        LoginuserEmail.add(widget.userEmailInfo.toString());
+        LoginuserName.add(widget.userNameInfo.toString());
+        LoginuserStateMsg.add(widget.userStateMsgInfo.toString());
+
         Friend_userUID.add(Friend_Read_UID.toString());
         Friend_userEmail.add(Friend_Read_Email.toString());
         Friend_userName.add(Friend_Read_Name.toString());
@@ -125,7 +137,7 @@ class _ListViewPageState extends State<ListViewPage> {
   Widget build(BuildContext context) {
 
     final List<userProfile> userData = List.generate(Friend_userEmail.length, (index) =>
-        userProfile(Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index], Friend_userNickname[index]));
+        userProfile(LoginuserEmail[index], LoginuserName[index], LoginuserStateMsg[index], Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index], Friend_userNickname[index]));
 
     return Scaffold( // 상 중 하로 나눌때는 Scaffold 위젯을 사용
         appBar: AppBar( // 상단바
@@ -331,7 +343,7 @@ class _ListViewPageState extends State<ListViewPage> {
                               padding: EdgeInsets.fromLTRB(5, 20, 5, 5), // 좌 5 위 20 우 5 하 5의 여백을 줌
                               child: Container(
                                 width: double.infinity, height: double.infinity,
-                                child: Text(userData[index].userName,
+                                child: Text(userData[index].userNickname,
                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), maxLines: 1),
                               ),
                             ), flex: 1),

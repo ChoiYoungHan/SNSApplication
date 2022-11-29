@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:application_20221022/chatRoomInfo.dart';
 import 'package:application_20221022/chat_List.dart';
 import 'package:application_20221022/chat_bubble.dart';
@@ -55,9 +57,10 @@ class _chatPageState extends State<chatPage> {
   static List<String> MsgSendName = [];
   static List<String> MsgContents = [];
   static List<String> MsgSendTime = [];
+  static List<String> MsgView = [];
 
   // 받아온 정보를 각각의 문자열에 저장한 다음 위의 배열에 넣을 것임
-  String Read_MsgUID = '', Read_MsgEmail = '', Read_MsgSendName = '', Read_MsgContents = '', Read_MsgSendTime = '';
+  String Read_MsgUID = '', Read_MsgEmail = '', Read_MsgSendName = '', Read_MsgContents = '', Read_MsgSendTime = '', Read_MsgView = '';
 
   // 받아온 문자열 전체를 저장할 변수
   String Msg_Read_All = '';
@@ -77,6 +80,7 @@ class _chatPageState extends State<chatPage> {
     MsgSendName.clear();
     MsgContents.clear();
     MsgSendTime.clear();
+    MsgView.clear();
 
     // 채팅내용을 불러올 Url 실행
     final Msg_response =
@@ -112,6 +116,7 @@ class _chatPageState extends State<chatPage> {
         Read_MsgSendName = Msg_Split_Info[2];
         Read_MsgContents = Msg_Split_Info[3];
         Read_MsgSendTime = Msg_Split_Info[4];
+        Read_MsgView = Msg_Split_Info[5];
 
         // 문자열을 각자의 배열에 삽입
         MsgUID.add(Read_MsgUID.toString());
@@ -119,6 +124,7 @@ class _chatPageState extends State<chatPage> {
         MsgSendName.add(Read_MsgSendName.toString());
         MsgContents.add(Read_MsgContents.toString());
         MsgSendTime.add(Read_MsgSendTime.toString());
+        MsgView.add(Read_MsgView.toString());
       }
     });
   }
@@ -128,14 +134,14 @@ class _chatPageState extends State<chatPage> {
 
     // List.generate는 length의 길이만큼 0부터 index - 1까지 범위의 각 인덱스를 오름차순으로 호출하여 만든 값으로 리스트를 생성
     final List<ChatRoomInfo> chatRoomData = List.generate(MsgUID.length, (index) =>
-        ChatRoomInfo(MsgUID[index], MsgEmail[index], MsgSendName[index], MsgContents[index], MsgSendTime[index]));
+        ChatRoomInfo(MsgUID[index], MsgEmail[index], MsgSendName[index], MsgContents[index], MsgSendTime[index], MsgView[index]));
 
     return Scaffold( // 상 중 하로 나누는 위젯
       appBar: AppBar( // 상단바
         backgroundColor: Colors.white, // 색상은 흰색
         leading: IconButton( // 아이콘 버튼 (뒤로가기 기능을 넣을 것임)
           onPressed: (){ // 뒤로가기 기능이 들어갈 것임
-
+            Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
           },
           icon: Icon(Icons.arrow_back, color: Colors.grey) // 뒤로가기 모양의 아이콘, 색상은 회색
         ),
@@ -164,9 +170,10 @@ class _chatPageState extends State<chatPage> {
               children: [
                 Expanded(child: Container( // 리스트뷰가 들어가서 채팅내역들을 보여줄 것임
                   child: ListView.builder(
+                    reverse: true,
                     itemCount: MsgUID.length,
                     itemBuilder: (context, index){
-                    return Chat_Bubble(message: chatRoomData[index].MsgContents, writer: chatRoomData[index].MsgEmail, Loginuser: widget.userEmail, Otheruser: widget.OtheruserEmail);
+                    return Chat_Bubble(message: chatRoomData[index].MsgContents, writer: chatRoomData[index].MsgEmail, Loginuser: widget.userEmail, LoginuserName: widget.userName, OtheruserName: chatRoomData[index].MsgSendName, View: chatRoomData[index].MsgView, Time: chatRoomData[index].MsgSendTime);
                   }),
                 ), flex: 9),
                 Expanded(child: Container( // 채팅을 입력할 수 있는 위젯을 만들 것임

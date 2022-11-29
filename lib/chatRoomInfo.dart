@@ -4,6 +4,7 @@ class ChatRoomInfo {
   final String MsgSendName;
   final String MsgContents;
   final String MsgSendTime;
+  final String MsgView;
 
-  ChatRoomInfo(this.MsgUID, this.MsgEmail, this.MsgSendName, this.MsgContents, this.MsgSendTime);
+  ChatRoomInfo(this.MsgUID, this.MsgEmail, this.MsgSendName, this.MsgContents, this.MsgSendTime, this.MsgView);
 }

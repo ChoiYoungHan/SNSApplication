@@ -29,15 +29,16 @@ class MyApp extends StatelessWidget {
     final usEmail = ModalRoute.of(context)?.settings.arguments as FriendList_UserEmail;
 
     return MaterialApp(
-        routes: {
-          '/search' : (context) => FindUser(), // FindUser 페이지로 값을 넘겨주기 위한 선언
-          '/chatList' : (context) => chat_List(), // chat_List 페이지로 값을 넘겨주기 위한 선언
-          '/postList' : (context) => post_List(), // post_List 페이지로 값을 넘겨주기 위한 선언
-          '/myList' : (context) => my_List(), // my_List 페이지로 값을 넘겨주기 위함
-          '/chatPage' : (context) => chatMain()
-        },
-        debugShowCheckedModeBanner: false,
-        home: ListViewPage(userEmailInfo: usEmail.userEmail, userNameInfo: usEmail.userName, userStateMsgInfo: usEmail.userStateMsg)
+      initialRoute: '/',
+      routes: {
+        '/search' : (context) => FindUser(), // FindUser 페이지로 값을 넘겨주기 위한 선언
+        '/chatList' : (context) => chat_List(), // chat_List 페이지로 값을 넘겨주기 위한 선언
+        '/postList' : (context) => post_List(), // post_List 페이지로 값을 넘겨주기 위한 선언
+        '/myList' : (context) => my_List(), // my_List 페이지로 값을 넘겨주기 위함
+        '/chatPage' : (context) => chatMain()
+      },
+      debugShowCheckedModeBanner: false,
+      home: ListViewPage(userEmailInfo: usEmail.userEmail, userNameInfo: usEmail.userName, userStateMsgInfo: usEmail.userStateMsg)
     );
   }
 }

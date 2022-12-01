@@ -162,11 +162,11 @@ class _chatListPageState extends State<chatListPage> {
             onPressed: (){
 
             },
-            icon: Icon(Icons.settings, color: Colors.grey) // 설정 아이콘, 색상은 회색
+          icon: Icon(Icons.settings, color: Colors.grey) // 설정 아이콘, 색상은 회색
           )
         ]
       ),
-      body: ListView.builder(
+        body: ListView.builder(
         itemCount: chatName.length,
         itemBuilder: (context, index){
           return GestureDetector( // Container와 같이 Gesture를 감지할 수 없는 위젯들에게 Gesture 기능을 부여할 수 있는 위젯

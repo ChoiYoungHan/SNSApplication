@@ -1,9 +1,11 @@
 class post{
-  final String friendImage;
-  final String friendName;
-  final String postTime;
-  final String postContents;
+  final String postUID;
+  final String postID;
+  final String postUserImage;
   final String postImage;
+  final String postName;
+  final String postContents;
+  final String postTime;
 
-  post(this.friendImage, this.friendName, this.postTime, this.postContents, this.postImage);
+  post(this.postUID, this.postID, this.postUserImage, this.postImage, this.postName, this.postContents, this.postTime);
 }

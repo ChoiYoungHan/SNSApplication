@@ -1,3 +1,4 @@
+import 'package:application_20221022/AddPost.dart';
 import 'package:application_20221022/chat_List.dart';
 import 'package:application_20221022/my_List.dart';
 import 'package:application_20221022/post.dart';
@@ -32,7 +33,8 @@ class post_List extends StatelessWidget {
           '/friendList' : (context) => MyApp(), // MyApp 페이지로 값을 넘겨주기 위한 선언
           '/chatList' : (context) => chat_List(), // chat_List 페이지로 값을 넘겨주기 위한 선언
           '/myList' : (context) => my_List(), // my_List 페이지로 값을 넘겨주기 위한 선언
-          '/postMain' : (context) => postMain() // postMain 페이지로 값을 넘겨주기 위한 선언
+          '/postMain' : (context) => postMain(), // postMain 페이지로 값을 넘겨주기 위한 선언
+          '/addPost' : (context) => add_Post() // add_Post 페이지로 값을 넘겨주기 위한 선언
         },
         debugShowCheckedModeBanner: false,
         home: PostListPage(userEmail: usEmail.userEmail, userName: usEmail.userName, userStateMsg: usEmail.userStateMsg)
@@ -152,7 +154,7 @@ class _PostListPageState extends State<PostListPage> {
           ),
           IconButton(
             onPressed: (){
-
+              Navigator.pushNamed(context, '/addPost', arguments: AddPost_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
             },
             icon: Icon(Icons.add_circle_outline_outlined, color: Colors.grey) // 게시글 추가 아이콘, 색상은 회색
           )

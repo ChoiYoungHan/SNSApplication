@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
+import 'dart:async';
 
 class ChatPage_UserEmail{
   final String userEmail;
@@ -48,6 +49,8 @@ class chatPage extends StatefulWidget {
 
 class _chatPageState extends State<chatPage> {
 
+  late Timer timer;
+
   // 메시지를 입력할 때 사용할 텍스트 필드
   TextEditingController inputMessage = TextEditingController();
 
@@ -70,7 +73,13 @@ class _chatPageState extends State<chatPage> {
   var Msg_Split_Info = <String>[];
 
   void initState(){
-    getMsgInfo();
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      getMsgInfo();
+    });
+  }
+
+  void dispose(){
+    timer.cancel();
   }
 
   void getMsgInfo() async {
@@ -231,7 +240,9 @@ class _chatPageState extends State<chatPage> {
                         onPressed: () async {
                           final send_response =
                             await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅입력.php?user1=' + widget.userEmail + '&user2=' + widget.OtheruserEmail + '&message=' + inputMessage.text));
-                          Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg, OtheruserEmail: widget.OtheruserEmail, OtheruserName: widget.OtheruserName));
+
+                          getMsgInfo();
+                          inputMessage.clear();
                         },
                         icon: Icon(Icons.send, size: 30, color: Colors.grey) // 보내기 아이콘, 크기는 30
                       ), flex: 1)

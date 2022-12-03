@@ -39,6 +39,10 @@ class AddPostPage extends StatefulWidget {
 }
 
 class _AddPostPageState extends State<AddPostPage> {
+  // 게시글을 작성할 때의 텍스트 필드 변수
+  TextEditingController inputContents = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,8 +58,10 @@ class _AddPostPageState extends State<AddPostPage> {
         title: Text('게시글 작성', style: TextStyle(color: Colors.grey)),
         actions: [
           IconButton(
-            onPressed: (){
+            onPressed: () async {
+              await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시글쓰기.php?user=' + widget.userEmail + '&postimage=assets/sky.jpg&contents=' + inputContents.text));
 
+              inputContents.clear();
             },
             icon: Icon(Icons.upload, color: Colors.grey)
           )
@@ -72,6 +78,7 @@ class _AddPostPageState extends State<AddPostPage> {
                   padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                   child: TextField(
                     maxLines: 10,
+                    controller: inputContents,
                     decoration: InputDecoration(
                       hintText: '내용을 입력해주세요.'
                     ),

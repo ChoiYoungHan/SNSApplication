@@ -1,3 +1,4 @@
+import 'package:application_20221022/News_List.dart';
 import 'package:application_20221022/appversion.dart';
 import 'package:application_20221022/black_List.dart';
 import 'package:application_20221022/chat_List.dart';
@@ -33,7 +34,8 @@ class my_List extends StatelessWidget {
         '/postList' : (context) => post_List(), // post_List 페이지로 값을 넘겨주기 위함
         '/blackList' : (context) => black_List(), // black_List 페이지로 값을 넘겨주기 위함
         '/profileEdit' : (context) => profile_edit(), // profile_edit 페이지로 값을 넘겨주기 위함
-        '/appversion' : (context) => appversion() // appversion 페이지로 값을 넘겨주기 위함
+        '/appversion' : (context) => appversion(), // appversion 페이지로 값을 넘겨주기 위함
+        '/newsList' : (context) => news_List() // news_List 페이지로 값을 넘겨주기 위함
       },
       debugShowCheckedModeBanner: false,
       home: MyListPage(userEmail: usEmail.userEmail, userName: usEmail.userName, userStateMsg: usEmail.userStateMsg)
@@ -212,7 +214,7 @@ class _MyListPageState extends State<MyListPage> {
                   ),
                   child: TextButton( // 텍스트 버튼 위젯
                     onPressed: () {
-
+                      Navigator.pushNamed(context, '/newsList', arguments: NewsList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
                     },
                     child: Padding( // 여백을 주기 위해 사용하는 위젯
                       padding: EdgeInsets.fromLTRB(10, 0, 0, 0), // 왼 10 위 0 아래 0 우 0의 여백을 줌

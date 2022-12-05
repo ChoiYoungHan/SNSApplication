@@ -209,23 +209,7 @@ class _PostListPageState extends State<PostListPage> {
                                         width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                                         padding: EdgeInsets.fromLTRB(3, 6, 0, 0), // 왼 3 위 6 우 0 아래 0 의 여백을 줌
                                         child: Text(postData[index].postName, style: TextStyle(fontWeight: FontWeight.bold)) // 볼드체
-                                      ), flex: 3),
-                                      Expanded(child: Container( // 상자 위젯
-                                        width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                        padding: EdgeInsets.fromLTRB(0, 6, 3, 10), // 왼 0 위 6 우 3 아래 0의 여백을 줌
-                                        child: Row( // 가로 정렬
-                                          mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
-                                          mainAxisAlignment: MainAxisAlignment.end, // 우측에 정렬
-                                          children: [
-                                            IconButton(
-                                              onPressed: (){
-
-                                              },
-                                              icon: Icon(Icons.more_horiz, color: Colors.grey) // more_horiz 아이콘, 색상은 회색
-                                            )
-                                          ]
-                                        )
-                                      ), flex: 7)
+                                      ))
                                     ]
                                   )
                                 ), flex: 1),

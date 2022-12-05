@@ -153,6 +153,7 @@ class _ListViewPageState extends State<ListViewPage> {
                 icon: Icon(Icons.search, color: Colors.grey)), // 검색 아이콘 버튼
             IconButton(
                 onPressed: (){
+                  inputFriendEmail.clear();
                   showDialog(context: context, builder: (context){
                     return Dialog(
                         child: Container(
@@ -292,7 +293,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                     child: TextButton(
                                       onPressed: (){
                                         Navigator.pop(context);
-                                        showDialog(context: context, builder: (context){
+                                        showDialog(useRootNavigator:false, context: context, builder: (context){
                                           return Dialog(
                                             child: Container(
                                               width: 150, height: 150,
@@ -318,7 +319,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                                       child: ElevatedButton(
                                                         onPressed: () async {
                                                           if(inputFriendName.text == ''){
-                                                            showDialog(context: context, builder: (context){
+                                                            showDialog(useRootNavigator: false, context: context, builder: (context){
                                                               return Dialog(
                                                                 child: Container(
                                                                   width: 150, height: 150,
@@ -352,7 +353,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                                           } else {
                                                             Navigator.pop(context);
                                                             await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구이름변경.php?user1=' + widget.userEmailInfo + '&user2=' + userData[index].userEmail + '&Nickname=' + inputFriendName.text));
-                                                            showDialog(barrierDismissible: false, context: context, builder: (context){
+                                                            showDialog(useRootNavigator:false, barrierDismissible: false, context: context, builder: (context){
                                                               return Dialog(
                                                                 child: Container(
                                                                   width: 150, height: 150,
@@ -407,7 +408,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                         onPressed: () async {
                                           final Friend_Delete = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구차단.php?user1=' + widget.userEmailInfo + '&user2=' + userData[index].userEmail));
                                           print('http://www.teamtoktok.kro.kr/친구차단.php?user1=' + widget.userEmailInfo + '&user2=' + userData[index].userEmail);
-                                          showDialog(context: context, builder: (context){
+                                          showDialog(useRootNavigator: false, context: context, builder: (context){
                                             return Dialog(
                                               child: Container(
                                                 width: 150, height: 150,

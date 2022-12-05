@@ -46,8 +46,6 @@ class blackListPage extends StatefulWidget {
 
 class _blackListPageState extends State<blackListPage> {
 
-  late Timer timer;
-
   // 데이터리스트
   static List<String> Black_userUID = [];
   static List<String> Black_userEmail = [];
@@ -64,13 +62,7 @@ class _blackListPageState extends State<blackListPage> {
   var Black_Split_Info = <String>[];
 
   void initState(){
-    timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      getBlackInfo();
-    });
-  }
-
-  void dispose(){
-    timer.cancel();
+    getBlackInfo();
   }
 
   void getBlackInfo() async {
@@ -160,7 +152,7 @@ class _blackListPageState extends State<blackListPage> {
                         child: ElevatedButton( // 버튼 위젯
                           style: ElevatedButton.styleFrom(backgroundColor: Colors.green), // 버튼 배경색 초록
                           onPressed: (){
-                            showDialog(context: context, builder: (context){
+                            showDialog(useRootNavigator:false, context: context, builder: (context){
                               return Dialog( // Dialog 위젯
                                 child: Container( // 상자 위젯
                                   width: 150, height: 150, // 가로와 세로 150
@@ -197,7 +189,7 @@ class _blackListPageState extends State<blackListPage> {
 
                                                   print('http://www.teamtoktok.kro.kr/차단목록.php?user1=' + widget.userEmail + '&user2=' + blackData[index].BlackuserEmail);
 
-                                                  showDialog(context: context, builder: (context){
+                                                  showDialog(useRootNavigator: false, context: context, builder: (context){
                                                     return Dialog( // Dialog 위젯
                                                       child: Container( // 상자 위젯
                                                         width: 150, height: 130, // 가로 150, 세로 130
@@ -213,7 +205,7 @@ class _blackListPageState extends State<blackListPage> {
                                                               padding: EdgeInsets.all(10), // 모든 면의 여백을 10만큼 줌
                                                               child: ElevatedButton( // 버튼 위젯
                                                                 onPressed: (){
-                                                                  Navigator.pop(context);
+                                                                  Navigator.pushNamed(context, '/blackList', arguments: BlackList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMSg));
                                                                 },
                                                                 child: Text('확인')
                                                               )

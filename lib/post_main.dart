@@ -190,18 +190,91 @@ class _PostMainPageState extends State<PostMainPage> {
                                         children: [
                                           Padding(padding: EdgeInsets.fromLTRB(0, 3, 0, 2), // 위3, 아래 2의 여백
                                             child: Text(widget.readPostName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))), // 볼드체
-                                          Expanded(child: Padding(
-                                            padding: EdgeInsets.fromLTRB(0, 0, 5, 0), // 우 5의 여백을 줌
-                                            child: Align( // 정렬하고 싶을 때 사용하는 위젯
-                                              alignment: Alignment.centerRight, // 가운데 우측 정렬
-                                              child: IconButton( // 아이콘 버튼 위젯
-                                                onPressed: (){
-
-                                                  },
-                                                icon: Icon(Icons.more_horiz, color: Colors.grey) // more_horiz 버튼, 색상은 회색
-                                              ),
-                                            ),
-                                          ))
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsets.fromLTRB(0, 0, 5, 0), // 우 5의 여백을 줌
+                                                child: Align( // 정렬하고 싶을 때 사용하는 위젯
+                                                  alignment: Alignment.centerRight, // 가운데 우측 정렬
+                                                  child:
+                                                  widget.userEmail == widget.readPostID ?
+                                                  IconButton(
+                                                    onPressed: (){
+                                                      showDialog(useRootNavigator: false, context: context, builder: (context){
+                                                        return Dialog( // Dialog 위젯
+                                                          child: Container( // 상자 위젯
+                                                            width: 150, height: 150, // 가로와 세로 150
+                                                            child: Column( // 세로 정렬
+                                                              mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                                              children: [
+                                                                Expanded(child: Container( // 상자 위젯
+                                                                  width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                                  alignment: Alignment.center, // 가운데 정렬
+                                                                  child: Text('정말 게시글을 삭제하시겠습니까?', style: TextStyle(fontWeight: FontWeight.bold)) // 볼드체
+                                                                ), flex: 7),
+                                                                Expanded(child: Container( // 상자 위젯
+                                                                  child: Row( // 가로 정렬
+                                                                    mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                                                    children: [
+                                                                      Expanded(child: Container( // 상자 위젯
+                                                                        padding: EdgeInsets.all(5), // 모든 면의 여백을 5만큼 줌
+                                                                        width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                                        child: ElevatedButton( // 버튼 위젯
+                                                                          onPressed: (){
+                                                                            Navigator.pop(context); // 팝업창 닫음
+                                                                          },
+                                                                          child: Text('취소')
+                                                                        ),
+                                                                      ), flex: 1),
+                                                                      Expanded(child: Container( // 상자 위젯
+                                                                        padding: EdgeInsets.all(5), // 모든 면의 여백을 5만큼 줌
+                                                                        width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                                        child: ElevatedButton( // 버튼 위젯
+                                                                          onPressed: () async {
+                                                                            Navigator.pop(context);
+                                                                            showDialog(barrierDismissible: false, useRootNavigator: false, context: context, builder: (context){
+                                                                              return Dialog( // Dialog 위젯
+                                                                                child: Container( // 상자 위젯
+                                                                                  width: 150, height: 130, // 가로 150, 세로 130
+                                                                                  child: Column( // 세로 정렬
+                                                                                    mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                                                                      children: [
+                                                                                        Expanded(child: Container( // 상자 위젯
+                                                                                          alignment: Alignment.center, // 가운데 정렬
+                                                                                          width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                                                          child: Text('게시글 삭제가 완료되었습니다.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체, 크기 16
+                                                                                        ), flex: 2),
+                                                                                        Expanded(child: Container( // 상자 위젯
+                                                                                          padding: EdgeInsets.all(10), // 모든 면의 여백을 10만큼 줌
+                                                                                          child: ElevatedButton( // 버튼 위젯
+                                                                                            onPressed: () async {
+                                                                                              Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                                                                              await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시글삭제.php?id=' + widget.userEmail + '&postuid=' + widget.readPostUID));
+                                                                                            },
+                                                                                            child: Text('확인')
+                                                                                          )
+                                                                                        ), flex: 1)
+                                                                                      ]
+                                                                                  )
+                                                                                )
+                                                                              );
+                                                                            });
+                                                                            },
+                                                                            child: Text('확인')
+                                                                        ),
+                                                                      ), flex: 1)
+                                                                    ]
+                                                                  )
+                                                                ), flex: 3)
+                                                              ]
+                                                            )
+                                                          )
+                                                        );
+                                                      });
+                                                    },
+                                                    icon: Icon(Icons.delete, color: Colors.grey)
+                                                  ) : null
+                                                )
+                                              ))
                                         ]
                                       )
                                     ), flex: 2),

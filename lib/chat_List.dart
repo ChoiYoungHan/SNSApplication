@@ -166,7 +166,9 @@ class _chatListPageState extends State<chatListPage> {
         itemCount: chatName.length,
         itemBuilder: (context, index){
           return GestureDetector( // Container와 같이 Gesture를 감지할 수 없는 위젯들에게 Gesture 기능을 부여할 수 있는 위젯
-            onTap: (){ // 한 번 클릭 시, 클릭한 사람의 값도 같이 넘겨야 함
+            onTap: () async { // 한 번 클릭 시, 클릭한 사람의 값도 같이 넘겨야 함
+              await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방만들기.php?user1=' + widget.userEmail + '&user2=' + chatData[index].chatEmail));
+
               Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg, OtheruserEmail: chatData[index].chatEmail, OtheruserName: chatData[index].chatName));
             },
             onLongPress: (){ // 길게 누를 시

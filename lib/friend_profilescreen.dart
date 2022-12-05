@@ -2,6 +2,7 @@ import 'package:application_20221022/chat_page.dart';
 import 'package:application_20221022/main.dart';
 import 'package:application_20221022/userProfile.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class friend_profileScreen extends StatelessWidget {
   const friend_profileScreen({Key? key, required this.profile}) : super(key: key);
@@ -132,7 +133,9 @@ class friend_profileScreen extends StatelessWidget {
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: ElevatedButton(
                                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
-                                      onPressed: (){
+                                      onPressed: () async {
+                                        await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방만들기.php?user1=' + profile.LoginuserEmail + '&user2=' + profile.userEmail));
+
                                         Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: profile.LoginuserEmail,  userName: profile.LoginuserName, userStateMsg: profile.LoginuserStateMsg, OtheruserEmail: profile.userEmail, OtheruserName: profile.userNickname));
                                       },
                                       child: Row(

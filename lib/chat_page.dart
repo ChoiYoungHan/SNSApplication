@@ -73,7 +73,7 @@ class _chatPageState extends State<chatPage> {
   var Msg_Split_Info = <String>[];
 
   void initState(){
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(Duration(seconds: 2), (timer) {
       getMsgInfo();
     });
   }
@@ -158,8 +158,52 @@ class _chatPageState extends State<chatPage> {
         actions: [
           IconButton(
             onPressed: () async {
-
-              await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방삭제.php?user1=' + widget.userEmail + '&user2=' + widget.OtheruserEmail));
+              showDialog(useRootNavigator: false, barrierDismissible: false, context: context, builder: (context){
+                return Dialog( // Dialog 위젯
+                  child: Container( // 상자 위젯
+                    width: 150, height: 150, // 가로와 세로 150
+                    child: Column( // 세로 정렬
+                      mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                        children: [
+                          Expanded(child: Container( // 상자 위젯
+                            width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                            alignment: Alignment.center, // 가운데 정렬
+                            child: Text('채팅방을 나가시겠습니까?', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체
+                          ), flex: 7),
+                          Expanded(child: Container( // 상자 위젯
+                            child: Row( // 가로 정렬
+                              mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                              children: [
+                                Expanded(child: Container( // 상자 위젯
+                                  padding: EdgeInsets.all(5), // 모든 면의 여백을 5만큼 줌
+                                  width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                  child: ElevatedButton( // 버튼 위젯
+                                    onPressed: (){
+                                      Navigator.pop(context); // 팝업창 닫음
+                                    },
+                                    child: Text('취소')
+                                  ),
+                                ), flex: 1),
+                                Expanded(child: Container( // 상자 위젯
+                                  padding: EdgeInsets.all(5), // 모든 면의 여백을 5만큼 줌
+                                  width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                  child: ElevatedButton( // 버튼 위젯
+                                    onPressed: () async {
+                                      // 채팅방을 나가기 위한 Url 실행
+                                      await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방삭제.php?user1=' + widget.userEmail + '&user2=' + widget.OtheruserEmail));
+                                      Navigator.popAndPushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                    },
+                                    child: Text('확인')
+                                  ),
+                                ), flex: 1)
+                              ]
+                            )
+                          ), flex: 3)
+                        ]
+                    )
+                  )
+                );
+              });
             },
             icon: Icon(Icons.exit_to_app, color: Colors.grey)
           )

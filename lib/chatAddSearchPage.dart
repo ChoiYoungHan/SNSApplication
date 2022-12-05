@@ -71,7 +71,7 @@ class _chatFindUserPageState extends State<chatFindUserPage> {
 
   // 읽어온 정보를 담아둘 배열과 각각의 유저 정보를 나눠서 담을 배열
   var Friend_Read_UserInfo = <String>[];
-  var Friend_Split_UserInfo = <String>[]; // split을 이용하여 나눈 정보를 담을 것임ㅍㅁㄱ
+  var Friend_Split_UserInfo = <String>[]; // split을 이용하여 나눈 정보를 담을 것임
 
   @override
   void initState() {

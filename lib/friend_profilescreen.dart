@@ -111,28 +111,6 @@ class friend_profileScreen extends StatelessWidget {
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: ElevatedButton(
                                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
-                                      onPressed: (){
-
-                                      },
-                                      child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Icon(Icons.drive_file_rename_outline_rounded, size: 30, color: Colors.grey),
-                                            Padding(padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                                child: Text('이름 변경', style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold
-                                                )))
-                                          ]
-                                      )
-                                  ),
-                                )),
-                                Expanded(child: Container(
-                                  padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                  child: ElevatedButton(
-                                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
                                       onPressed: () async {
                                         await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방만들기.php?user1=' + profile.LoginuserEmail + '&user2=' + profile.userEmail));
 

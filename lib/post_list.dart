@@ -2,6 +2,7 @@ import 'package:application_20221022/AddPost.dart';
 import 'package:application_20221022/chat_List.dart';
 import 'package:application_20221022/my_List.dart';
 import 'package:application_20221022/post.dart';
+import 'package:application_20221022/postSearch.dart';
 import 'package:application_20221022/post_list.dart';
 import 'package:application_20221022/post_main.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,8 @@ class post_List extends StatelessWidget {
           '/chatList' : (context) => chat_List(), // chat_List 페이지로 값을 넘겨주기 위한 선언
           '/myList' : (context) => my_List(), // my_List 페이지로 값을 넘겨주기 위한 선언
           '/postMain' : (context) => postMain(), // postMain 페이지로 값을 넘겨주기 위한 선언
-          '/addPost' : (context) => add_Post() // add_Post 페이지로 값을 넘겨주기 위한 선언
+          '/addPost' : (context) => add_Post(), // add_Post 페이지로 값을 넘겨주기 위한 선언
+          '/postSearch' : (context) => postSearch() // postSearch 페이지로 값을 넘겨주기 위한 선언
         },
         debugShowCheckedModeBanner: false,
         home: PostListPage(userEmail: usEmail.userEmail, userName: usEmail.userName, userStateMsg: usEmail.userStateMsg)
@@ -148,7 +150,7 @@ class _PostListPageState extends State<PostListPage> {
         actions: [ // 상단바의 우측에 정렬
           IconButton(
             onPressed: (){
-
+              Navigator.pushNamed(context, '/postSearch', arguments: PostSearch_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
             },
             icon: Icon(Icons.search, color: Colors.grey) // 검색 아이콘, 색상은 회색
           ),

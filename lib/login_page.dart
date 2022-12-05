@@ -237,7 +237,7 @@ class _login_pageState extends State<login_page> {
                                                 Login_Read_phone = Login_current_Message.split('::')[6];
                                                 Login_Read_birthday = Login_current_Message.split('::')[7];
 
-                                                showDialog(context: context, builder: (context){
+                                                showDialog(barrierDismissible: false,context: context, builder: (context){
                                                   return Dialog(
                                                       child: Container(
                                                           width: 150, height: 150,

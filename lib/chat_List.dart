@@ -90,7 +90,7 @@ class _chatListPageState extends State<chatListPage> {
 
     // 채팅목록을 검색하기 위해 Url 실행
     final Chat_response =
-        await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방목록.php?user=' + widget.userEmail));
+        await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방목록.php?user1=' + widget.userEmail));
 
     // 문서... Url의 body에 접근을 할 것임
     dom.Document document = parse.parse(Chat_response.body);
@@ -157,12 +157,6 @@ class _chatListPageState extends State<chatListPage> {
               Navigator.pushNamed(context, '/chatsearch', arguments: ChatSearchPage_UserEmail(getLoginEmail: widget.userEmail, getLoginName: widget.userName, getLoginStateMsg: widget.userStateMsg));
             },
             icon: Icon(Icons.add_circle_outline_outlined, color: Colors.grey) // 채팅방 추가 아이콘, 색상은 회색
-          ),
-          IconButton( // 아이콘 버튼 위젯
-            onPressed: (){
-
-            },
-          icon: Icon(Icons.settings, color: Colors.grey) // 설정 아이콘, 색상은 회색
           )
         ]
       ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:application_20221022/blackListFile.dart';
 import 'package:application_20221022/my_List.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +46,8 @@ class blackListPage extends StatefulWidget {
 
 class _blackListPageState extends State<blackListPage> {
 
+  late Timer timer;
+
   // 데이터리스트
   static List<String> Black_userUID = [];
   static List<String> Black_userEmail = [];
@@ -60,7 +64,13 @@ class _blackListPageState extends State<blackListPage> {
   var Black_Split_Info = <String>[];
 
   void initState(){
-    getBlackInfo();
+    timer = Timer.periodic(Duration(seconds: 3), (timer) {
+      getBlackInfo();
+    });
+  }
+
+  void dispose(){
+    timer.cancel();
   }
 
   void getBlackInfo() async {
@@ -203,7 +213,7 @@ class _blackListPageState extends State<blackListPage> {
                                                               padding: EdgeInsets.all(10), // 모든 면의 여백을 10만큼 줌
                                                               child: ElevatedButton( // 버튼 위젯
                                                                 onPressed: (){
-                                                                  Navigator.pushNamed(context, '/blackList', arguments: BlackList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMSg));
+                                                                  Navigator.pop(context);
                                                                 },
                                                                 child: Text('확인')
                                                               )

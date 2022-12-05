@@ -1,4 +1,5 @@
 import 'package:application_20221022/chat_page.dart';
+import 'package:application_20221022/main.dart';
 import 'package:application_20221022/userProfile.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,8 @@ class friend_profileScreen extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/chatPage' : (context) => chatMain()
+        '/chatPage' : (context) => chatMain(),
+        '/frinedList' : (context) => MyApp()
       },
       home: Scaffold(
           resizeToAvoidBottomInset: false, // 채팅바가 올라올 때 화면 밀림 방지
@@ -197,6 +199,15 @@ class friend_profileScreen extends StatelessWidget {
                           ), flex: 2)
                         ],
                       ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                        child: IconButton(
+                            onPressed: (){
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.arrow_back, color: Colors.grey, size: 30)
+                        )
                     )
                   ],
                 ),

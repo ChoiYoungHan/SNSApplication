@@ -156,18 +156,12 @@ class _chatPageState extends State<chatPage> {
         ),
         title: Text(widget.OtheruserName, style: TextStyle(color: Colors.black)), // 친구 이름이 출력될 텍스트, 색상은 검정
         actions: [
-          IconButton( // 아이콘 버튼 (검색 기능을 넣을 것임)
-            onPressed: (){ // 검색 기능이 들어갈 것임
+          IconButton(
+            onPressed: () async {
 
+              await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방삭제.php?user1=' + widget.userEmail + '&user2=' + widget.OtheruserEmail));
             },
-            icon: Icon(Icons.search, color: Colors.grey) // 검색 아이콘, 색상은 회색
-          ),
-          Builder( // 자식 위젯의 context를 전달해주는 객체
-              builder: (context) => IconButton( // 아이콘 버튼
-                  onPressed: () => Scaffold.of(context).openEndDrawer(), // 버튼을 클릭 시 우측에서 drawer 화면이 나올 것임
-                  icon: Icon(Icons.more_horiz, color: Colors.grey), // 아이콘은 more_horiz, 색상은 회색
-                  tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip // 버튼에 대한 툴팁
-              )
+            icon: Icon(Icons.exit_to_app, color: Colors.grey)
           )
         ]
       ),

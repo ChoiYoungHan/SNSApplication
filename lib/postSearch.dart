@@ -193,7 +193,7 @@ class _PostSearchPageState extends State<PostSearchPage> {
                             postTime.clear();
 
                             // 게시글을 검색하기 위해 Url 실행
-                            final Post_response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시판.php?user1=' + widget.userEmail + 'user2name=' + inputPost.text));
+                            final Post_response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시판.php?user1=' + widget.userEmail + '&user2name=' + inputPost.text));
 
                             // Url의 body에 접근을 할 것임
                             dom.Document document = parse.parse(Post_response.body);

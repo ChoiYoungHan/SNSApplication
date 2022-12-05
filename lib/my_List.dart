@@ -66,12 +66,51 @@ class _MyListPageState extends State<MyListPage> {
   // 읽어온 정보를 담아둘 배열
   var getInfo = <String>[];
 
+  // 데이터리스트
+  static List<String> userImage = [];
+  static List<String> userNickname = [];
+  static List<String> userStateMsg = [];
+
+  // 받아온 정보를 각각의 문자열에 저장한 다음 위의 배열에 넣을 것임
+  String User_Read_Image = '', User_Read_Nickname = '', User_Read_StateMsg = '';
+
+  // 읽어온 정보를 담아둘 배열과 각각의 유저 정보를 나눠서 담을 배열
+  static List<String> User_Info = [];
+
+  // 읽어온 문자열 전체를 저장할 변수
+  String User_Read_All = '';
+
+  static List<String> User_Split_Info = [];
+
   @override
   void initState() {
     userInfo();
   }
 
-  void userInfo(){
+  void userInfo() async {
+    userImage.clear();
+    userNickname.clear();
+    userStateMsg.clear();
+
+    // 유저 정보를 검색하기 위한 Url 실행
+    final User_response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/정보검색.php?id=' + widget.userEmail));
+
+    // Url의 body에 접근을 할 것임
+    dom.Document document = parse.parse(User_response.body);
+
+    setState(() {
+      final User_Msg = document.getElementsByClassName('searchuser');
+
+      User_Info = User_Msg.map((element) => element.getElementsByTagName('tr')[0].innerHtml).toList();
+
+      User_Read_All = User_Info[0].replaceAll(RegExp('(<td>|</td>)'), '');
+
+      User_Split_Info = User_Read_All.split('::');
+
+      User_Read_Image = User_Split_Info[0];
+      User_Read_Nickname = User_Split_Info[1];
+      User_Read_StateMsg = User_Split_Info[2];
+    });
 
   }
 
@@ -119,11 +158,11 @@ class _MyListPageState extends State<MyListPage> {
                           children: [
                             Align( // 정렬할 때 사용하는 위젯
                               alignment: Alignment.centerLeft, // 가운데 왼쪽에 배치
-                              child: Text(widget.userName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)) // 볼드체, 사이즈 20
+                              child: Text(User_Read_Nickname, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)) // 볼드체, 사이즈 20
                             ),
                             Align( // 정렬할 때 사용하는 위젯
                               alignment: Alignment.centerLeft, // 가운데 왼쪽에 배치
-                              child: Text(widget.userStateMsg, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16, 색상은 회색
+                              child: Text(User_Read_StateMsg, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16, 색상은 회색
                             )
                           ]
                         )

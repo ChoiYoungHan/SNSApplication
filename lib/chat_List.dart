@@ -1,5 +1,6 @@
 import 'package:application_20221022/chatAddSearchPage.dart';
 import 'package:application_20221022/chatListInfo.dart';
+import 'package:application_20221022/chatListSearch.dart';
 import 'package:application_20221022/chat_page.dart';
 import 'package:application_20221022/main.dart';
 import 'package:application_20221022/my_List.dart';
@@ -34,7 +35,8 @@ class chat_List extends StatelessWidget {
         '/friendList' : (context) => MyApp(), // MyApp 페이지로 값을 넘겨주기 위한 선언
         '/postList' : (context) => post_List(), // post_List 페이지로 값을 넘겨주기 위한 선언
         '/myList' : (context) => my_List(), // my_List 페이지로 값을 넘겨주기 위한 선언
-        '/chatPage' : (context) => chatMain() // chatMain 페이지로 값을 넘겨주기 위한 선언
+        '/chatPage' : (context) => chatMain(), // chatMain 페이지로 값을 넘겨주기 위한 선언
+        '/chatSearchName' : (context) => ChatListSearch() // ChatListSearch 페이지로 값을 넘겨주기 위한 선언
       },
       debugShowCheckedModeBanner: false,
       home: chatListPage(userEmail: usInfo.userEmail, userName: usInfo.userName, userStateMsg: usInfo.userStateMsg)
@@ -148,7 +150,7 @@ class _chatListPageState extends State<chatListPage> {
         actions: [ // 상단바의 우측에 정렬
           IconButton( // 아이콘 버튼 위젯
             onPressed: (){
-
+              Navigator.pushNamed(context, '/chatSearchName', arguments: ChatSearch_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
             },
             icon: Icon(Icons.search, color: Colors.grey) // 채팅방 검색 아이콘, 색상은 회색
           ),
@@ -216,10 +218,10 @@ class _chatListPageState extends State<chatListPage> {
                     Expanded(child: Container( // 상자 위젯, 대화방 이미지가 들어갈 것임
                       width: 100, height: 100, // 가로와 세로 100
                       child: Padding( // 여백을 주기 위해 사용하는 위젯
-                        padding: EdgeInsets.all(13), // 모든 면의 여백을 13만큼 주겠다.
+                        padding: EdgeInsets.all(7), // 모든 면의 여백을 7만큼 주겠다.
                         child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용하는 위젯
                           borderRadius: BorderRadius.circular(45), // 각진 부분을 45만큼 둥글게
-                          child: Image.asset(chatData[index].chatImage, width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채우겠다
+                          child: Image.asset(chatData[index].chatImage.replaceAll(RegExp('<td>'), '').trim(), width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채우겠다
                         )
                       )
                     ), flex: 2),

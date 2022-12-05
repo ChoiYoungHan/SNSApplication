@@ -1,3 +1,4 @@
+import 'package:application_20221022/chat_List.dart';
 import 'package:application_20221022/chat_page.dart';
 import 'package:application_20221022/friend_profilescreen.dart';
 import 'package:application_20221022/main.dart';
@@ -24,7 +25,8 @@ class chatFindUser extends StatelessWidget {
 
     return MaterialApp(
         routes: {
-          '/chatPage' : (context) => chatMain() // MyApp 페이지로 값을 넘겨주기 위한 선언
+          '/chatPage' : (context) => chatMain(), // MyApp 페이지로 값을 넘겨주기 위한 선언
+          '/chatList' : (context) => chat_List() // chat_List 페이지로 값을 넘겨주기 위한 선언
         },
         debugShowCheckedModeBanner: false,
         home: chatFindUserPage(userEmail: getUserEmail.getLoginEmail, userName: getUserEmail.getLoginName, userStateMsg: getUserEmail.getLoginStateMsg)
@@ -94,7 +96,7 @@ class _chatFindUserPageState extends State<chatFindUserPage> {
           backgroundColor: Colors.white,
           leading: IconButton(
               onPressed: (){ // 친구목록 페이지로 갈것임 & 로그인 한 사용자의 정보를 넘겨줘야 함
-                Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
               },
               icon: Icon(Icons.arrow_back, color: Colors.black) // 뒤로가기 아이콘 & 색깔은 블랙
           ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:application_20221022/chatAddSearchPage.dart';
 import 'package:application_20221022/chatListInfo.dart';
 import 'package:application_20221022/chatListSearch.dart';
@@ -77,8 +79,16 @@ class _chatListPageState extends State<chatListPage> {
   // 채팅방을 추가할 때 검색할 텍스트 필드
   TextEditingController inputFriendName = TextEditingController();
 
+  late Timer timer;
+
   void initState(){
-    getChatInfo();
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      getChatInfo();
+    });
+  }
+
+  void dispose(){
+    timer.cancel();
   }
 
   void getChatInfo() async {
@@ -151,12 +161,14 @@ class _chatListPageState extends State<chatListPage> {
           IconButton( // 아이콘 버튼 위젯
             onPressed: (){
               Navigator.pushNamed(context, '/chatSearchName', arguments: ChatSearch_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+              dispose();
             },
             icon: Icon(Icons.search, color: Colors.grey) // 채팅방 검색 아이콘, 색상은 회색
           ),
           IconButton( // 아이콘 버튼 위젯
             onPressed: (){
               Navigator.pushNamed(context, '/chatsearch', arguments: ChatSearchPage_UserEmail(getLoginEmail: widget.userEmail, getLoginName: widget.userName, getLoginStateMsg: widget.userStateMsg));
+              dispose();
             },
             icon: Icon(Icons.add_circle_outline_outlined, color: Colors.grey) // 채팅방 추가 아이콘, 색상은 회색
           )
@@ -170,6 +182,7 @@ class _chatListPageState extends State<chatListPage> {
               await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방만들기.php?user1=' + widget.userEmail + '&user2=' + chatData[index].chatEmail));
 
               Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg, OtheruserEmail: chatData[index].chatEmail, OtheruserName: chatData[index].chatName));
+              dispose();
             },
             onLongPress: (){ // 길게 누를 시
               showDialog(context: context, builder: (context){
@@ -192,7 +205,7 @@ class _chatListPageState extends State<chatListPage> {
                             onPressed: (){
 
                             },
-                            child: Text('채팅방 이름 설정', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체, 사이즈 16
+                            child: Text('채팅방 이름 설정', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16
                           )
                         ), flex: 1),
                         Expanded(child: Container(
@@ -202,7 +215,7 @@ class _chatListPageState extends State<chatListPage> {
                             onPressed: (){
 
                             },
-                            child: Text('방 나가기', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                            child: Text('방 나가기', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey))
                           ),
                         ), flex: 1)
                       ]
@@ -223,7 +236,7 @@ class _chatListPageState extends State<chatListPage> {
                         padding: EdgeInsets.all(7), // 모든 면의 여백을 7만큼 주겠다.
                         child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용하는 위젯
                           borderRadius: BorderRadius.circular(45), // 각진 부분을 45만큼 둥글게
-                          child: Image.asset(chatData[index].chatImage.replaceAll(RegExp('<td>'), '').trim(), width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채우겠다
+                          child: Image.asset(chatData[index].chatImage.replaceAll(RegExp('(<td>|<br>|amp;)'), '').trim(), width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채우겠다
                         )
                       )
                     ), flex: 2),
@@ -247,7 +260,29 @@ class _chatListPageState extends State<chatListPage> {
                           ), flex: 1),
                           Expanded(child: Container(
                             width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                            child: Text(chatData[index].chatMsg, style: TextStyle(color: Color(0xffC6C8C6)))
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                  child: Text(chatData[index].chatMsg, style: TextStyle(color: Colors.grey)),
+                                ),
+                                Expanded(child: Container(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 7, 5),
+                                  alignment: Alignment.centerRight,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(35),
+                                    child:
+                                    chatData[index].chatCount != '0'?
+                                    Container(
+                                      width: 30, height: 30,
+                                      color: Colors.red,
+                                      alignment: Alignment.center,
+                                      child: Text(chatData[index].chatCount, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                    ) : null
+                                  )
+                                ))
+                              ],
+                            )
                           ), flex: 1)
                         ]
                       )
@@ -268,6 +303,7 @@ class _chatListPageState extends State<chatListPage> {
               IconButton(
                 onPressed: (){
                   Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                  dispose();
                 },
                 icon: Icon(Icons.person_outline)), // 친구목록 아이콘버튼
               IconButton(
@@ -276,11 +312,13 @@ class _chatListPageState extends State<chatListPage> {
               IconButton(
                 onPressed: (){
                   Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 게시글 목록 페이지로 이동 및 인자값 전달
+                  dispose();
                 },
                 icon: Icon(Icons.list_alt)), // 게시글목록 아이콘버튼
               IconButton(
                 onPressed: (){
                   Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 전체 목록 페이지로 이동 및 인자값 전달
+                  dispose();
                 },
                 icon: Icon(Icons.segment)), // 전체목록 아이콘버튼
             ],
@@ -290,6 +328,3 @@ class _chatListPageState extends State<chatListPage> {
     );
   }
 }
-
-
-

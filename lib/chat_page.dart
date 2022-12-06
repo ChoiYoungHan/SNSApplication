@@ -73,7 +73,7 @@ class _chatPageState extends State<chatPage> {
   var Msg_Split_Info = <String>[];
 
   void initState(){
-    timer = Timer.periodic(Duration(seconds: 2), (timer) {
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
       getMsgInfo();
     });
   }
@@ -151,6 +151,7 @@ class _chatPageState extends State<chatPage> {
         leading: IconButton( // 아이콘 버튼 (뒤로가기 기능을 넣을 것임)
           onPressed: (){ // 뒤로가기 기능이 들어갈 것임
             Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+            dispose();
           },
           icon: Icon(Icons.arrow_back, color: Colors.grey) // 뒤로가기 모양의 아이콘, 색상은 회색
         ),
@@ -192,6 +193,7 @@ class _chatPageState extends State<chatPage> {
                                       // 채팅방을 나가기 위한 Url 실행
                                       await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방삭제.php?user1=' + widget.userEmail + '&user2=' + widget.OtheruserEmail));
                                       Navigator.popAndPushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                      dispose();
                                     },
                                     child: Text('확인')
                                   ),

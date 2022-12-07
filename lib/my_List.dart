@@ -213,42 +213,6 @@ class _MyListPageState extends State<MyListPage> {
                     border: Border(bottom: BorderSide( // 박스 위젯의 아래 테두리에 색을 주기 위함
                       width: 1.5,
                       color: Color(0xffC6C8C6)
-                      ))
-                  ),
-                  child: TextButton( // 텍스트 버튼 위젯
-                    onPressed: (){
-
-                    },
-                    child: Padding( // 여백을 주기 위해 사용하는 위젯
-                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0), // 왼 10 위 0 아래 0 우 0의 여백을 줌
-                      child: Text('통화', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16))) // 볼드체, 크기 16, 색상 검정
-                  )
-                ),
-                Container( // 상자 위젯
-                  alignment: Alignment.centerLeft, // 가운데 왼쪽으로 정렬
-                  width: double.infinity, height: 50, // 가로 무제한, 세로 60
-                  decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide( // 박스 위젯의 아래 테두리에 색을 주기 위함
-                      width: 1.5,
-                      color: Color(0xffC6C8C6)
-                    ))
-                  ),
-                  child: TextButton( // 텍스트 버튼 위젯
-                    onPressed: (){
-
-                    },
-                    child: Padding( // 여백을 주기 위해 사용하는 위젯
-                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0), // 왼 10 위 0 아래 0 우 0의 여백을 줌
-                      child: Text('메시지 알림', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16))) // 볼드체, 크기 16, 색상 검정
-                  )
-                ),
-                Container( // 상자 위젯
-                  alignment: Alignment.centerLeft, // 가운데 왼쪽으로 정렬
-                  width: double.infinity, height: 50, // 가로 무제한, 세로 60
-                  decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide( // 박스 위젯의 아래 테두리에 색을 주기 위함
-                      width: 1.5,
-                      color: Color(0xffC6C8C6)
                     ))
                   ),
                   child: TextButton( // 텍스트 버튼 위젯

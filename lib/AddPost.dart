@@ -59,9 +59,74 @@ class _AddPostPageState extends State<AddPostPage> {
         actions: [
           IconButton(
             onPressed: () async {
-              await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시글쓰기.php?user=' + widget.userEmail + '&postimage=assets/sky.jpg&contents=' + inputContents.text));
 
-              inputContents.clear();
+              if(inputContents.text == ''){
+                showDialog(context: context, builder: (context){
+                  return Dialog(
+                    child: Container(
+                      width: 150, height: 150,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(child: Container(
+                            alignment: Alignment.center,
+                            width: double.infinity, height: double.infinity,
+                            child: Text('공백없이 입력해주세요.',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                          ), flex: 2),
+                          Expanded(child: Container(
+                            width: double.infinity, height: double.infinity,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                              child: ElevatedButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
+                                child: Text('확인')
+                              ),
+                            )
+                          ), flex: 1)
+                        ]
+                      )
+                    )
+                  );
+                });
+              } else {
+                await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시글쓰기.php?user=' + widget.userEmail + '&postimage=assets/sky.jpg&contents=' + inputContents.text));
+
+                showDialog(useRootNavigator: false, context: context, builder: (context){
+                  return Dialog(
+                    child: Container(
+                      width: 150, height: 150,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(child: Container(
+                              alignment: Alignment.center,
+                              width: double.infinity, height: double.infinity,
+                              child: Text('게시글 작성이 완료되었습니다.',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                            ), flex: 2),
+                            Expanded(child: Container(
+                              width: double.infinity, height: double.infinity,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                child: ElevatedButton(
+                                  onPressed: (){
+                                    inputContents.clear();
+                                    Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                  },
+                                  child: Text('확인')
+                                ),
+                              )
+                            ), flex: 1)
+                          ]
+                      )
+                    )
+                  );
+                });
+              }
+
             },
             icon: Icon(Icons.upload, color: Colors.grey)
           )

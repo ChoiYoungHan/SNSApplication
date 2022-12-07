@@ -11,6 +11,7 @@ class userProfile{
   final String userImage;
   final String userState;
   final String userNickname;
+  final String userPhone;
 
-  userProfile(this.LoginuserEmail, this.LoginuserName, this.LoginuserStateMsg, this.userUID, this.userEmail, this.userName, this.BackgroundImage, this.userImage, this.userState, this.userNickname);
+  userProfile(this.LoginuserEmail, this.LoginuserName, this.LoginuserStateMsg, this.userUID, this.userEmail, this.userName, this.BackgroundImage, this.userImage, this.userState, this.userNickname, this.userPhone);
 }

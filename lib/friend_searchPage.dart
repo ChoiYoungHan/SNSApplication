@@ -59,9 +59,10 @@ class _FindUserPageState extends State<FindUserPage> {
   static List<String> Friend_userImage = [];
   static List<String> Friend_userStateMsg = [];
   static List<String> Friend_userNickname = [];
+  static List<String> Friend_userPhone = [];
 
   // 받아온 정보를 각각의 문자열에 저장한 다음 위의 배열에 넣을 것임
-  String Friend_Read_UID = '', Friend_Read_Email = '', Friend_Read_Name = '', Friend_Read_Image = '', Friend_Read_StateMsg = '', Friend_Read_Nickname = '';
+  String Friend_Read_UID = '', Friend_Read_Email = '', Friend_Read_Name = '', Friend_Read_Image = '', Friend_Read_StateMsg = '', Friend_Read_Nickname = '', Friend_Read_Phone = '';
 
   // 받아온 문자열 전체를 저장할 변수
   String Friend_Read_All = '';
@@ -83,6 +84,7 @@ class _FindUserPageState extends State<FindUserPage> {
     Friend_userImage.clear();
     Friend_userStateMsg.clear();
     Friend_userNickname.clear();
+    Friend_userPhone.clear();
   }
 
   @override
@@ -165,6 +167,7 @@ class _FindUserPageState extends State<FindUserPage> {
                           Friend_userImage.clear();
                           Friend_userStateMsg.clear();
                           Friend_userNickname.clear();
+                          Friend_userPhone.clear();
 
                           // 친구를 검색하기 위한 Url 실행
                           final Friend_response =
@@ -201,6 +204,7 @@ class _FindUserPageState extends State<FindUserPage> {
                               Friend_Read_StateMsg = Friend_Split_UserInfo[3];
                               Friend_Read_Image = Friend_Split_UserInfo[4];
                               Friend_Read_Nickname = Friend_Split_UserInfo[5];
+                              Friend_Read_Phone = Friend_Split_UserInfo[6];
 
                               // 문자열을 각자의 배열에 삽입
                               LoginuserEmail.add(widget.userEmail.toString());
@@ -213,6 +217,7 @@ class _FindUserPageState extends State<FindUserPage> {
                               Friend_userStateMsg.add(Friend_Read_StateMsg.toString());
                               Friend_userImage.add(Friend_Read_Image.toString());
                               Friend_userNickname.add(Friend_Read_Nickname.toString());
+                              Friend_userPhone.add(Friend_Read_Phone.toString());
                             }
                           });
 
@@ -271,7 +276,7 @@ class _FindUserPageState extends State<FindUserPage> {
 
                         // List.generate는 length의 길이만큼 0부터 index - 1까지 범위의 각 인덱스를 오름차순으로 호출하여 만든 값으로 리스트를 생성
                         final List<userProfile> userData = List.generate(Friend_userEmail.length, (index) =>
-                            userProfile(LoginuserEmail[index], LoginuserName[index], LoginuserStateMsg[index], Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index], Friend_userNickname[index]));
+                            userProfile(LoginuserEmail[index], LoginuserName[index], LoginuserStateMsg[index], Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index], Friend_userNickname[index], Friend_userPhone[index]));
 
                         return GestureDetector( // Container와 같이 Gesture를 감지할 수 없는 위젯들에게 Gesture 기능을 부여할 수 있는 위젯
                           onTap: (){ // 한 번 클릭 시 friend_profilescreen으로 넘어가게 해 줄 것임. 값 전달 필요

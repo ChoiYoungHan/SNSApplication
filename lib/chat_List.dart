@@ -56,6 +56,8 @@ class chatListPage extends StatefulWidget {
 
 class _chatListPageState extends State<chatListPage> {
 
+  TextEditingController inputChatRoomName = TextEditingController();
+
   // 데이터리스트 배열
   static List<String> chatImage = [];
   static List<String> chatName = [];
@@ -75,9 +77,6 @@ class _chatListPageState extends State<chatListPage> {
 
   // 구분자로 나누어 각각의 나눈 값을 삽입할 배열
   static List<String> Chat_Split_Info = [];
-
-  // 채팅방을 추가할 때 검색할 텍스트 필드
-  TextEditingController inputFriendName = TextEditingController();
 
   late Timer timer;
 
@@ -203,7 +202,111 @@ class _chatListPageState extends State<chatListPage> {
                           alignment: Alignment.center, // 중앙에 정렬
                           child: TextButton(
                             onPressed: (){
-
+                              Navigator.pop(context);
+                              showDialog(useRootNavigator:false, context: context, builder: (context){
+                                return Dialog(
+                                  child: Container(
+                                    width: 150, height: 150,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(child: Container(
+                                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                          alignment: Alignment.center,
+                                          width: double.infinity, height: double.infinity,
+                                          child: TextField(
+                                            textAlign: TextAlign.center,
+                                            controller: inputChatRoomName,
+                                            decoration: InputDecoration(
+                                            hintText: '변경할 이름을 입력해주세요.',
+                                            )
+                                          )
+                                        ), flex: 2),
+                                        Expanded(child: Container(
+                                          width: double.infinity, height: double.infinity,
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                            child: ElevatedButton(
+                                              onPressed: () async {
+                                                if(inputChatRoomName.text == ''){
+                                                  showDialog(useRootNavigator: false, context: context, builder: (context){
+                                                    return Dialog(
+                                                      child: Container(
+                                                        width: 150, height: 150,
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(child: Container(
+                                                              alignment: Alignment.center,
+                                                              width: double.infinity, height: double.infinity,
+                                                              child: Text('공백없이 입력해주세요.',
+                                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+                                                              )
+                                                            ), flex: 2),
+                                                            Expanded(child: Container(
+                                                              width: double.infinity, height: double.infinity,
+                                                              child: Padding(
+                                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                child: ElevatedButton(
+                                                                  onPressed: (){
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                  child: Text('확인')
+                                                                ),
+                                                              )
+                                                            ), flex: 1)
+                                                          ]
+                                                        )
+                                                      )
+                                                    );
+                                                  });
+                                                } else {
+                                                  Navigator.pop(context);
+                                                  await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방이름변경.php?user1=' + widget.userEmail + '&user2=' + chatData[index].chatEmail + '&chatroomname=' + inputChatRoomName.text));
+                                                  showDialog(useRootNavigator:false, barrierDismissible: false, context: context, builder: (context){
+                                                    return Dialog(
+                                                      child: Container(
+                                                        width: 150, height: 150,
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(child: Container(
+                                                              alignment: Alignment.center,
+                                                              width: double.infinity, height: double.infinity,
+                                                              child: Text('방이름 변경이 완료되었습니다.',
+                                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+                                                              )
+                                                            ), flex: 2),
+                                                            Expanded(child: Container(
+                                                              width: double.infinity, height: double.infinity,
+                                                              child: Padding(
+                                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                child: ElevatedButton(
+                                                                  onPressed: (){
+                                                                    Navigator.pop(context);
+                                                                    getChatInfo();
+                                                                  },
+                                                                  child: Text('확인')
+                                                                ),
+                                                              )
+                                                            ), flex: 1)
+                                                          ]
+                                                        )
+                                                      )
+                                                    );
+                                                  });
+                                                  inputChatRoomName.clear();
+                                                }
+                                                },
+                                                child: Text('확인')
+                                            ),
+                                          )
+                                        ), flex: 1)
+                                      ]
+                                    )
+                                  )
+                                );
+                              });
                             },
                             child: Text('채팅방 이름 설정', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16
                           )
@@ -213,7 +316,54 @@ class _chatListPageState extends State<chatListPage> {
                           width: double.infinity, height: double.infinity, // 가로와 세로를 무제한
                           child: TextButton(
                             onPressed: (){
-
+                              Navigator.pop(context);
+                              showDialog(useRootNavigator: false, barrierDismissible: false, context: context, builder: (context){
+                                return Dialog( // Dialog 위젯
+                                  child: Container( // 상자 위젯
+                                    width: 150, height: 150, // 가로와 세로 150
+                                    child: Column( // 세로 정렬
+                                      mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                      children: [
+                                        Expanded(child: Container( // 상자 위젯
+                                          width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                          alignment: Alignment.center, // 가운데 정렬
+                                          child: Text('채팅방을 나가시겠습니까?', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체
+                                        ), flex: 7),
+                                        Expanded(child: Container( // 상자 위젯
+                                          child: Row( // 가로 정렬
+                                            mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                            children: [
+                                              Expanded(child: Container( // 상자 위젯
+                                                padding: EdgeInsets.all(5), // 모든 면의 여백을 5만큼 줌
+                                                width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                child: ElevatedButton( // 버튼 위젯
+                                                  onPressed: (){
+                                                    Navigator.pop(context); // 팝업창 닫음
+                                                  },
+                                                  child: Text('취소')
+                                                ),
+                                              ), flex: 1),
+                                              Expanded(child: Container( // 상자 위젯
+                                                padding: EdgeInsets.all(5), // 모든 면의 여백을 5만큼 줌
+                                                width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                child: ElevatedButton( // 버튼 위젯
+                                                  onPressed: () async {
+                                                    // 채팅방을 나가기 위한 Url 실행
+                                                    await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방삭제.php?user1=' + widget.userEmail + '&user2=' + chatData[index].chatEmail));
+                                                    Navigator.popAndPushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                                    dispose();
+                                                  },
+                                                  child: Text('확인')
+                                                ),
+                                              ), flex: 1)
+                                            ]
+                                          )
+                                        ), flex: 3)
+                                      ]
+                                    )
+                                  )
+                                );
+                              });
                             },
                             child: Text('방 나가기', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey))
                           ),

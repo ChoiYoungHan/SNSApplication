@@ -1,8 +1,10 @@
 import 'package:application_20221022/chat_page.dart';
 import 'package:application_20221022/main.dart';
+import 'package:application_20221022/userPostSearch.dart';
 import 'package:application_20221022/userProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class friend_profileScreen extends StatelessWidget {
   const friend_profileScreen({Key? key, required this.profile}) : super(key: key);
@@ -15,7 +17,8 @@ class friend_profileScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/chatPage' : (context) => chatMain(),
-        '/frinedList' : (context) => MyApp()
+        '/frinedList' : (context) => MyApp(),
+        '/postUser' : (context) => UserPostSearch()
       },
       home: Scaffold(
           resizeToAvoidBottomInset: false, // 채팅바가 올라올 때 화면 밀림 방지
@@ -114,7 +117,7 @@ class friend_profileScreen extends StatelessWidget {
                                       onPressed: () async {
                                         await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방만들기.php?user1=' + profile.LoginuserEmail + '&user2=' + profile.userEmail));
 
-                                        Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: profile.LoginuserEmail,  userName: profile.LoginuserName, userStateMsg: profile.LoginuserStateMsg, OtheruserEmail: profile.userEmail, OtheruserName: profile.userNickname));
+                                        Navigator.of(context, rootNavigator: false).pushNamed('/chatPage', arguments: ChatPage_UserEmail(userEmail: profile.LoginuserEmail,  userName: profile.LoginuserName, userStateMsg: profile.LoginuserStateMsg, OtheruserEmail: profile.userEmail, OtheruserName: profile.userNickname));
                                       },
                                       child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
@@ -135,8 +138,9 @@ class friend_profileScreen extends StatelessWidget {
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: ElevatedButton(
                                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
-                                      onPressed: (){
-
+                                      onPressed: () async {
+                                        final url = Uri.parse('tel:' + profile.userPhone);
+                                        launchUrl(url);
                                       },
                                       child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
@@ -144,7 +148,7 @@ class friend_profileScreen extends StatelessWidget {
                                           children: [
                                             Icon(Icons.call, size: 30, color: Colors.grey),
                                             Padding(padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                                child: Text('보이스톡', style: TextStyle(
+                                                child: Text('전화걸기', style: TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold
@@ -157,8 +161,8 @@ class friend_profileScreen extends StatelessWidget {
                                   padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                                   child: ElevatedButton(
                                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
-                                      onPressed: (){
-
+                                      onPressed: () {
+                                        Navigator.of(context, rootNavigator: false).pushNamed('/postUser', arguments: UserPost_UserEmail(userEmail: profile.LoginuserEmail, userName: profile.LoginuserName, userStateMsg: profile.LoginuserStateMsg, postUser: profile.userEmail, postName: profile.userName));
                                       },
                                       child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,

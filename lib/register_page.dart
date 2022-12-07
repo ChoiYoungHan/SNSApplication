@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:application_20221022/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
+import 'package:image_picker/image_picker.dart';
 
 
 import 'main.dart';
@@ -39,9 +43,38 @@ class _registerState extends State<register> {
   var Register_Read_id = '', Register_Read_email = '', Register_Read_password = '', Register_Read_name = '', Register_Read_message = '', Register_Read_image = '', Register_Read_phone = '', Register_Read_birthday = '';
   
   String Register_current_Message = '';
-  
+
+  File? _image;
+  final picker = ImagePicker();
+
+  // 비동기 처리를 통해 카메라와 갤러리에서 이미지를 가져옴
+  Future getImage(ImageSource imageSource) async {
+    final image = await picker.pickImage(source: imageSource);
+
+    setState(() {
+      _image = File(image!.path);
+    });
+  }
+
+  // 이미지를 보여주는 위젯
+  Widget showImage() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+      onPressed: () async {
+        getImage(ImageSource.gallery);
+      },
+      child: Center(
+        child: Image.file(File(_image!.path), fit: BoxFit.cover, width: 150, height: 150)));
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    // 화면 세로 고정
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -63,7 +96,17 @@ class _registerState extends State<register> {
                   Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 40),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(35),
-                    child: Image.asset('assets/Ahnhyunsoo.png', fit: BoxFit.cover, width: 100, height: 100)
+                    child: Container(
+                      width: 100, height: 100,
+                      child:
+                        _image == null ?
+                      IconButton(
+                        onPressed: (){
+                          getImage(ImageSource.gallery);
+                        },
+                        icon: Icon(Icons.photo, color: Colors.grey, size: 50)
+                      ) : showImage()
+                    )
                   )),
                   Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 15),
                       child: TextField(

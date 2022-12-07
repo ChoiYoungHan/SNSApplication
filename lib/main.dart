@@ -69,9 +69,10 @@ class _ListViewPageState extends State<ListViewPage> {
   static List<String> Friend_userImage = [];
   static List<String> Friend_userStateMsg = [];
   static List<String> Friend_userNickname = [];
+  static List<String> Friend_userPhone = [];
 
   String Email = '';
-  String Friend_Read_UID = '', Friend_Read_Email = '', Friend_Read_Name = '', Friend_Read_Image = '', Friend_Read_StateMsg = '', Friend_Read_Nickname = '';
+  String Friend_Read_UID = '', Friend_Read_Email = '', Friend_Read_Name = '', Friend_Read_Image = '', Friend_Read_StateMsg = '', Friend_Read_Nickname = '', Friend_Read_Phone = '';
 
   String Friend_Read_All = '';
   var Friend_Read_Userinfo = <String>[];
@@ -97,6 +98,7 @@ class _ListViewPageState extends State<ListViewPage> {
     Friend_userImage.clear();
     Friend_userStateMsg.clear();
     Friend_userNickname.clear();
+    Friend_userPhone.clear();
 
     final Friend_response = await http.get(Uri.parse(
         'http://www.teamtoktok.kro.kr/친구목록.php?user1=' + widget.userEmailInfo
@@ -120,6 +122,7 @@ class _ListViewPageState extends State<ListViewPage> {
         Friend_Read_StateMsg = Friend_split_info[3];
         Friend_Read_Image = Friend_split_info[4];
         Friend_Read_Nickname = Friend_split_info[5];
+        Friend_Read_Phone = Friend_split_info[6];
 
         LoginuserEmail.add(widget.userEmailInfo.toString());
         LoginuserName.add(widget.userNameInfo.toString());
@@ -131,6 +134,7 @@ class _ListViewPageState extends State<ListViewPage> {
         Friend_userStateMsg.add(Friend_Read_StateMsg.toString());
         Friend_userImage.add(Friend_Read_Image.toString());
         Friend_userNickname.add(Friend_Read_Nickname.toString());
+        Friend_userPhone.add(Friend_Read_Phone.toString());
       }
     });
   }
@@ -139,7 +143,7 @@ class _ListViewPageState extends State<ListViewPage> {
   Widget build(BuildContext context) {
 
     final List<userProfile> userData = List.generate(Friend_userEmail.length, (index) =>
-        userProfile(LoginuserEmail[index], LoginuserName[index], LoginuserStateMsg[index], Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index], Friend_userNickname[index]));
+        userProfile(LoginuserEmail[index], LoginuserName[index], LoginuserStateMsg[index], Friend_userUID[index], Friend_userEmail[index], Friend_userName[index], Friend_userImage[index], Friend_userImage[index], Friend_userStateMsg[index], Friend_userNickname[index], Friend_userPhone[index]));
 
     return Scaffold( // 상 중 하로 나눌때는 Scaffold 위젯을 사용
         appBar: AppBar( // 상단바

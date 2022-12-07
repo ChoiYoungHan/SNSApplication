@@ -4,6 +4,7 @@
         android:label="application_20221022"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
        >
 
         <activity

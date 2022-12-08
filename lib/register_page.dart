@@ -301,12 +301,6 @@ class _registerState extends State<register> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(
-                                                color: Color(0xffC6C8C6),
-                                                width: 1.5
-                                            ))
-                                        ),
                                         alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
                                         child: Text('특수문자는 입력하실 수 없습니다.',
@@ -314,11 +308,14 @@ class _registerState extends State<register> {
                                       ), flex: 2),
                                       Expanded(child: Container(
                                           width: double.infinity, height: double.infinity,
-                                          child: ElevatedButton(
-                                              onPressed: (){
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text('확인')
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                            child: ElevatedButton(
+                                                onPressed: (){
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('확인')
+                                            ),
                                           )
                                       ), flex: 1)
                                     ]
@@ -334,12 +331,6 @@ class _registerState extends State<register> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(
-                                                color: Color(0xffC6C8C6),
-                                                width: 1.5
-                                            ))
-                                        ),
                                         alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
                                         child: Text('이미 존재하는 이메일입니다.',
@@ -347,11 +338,14 @@ class _registerState extends State<register> {
                                       ), flex: 2),
                                       Expanded(child: Container(
                                           width: double.infinity, height: double.infinity,
-                                          child: ElevatedButton(
-                                              onPressed: (){
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text('확인')
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                            child: ElevatedButton(
+                                                onPressed: (){
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('확인')
+                                            ),
                                           )
                                       ), flex: 1)
                                     ]
@@ -367,12 +361,6 @@ class _registerState extends State<register> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(
-                                                color: Color(0xffC6C8C6),
-                                                width: 1.5
-                                            ))
-                                        ),
                                         alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
                                         child: Text('이미 존재하는 전화번호입니다.',
@@ -380,11 +368,14 @@ class _registerState extends State<register> {
                                       ), flex: 2),
                                       Expanded(child: Container(
                                           width: double.infinity, height: double.infinity,
-                                          child: ElevatedButton(
-                                              onPressed: (){
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text('확인')
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                            child: ElevatedButton(
+                                                onPressed: (){
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('확인')
+                                            ),
                                           )
                                       ), flex: 1)
                                     ]
@@ -400,12 +391,6 @@ class _registerState extends State<register> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(
-                                                color: Color(0xffC6C8C6),
-                                                width: 1.5
-                                            ))
-                                        ),
                                         alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
                                         child: Text('공백없이 입력해주세요.',
@@ -413,11 +398,14 @@ class _registerState extends State<register> {
                                       ), flex: 2),
                                       Expanded(child: Container(
                                           width: double.infinity, height: double.infinity,
-                                          child: ElevatedButton(
-                                              onPressed: (){
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text('확인')
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                            child: ElevatedButton(
+                                                onPressed: (){
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('확인')
+                                            ),
                                           )
                                       ), flex: 1)
                                     ]
@@ -436,12 +424,6 @@ class _registerState extends State<register> {
                                   mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
                                   children: [
                                     Expanded(child: Container( // 상자 위젯
-                                      decoration: BoxDecoration(
-                                        border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
-                                          width: 1.5,
-                                          color: Color(0xffC6C8C6)
-                                        ))
-                                      ),
                                       alignment: Alignment.center, // 가운데 정렬
                                       width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                                       child: Text('회원가입에 성공하셨습니다.',
@@ -449,11 +431,14 @@ class _registerState extends State<register> {
                                     ), flex: 2),
                                     Expanded(child: Container( // 상자 위젯
                                       width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                      child: ElevatedButton( // 버튼 위젯
-                                        onPressed: (){
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text('확인')
+                                      child: Padding(
+                                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                        child: ElevatedButton( // 버튼 위젯
+                                          onPressed: (){
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('확인')
+                                        ),
                                       )
                                     ), flex: 1)
                                   ]

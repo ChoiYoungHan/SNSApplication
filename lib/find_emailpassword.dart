@@ -156,48 +156,44 @@ class _find_email_passwordState extends State<find_email_password> {
 
                           findEm_current_message = findEm_read_Message[0].replaceAll(RegExp('(<td>|</td>)'), '');
 
-                          print('hello' + findEm_read_Message[0]);
-
                           findEmPa_Result = findEm_current_message.split('::')[0];
                           findEmPa_Value = findEm_current_message.split('::')[1];
 
-                          if(findEmPa_Result.contains('아이디 찾기에 성공했습니다.')){
+                          if(findEmail_phone.text == '' || findEmail_birthday == ''){
                             showDialog(context: context, builder: (context){
                               return Dialog(
-                                child: Container(
-                                  width: 150, height: 150,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(bottom: BorderSide(
-                                            color: Color(0xffC6C8C6),
-                                            width: 1.5
-                                          ))
-                                        ),
-                                        alignment: Alignment.center,
-                                        width: double.infinity, height: double.infinity,
-                                        child: Text(findEmPa_Value,
-                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
-                                      ), flex: 2),
-                                      Expanded(child: Container(
-                                        width: double.infinity, height: double.infinity,
-                                        child: ElevatedButton(
-                                          onPressed: (){
-                                            Navigator.pop(context);
-                                            findEmail_phone.clear();
-                                            findEmail_birthday.clear();
-                                          },
-                                          child: Text('확인')
-                                        ),
-                                      ), flex: 1)
-                                    ]
+                                  child: Container(
+                                      width: 150, height: 150,
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(child: Container(
+                                                alignment: Alignment.center,
+                                                width: double.infinity, height: double.infinity,
+                                                child: Text('공백없이 입력해주세요.',
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                            ), flex: 2),
+                                            Expanded(child: Container(
+                                              width: double.infinity, height: double.infinity,
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                child: ElevatedButton(
+                                                    onPressed: (){
+                                                      Navigator.pop(context);
+                                                      findEmail_phone.clear();
+                                                      findEmail_birthday.clear();
+                                                    },
+                                                    child: Text('확인')
+                                                ),
+                                              ),
+                                            ), flex: 1)
+                                          ]
+                                      )
                                   )
-                                )
                               );
                             });
                           } else if(findEmPa_Result.contains('일치하는 정보가 없습니다.')){
+
                             showDialog(context: context, builder: (context){
                               return Dialog(
                                 child: Container(
@@ -206,12 +202,6 @@ class _find_email_passwordState extends State<find_email_password> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(bottom: BorderSide(
-                                            color: Color(0xffC6C8C6),
-                                            width: 1.5
-                                          ))
-                                        ),
                                         alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
                                         child: Text('일치하는 회원정보가 없습니다.',
@@ -219,18 +209,59 @@ class _find_email_passwordState extends State<find_email_password> {
                                       ), flex: 2),
                                       Expanded(child: Container(
                                         width: double.infinity, height: double.infinity,
-                                        child: ElevatedButton(
-                                          onPressed: (){
-                                            Navigator.pop(context);
-                                            findEmail_phone.clear();
-                                            findEmail_birthday.clear();
-                                          },
-                                          child: Text('확인')
+                                        child: Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                          child: ElevatedButton(
+                                            onPressed: (){
+                                              Navigator.pop(context);
+                                              findEmail_phone.clear();
+                                              findEmail_birthday.clear();
+                                            },
+                                            child: Text('확인')
+                                          ),
                                         ),
                                       ), flex: 1)
                                     ]
                                   )
                                 )
+                              );
+                            });
+                          } else if(findEmPa_Result.contains('아이디 찾기에 성공했습니다.')){
+                            showDialog(context: context, builder: (context){
+                              return Dialog(
+                                  child: Container(
+                                      width: 150, height: 150,
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(child: Container(
+                                                alignment: Alignment.center,
+                                                width: double.infinity, height: double.infinity,
+                                                child: Text(findEmPa_Value,
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                            ), flex: 2),
+                                            Expanded(child: Container(
+                                              width: double.infinity, height: double.infinity,
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                child: ElevatedButton(
+                                                    onPressed: (){
+                                                      Navigator.pop(context);
+
+                                                      findPassword_email.text = findEmPa_Value;
+                                                      findPassword_phone.text = findEmail_phone.text;
+                                                      findPassword_birthday.text = findEmail_birthday.text;
+
+                                                      findEmail_phone.clear();
+                                                      findEmail_birthday.clear();
+                                                    },
+                                                    child: Text('확인')
+                                                ),
+                                              ),
+                                            ), flex: 1)
+                                          ]
+                                      )
+                                  )
                               );
                             });
                           }
@@ -370,7 +401,40 @@ class _find_email_passwordState extends State<find_email_password> {
                           findEmPa_Result = findPa_current_message.split('::')[0];
                           findEmPa_Value = findPa_current_message.split('::')[1];
 
-                          if(findEmPa_Result.contains('비밀번호 찾기에 성공했습니다.')){
+                          if(findPassword_email == '' || findPassword_phone.text == '' || findPassword_birthday == ''){
+                            showDialog(context: context, builder: (context){
+                              return Dialog(
+                                  child: Container(
+                                      width: 150, height: 150,
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(child: Container(
+                                                alignment: Alignment.center,
+                                                width: double.infinity, height: double.infinity,
+                                                child: Text('공백없이 입력해주세요.',
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                            ), flex: 2),
+                                            Expanded(child: Container(
+                                              width: double.infinity, height: double.infinity,
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                child: ElevatedButton(
+                                                    onPressed: (){
+                                                      Navigator.pop(context);
+                                                      findEmail_phone.clear();
+                                                      findEmail_birthday.clear();
+                                                    },
+                                                    child: Text('확인')
+                                                ),
+                                              ),
+                                            ), flex: 1)
+                                          ]
+                                      )
+                                  )
+                              );
+                            });
+                          } else if(findEmPa_Result.contains('비밀번호 찾기에 성공했습니다.')){
                             showDialog(context: context, builder: (context){
                               return Dialog(
                                 child: Container(
@@ -379,12 +443,6 @@ class _find_email_passwordState extends State<find_email_password> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(bottom: BorderSide(
-                                            color: Color(0xffC6C8C6),
-                                            width: 1.5
-                                          ))
-                                        ),
                                         alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
                                         child: Text(findEmPa_Value,
@@ -392,14 +450,17 @@ class _find_email_passwordState extends State<find_email_password> {
                                       ), flex: 2),
                                       Expanded(child: Container(
                                         width: double.infinity, height: double.infinity,
-                                        child: ElevatedButton(
-                                          onPressed: (){
-                                            Navigator.pop(context);
-                                            findPassword_email.clear();
-                                            findPassword_phone.clear();
-                                            findPassword_birthday.clear();
-                                          },
-                                          child: Text('확인')
+                                        child: Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                          child: ElevatedButton(
+                                            onPressed: (){
+                                              Navigator.pop(context);
+                                              findPassword_email.clear();
+                                              findPassword_phone.clear();
+                                              findPassword_birthday.clear();
+                                            },
+                                            child: Text('확인')
+                                          ),
                                         )
                                       ), flex: 1)
                                     ]
@@ -416,12 +477,6 @@ class _find_email_passwordState extends State<find_email_password> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(bottom: BorderSide(
-                                            color: Color(0xffC6C8C6),
-                                            width: 1.5
-                                          ))
-                                        ),
                                         alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
                                         child: Text('일치하는 회원정보가 없습니다.',
@@ -429,14 +484,17 @@ class _find_email_passwordState extends State<find_email_password> {
                                       ), flex: 2),
                                       Expanded(child: Container(
                                         width: double.infinity, height: double.infinity,
-                                        child: ElevatedButton(
-                                          onPressed: (){
-                                          Navigator.pop(context);
-                                          findPassword_email.clear();
-                                          findPassword_phone.clear();
-                                          findPassword_birthday.clear();
-                                          },
-                                          child: Text('확인')
+                                        child: Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                          child: ElevatedButton(
+                                            onPressed: (){
+                                            Navigator.pop(context);
+                                            findPassword_email.clear();
+                                            findPassword_phone.clear();
+                                            findPassword_birthday.clear();
+                                            },
+                                            child: Text('확인')
+                                          ),
                                         )
                                       ), flex: 1)
                                     ]

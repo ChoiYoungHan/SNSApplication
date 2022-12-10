@@ -202,12 +202,6 @@ class _login_pageState extends State<login_page> {
                                                               mainAxisSize: MainAxisSize.max,
                                                               children: [
                                                                 Expanded(child: Container(
-                                                                    decoration: BoxDecoration(
-                                                                        border: Border(bottom: BorderSide(
-                                                                            color: Color(0xffC6C8C6),
-                                                                            width: 1.5
-                                                                        ))
-                                                                    ),
                                                                     alignment: Alignment.center,
                                                                     width: double.infinity, height: double.infinity,
                                                                     child: Text('공백없이 입력해주세요.',
@@ -215,11 +209,14 @@ class _login_pageState extends State<login_page> {
                                                                 ), flex: 2),
                                                                 Expanded(child: Container(
                                                                     width: double.infinity, height: double.infinity,
-                                                                    child: ElevatedButton(
-                                                                        onPressed: (){
-                                                                          Navigator.pop(context);
-                                                                        },
-                                                                        child: Text('확인')
+                                                                    child: Padding(
+                                                                      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                      child: ElevatedButton(
+                                                                          onPressed: (){
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          child: Text('확인')
+                                                                      ),
                                                                     )
                                                                 ), flex: 1)
                                                               ]
@@ -245,12 +242,6 @@ class _login_pageState extends State<login_page> {
                                                               mainAxisSize: MainAxisSize.max,
                                                               children: [
                                                                 Expanded(child: Container(
-                                                                    decoration: BoxDecoration(
-                                                                        border: Border(bottom: BorderSide(
-                                                                            color: Color(0xffC6C8C6),
-                                                                            width: 1.5
-                                                                        ))
-                                                                    ),
                                                                     alignment: Alignment.center,
                                                                     width: double.infinity, height: double.infinity,
                                                                     child: Text('로그인에 성공하였습니다.',
@@ -259,14 +250,17 @@ class _login_pageState extends State<login_page> {
                                                                 ), flex: 2),
                                                                 Expanded(child: Container(
                                                                     width: double.infinity, height: double.infinity,
-                                                                    child: ElevatedButton(
-                                                                        onPressed: (){
-                                                                          Navigator.pop(context);
-                                                                          inputEmail.clear();
-                                                                          inputPassword.clear();
-                                                                          Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: Login_Read_email, userName: Login_Read_name, userStateMsg: Login_Read_message));
-                                                                        },
-                                                                        child: Text('확인')
+                                                                    child: Padding(
+                                                                      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                      child: ElevatedButton(
+                                                                          onPressed: (){
+                                                                            Navigator.pop(context);
+                                                                            inputEmail.clear();
+                                                                            inputPassword.clear();
+                                                                            Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: Login_Read_email, userName: Login_Read_name, userStateMsg: Login_Read_message));
+                                                                          },
+                                                                          child: Text('확인')
+                                                                      ),
                                                                     )
                                                                 ), flex: 1)
                                                               ]

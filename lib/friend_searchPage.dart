@@ -47,6 +47,9 @@ class _FindUserPageState extends State<FindUserPage> {
   // 친구 이름을 검색할 텍스트 필드
   TextEditingController inputFriendName = TextEditingController();
 
+  // 친구 이름 변경시의 텍스트 필드
+  TextEditingController inputName = TextEditingController();
+
   // 유저정보를 담아줄 배열
   static List<String> LoginuserEmail = [];
   static List<String> LoginuserName = [];
@@ -329,12 +332,6 @@ class _FindUserPageState extends State<FindUserPage> {
                                                         mainAxisSize: MainAxisSize.max, // 남은 공간을 모두 사용
                                                         children: [
                                                           Expanded(child: Container( // 박스 위젯
-                                                            decoration: BoxDecoration( // Container 위젯을 꾸미기 위해 사용
-                                                              border: Border(bottom: BorderSide(
-                                                                color: Color(0xffC6C8C6), // 박스의 아래 테두리에 색을 줌
-                                                                width: 1.5
-                                                              ))
-                                                            ),
                                                             alignment: Alignment.center, // 글자를 가운데로 오도록 함
                                                             width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                                                             child: Text(userData[index].userNickname + '님을 차단하였습니다.',
@@ -342,12 +339,15 @@ class _FindUserPageState extends State<FindUserPage> {
                                                           ), flex: 2),
                                                           Expanded(child: Container(
                                                             width: double.infinity, height: double.infinity, // 가로, 세로 무제한
-                                                            child: ElevatedButton( // 버튼 위젯
-                                                              onPressed: (){ // 버튼을 누르면 친구목록으로 넘어갈 것임
-                                                                Navigator.pop(context);
-                                                                Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
-                                                              },
-                                                              child: Text('확인'),
+                                                            child: Padding(
+                                                              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                              child: ElevatedButton( // 버튼 위젯
+                                                                onPressed: (){ // 버튼을 누르면 친구목록으로 넘어갈 것임
+                                                                  Navigator.pop(context);
+                                                                  Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                                                },
+                                                                child: Text('확인'),
+                                                              ),
                                                             )
                                                           ), flex: 1)
                                                         ]

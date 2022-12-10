@@ -233,12 +233,6 @@ class _chatFindUserPageState extends State<chatFindUserPage> {
                                                         mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
                                                         children: [
                                                           Expanded(child: Container( // 박스 위젯
-                                                              decoration: BoxDecoration(
-                                                                  border: Border(bottom: BorderSide( // 박스의 아래 테두리에 색을 줄 것임
-                                                                      color: Color(0xffC6C8C6),
-                                                                      width: 1.5
-                                                                  ))
-                                                              ),
                                                               alignment: Alignment.center, // 글자를 가운데로 오도록 함
                                                               width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                                                               child: Text('일치하는 이름이 없습니다.',
@@ -247,11 +241,14 @@ class _chatFindUserPageState extends State<chatFindUserPage> {
                                                           ), flex: 2),
                                                           Expanded(child: Container( // 박스 위젯
                                                               width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                                              child: ElevatedButton( // 버튼위젯
-                                                                  onPressed: (){ // 클릭 시 Dialog위젯을 종료함
-                                                                    Navigator.pop(context);
-                                                                  },
-                                                                  child: Text('확인')
+                                                              child: Padding(
+                                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                child: ElevatedButton( // 버튼위젯
+                                                                    onPressed: (){ // 클릭 시 Dialog위젯을 종료함
+                                                                      Navigator.pop(context);
+                                                                    },
+                                                                    child: Text('확인')
+                                                                ),
                                                               )
                                                           ), flex: 1)
                                                         ]
@@ -280,91 +277,6 @@ class _chatFindUserPageState extends State<chatFindUserPage> {
                                   return GestureDetector( // Container와 같이 Gesture를 감지할 수 없는 위젯들에게 Gesture 기능을 부여할 수 있는 위젯
                                       onTap: (){ // 한 번 클릭 시 friend_profilescreen으로 넘어가게 해 줄 것임. 값 전달 필요
                                         Navigator.pushNamed(context, '/chatPage', arguments: ChatPage_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg, OtheruserEmail: userData[index].userEmail, OtheruserName: userData[index].userName));
-                                      },
-                                      onLongPress: (){ // 길게 누를 시, 친구목록 화면과 같이 구현
-                                        showDialog( // 팝업 화면을 띄우기 위함
-                                            context: context,
-                                            barrierDismissible: true, // 바깥 영역 터치 시 닫을지 여부
-                                            builder: (context){
-                                              return Dialog( // Dialog 위젯을 사용
-                                                child: Container(
-                                                    width: 150, height: 150,
-                                                    child: Column( // 세로 정렬
-                                                        mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
-                                                        children: [
-                                                          Expanded(child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  border: Border(bottom: BorderSide( // 박스의 아래 테두리에 색을 줄 것임
-                                                                      color: Color(0xffC6C8C6),
-                                                                      width: 1.5
-                                                                  ))
-                                                              ),
-                                                              alignment: Alignment.center, // 글자가 가운데로 오도록
-                                                              width: double.infinity, height: double.infinity, // 가로, 세로 무제한
-                                                              child: TextButton( // 텍스트 버튼 위젯
-                                                                  onPressed: (){ // 버튼을 클릭 시 친구의 이름을 변경하는 팝업화면을 띄울 것임
-
-                                                                  },
-                                                                  child: Text('이름변경', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16, 색상은 회색
-                                                              )
-                                                          ), flex: 1),
-                                                          Expanded(child: Container(
-                                                            alignment: Alignment.center, // 글자가 가운데로 오도록 함
-                                                            width: double.infinity, height: double.infinity, // 가로와 세로를 무제한으로
-                                                            child: TextButton( // 텍스트 버튼 위젯
-                                                                onPressed: () async { // 버튼을 클릭 시 친구를 친구 목록에서 삭제함 ( 친구의 목록에서도 삭제됨 )
-                                                                  // 친구를 삭제하기 위한 Url 실행
-                                                                  final Friend_Delete =
-                                                                  await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구차단.php?user1=' + widget.userEmail + '&user2=' + userData[index].userEmail));
-
-                                                                  // 친구 차단을 완료하면 차단 하였다는 팝업 출력
-                                                                  showDialog(
-                                                                      context: context,
-                                                                      builder: (context){
-                                                                        return Dialog( // Dialog 위젯
-                                                                            child: Container( // 박스 위젯
-                                                                                width: 150, height: 150, // 가로와 세로 150
-                                                                                child: Column( // 세로 정렬
-                                                                                    mainAxisSize: MainAxisSize.max, // 남은 공간을 모두 사용
-                                                                                    children: [
-                                                                                      Expanded(child: Container( // 박스 위젯
-                                                                                          decoration: BoxDecoration( // Container 위젯을 꾸미기 위해 사용
-                                                                                              border: Border(bottom: BorderSide(
-                                                                                                  color: Color(0xffC6C8C6), // 박스의 아래 테두리에 색을 줌
-                                                                                                  width: 1.5
-                                                                                              ))
-                                                                                          ),
-                                                                                          alignment: Alignment.center, // 글자를 가운데로 오도록 함
-                                                                                          width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                                                                          child: Text(userData[index].userNickname + '님을 차단하였습니다.',
-                                                                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체, 크기 16
-                                                                                      ), flex: 2),
-                                                                                      Expanded(child: Container(
-                                                                                          width: double.infinity, height: double.infinity, // 가로, 세로 무제한
-                                                                                          child: ElevatedButton( // 버튼 위젯
-                                                                                            onPressed: (){ // 버튼을 누르면 친구목록으로 넘어갈 것임
-                                                                                              Navigator.pop(context);
-                                                                                              Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
-                                                                                            },
-                                                                                            child: Text('확인'),
-                                                                                          )
-                                                                                      ), flex: 1)
-                                                                                    ]
-                                                                                )
-                                                                            )
-                                                                        );
-                                                                      }
-                                                                  );
-                                                                },
-                                                                child: Text('차단', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16, 색상은 회색
-                                                            ),
-                                                          ), flex: 1)
-                                                        ]
-                                                    )
-                                                ),
-                                              );
-                                            }
-                                        );
                                       },
                                       child: Container(
                                         width: double.infinity, height: 110, // 가로 무제한, 세로 110

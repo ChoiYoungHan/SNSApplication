@@ -8,7 +8,6 @@ import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
 import 'package:image_picker/image_picker.dart';
 
-
 import 'main.dart';
 
 class register_page extends StatelessWidget {
@@ -47,12 +46,31 @@ class _registerState extends State<register> {
   File? _image;
   final picker = ImagePicker();
 
-  // 비동기 처리를 통해 카메라와 갤러리에서 이미지를 가져옴
+  late XFile pickedImage;
+
+  Future<void> uploadQuery(XFile pickedImage) async {
+    var uri = Uri.parse('http://www.teamtoktok.kro.kr/이미지.php');
+
+    var request = http.MultipartRequest("POST", uri);
+    var pic = await http.MultipartFile.fromPath('image', pickedImage.path);
+
+    request.files.add(pic);
+
+    var response = await request.send();
+
+    if(response.statusCode == 200){
+      print('image uploaded');
+    } else {
+      print('upload failed');
+    }
+  }
+
+  // 비동기 처리를 통해 갤러리에서 이미지를 가져옴
   Future getImage(ImageSource imageSource) async {
-    final image = await picker.pickImage(source: imageSource);
+    pickedImage = (await picker.pickImage(source: ImageSource.gallery))!;
 
     setState(() {
-      _image = File(image!.path);
+      _image = File(pickedImage!.path);
     });
   }
 
@@ -65,7 +83,6 @@ class _registerState extends State<register> {
       },
       child: Center(
         child: Image.file(File(_image!.path), fit: BoxFit.cover, width: 150, height: 150)));
-
   }
 
   @override
@@ -101,8 +118,10 @@ class _registerState extends State<register> {
                       child:
                         _image == null ?
                       IconButton(
-                        onPressed: (){
-                          getImage(ImageSource.gallery);
+                        onPressed: () async {
+                          pickedImage = (await picker.pickImage(source: ImageSource.gallery))!;
+
+                          // getImage(ImageSource.gallery);
                         },
                         icon: Icon(Icons.photo, color: Colors.grey, size: 50)
                       ) : showImage()

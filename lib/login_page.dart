@@ -257,7 +257,7 @@ class _login_pageState extends State<login_page> {
                                                                             Navigator.pop(context);
                                                                             inputEmail.clear();
                                                                             inputPassword.clear();
-                                                                            Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: Login_Read_email, userName: Login_Read_name, userStateMsg: Login_Read_message));
+                                                                            Navigator.pushNamedAndRemoveUntil(context, '/friendList', arguments: FriendList_UserEmail(userEmail: Login_Read_email, userName: Login_Read_name, userStateMsg: Login_Read_message), (route) => false);
                                                                           },
                                                                           child: Text('확인')
                                                                       ),

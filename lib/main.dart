@@ -512,17 +512,17 @@ class _ListViewPageState extends State<ListViewPage> {
                     icon: Icon(Icons.person_outline, color: Colors.blue)), // 친구목록 아이콘버튼
                 IconButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo)); // 채팅 목록 페이지로 이동 및 인자값 전달
+                      Navigator.pushNamedAndRemoveUntil(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo), (route) => false); // 채팅 목록 페이지로 이동 및 인자값 전달
                     },
                     icon: Icon(Icons.chat_bubble_outline)), // 채팅목록 아이콘버튼
                 IconButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo)); // 게시글 목록 페이지로 이동 및 인자값 전달
+                      Navigator.pushNamedAndRemoveUntil(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo), (context) => false); // 게시글 목록 페이지로 이동 및 인자값 전달
                     },
                     icon: Icon(Icons.list_alt)), // 게시글목록 아이콘버튼
                 IconButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo)); // 전체 목록 페이지로 이동 및 인자값 전달
+                      Navigator.pushNamedAndRemoveUntil(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo), (context) => false); // 전체 목록 페이지로 이동 및 인자값 전달
                     },
                     icon: Icon(Icons.segment)), // 전체목록 아이콘버튼
               ],

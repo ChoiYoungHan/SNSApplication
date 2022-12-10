@@ -117,7 +117,7 @@ class friend_profileScreen extends StatelessWidget {
                                       onPressed: () async {
                                         await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방만들기.php?user1=' + profile.LoginuserEmail + '&user2=' + profile.userEmail));
 
-                                        Navigator.of(context, rootNavigator: false).pushNamed('/chatPage', arguments: ChatPage_UserEmail(userEmail: profile.LoginuserEmail,  userName: profile.LoginuserName, userStateMsg: profile.LoginuserStateMsg, OtheruserEmail: profile.userEmail, OtheruserName: profile.userNickname));
+                                        Navigator.of(context, rootNavigator: false).popAndPushNamed('/chatPage', arguments: ChatPage_UserEmail(userEmail: profile.LoginuserEmail,  userName: profile.LoginuserName, userStateMsg: profile.LoginuserStateMsg, OtheruserEmail: profile.userEmail, OtheruserName: profile.userNickname));
                                       },
                                       child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,

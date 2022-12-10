@@ -308,7 +308,7 @@ class _chatListPageState extends State<chatListPage> {
                                 );
                               });
                             },
-                            child: Text('채팅방 이름 설정', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16
+                            child: Text('채팅방 이름 설정', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)) // 볼드체, 사이즈 16
                           )
                         ), flex: 1),
                         Expanded(child: Container(
@@ -365,7 +365,7 @@ class _chatListPageState extends State<chatListPage> {
                                 );
                               });
                             },
-                            child: Text('방 나가기', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey))
+                            child: Text('방 나가기', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black))
                           ),
                         ), flex: 1)
                       ]
@@ -452,7 +452,7 @@ class _chatListPageState extends State<chatListPage> {
             children: [
               IconButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                  Navigator.pushNamedAndRemoveUntil(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg), (route) => false);
                   dispose();
                 },
                 icon: Icon(Icons.person_outline)), // 친구목록 아이콘버튼
@@ -461,13 +461,13 @@ class _chatListPageState extends State<chatListPage> {
                 icon: Icon(Icons.chat_bubble_outline, color: Colors.blue)), // 채팅목록 아이콘버튼
               IconButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 게시글 목록 페이지로 이동 및 인자값 전달
+                  Navigator.pushNamedAndRemoveUntil(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg), (route) => false); // 게시글 목록 페이지로 이동 및 인자값 전달
                   dispose();
                 },
                 icon: Icon(Icons.list_alt)), // 게시글목록 아이콘버튼
               IconButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 전체 목록 페이지로 이동 및 인자값 전달
+                  Navigator.pushNamedAndRemoveUntil(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg), (route) => false); // 전체 목록 페이지로 이동 및 인자값 전달
                   dispose();
                 },
                 icon: Icon(Icons.segment)), // 전체목록 아이콘버튼

@@ -571,19 +571,19 @@ class _MyListPageState extends State<MyListPage> {
             children: [
               IconButton( // 아이콘 버튼 위젯
                 onPressed: (){
-                  Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 친구 목록 페이지로 이동 및 인자값 전달
+                  Navigator.pushNamedAndRemoveUntil(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg), (route) => false); // 친구 목록 페이지로 이동 및 인자값 전달
                 },
                 icon: Icon(Icons.person_outline) // 친구 목록 아이콘
               ),
               IconButton( // 아이콘 버튼 위젯
                 onPressed: (){
-                  Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 채팅 목록 페이지로 이동 및 인자값 전달
+                  Navigator.pushNamedAndRemoveUntil(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg), (route) => false); // 채팅 목록 페이지로 이동 및 인자값 전달
                 },
                 icon: Icon(Icons.chat_bubble_outline) // 채팅 목록 아이콘
               ),
               IconButton( // 아이콘 버튼 위젯
                 onPressed: (){
-                  Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg)); // 게시글 목록 페이지로 이동 및 인자값 전달
+                  Navigator.pushNamedAndRemoveUntil(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg), (route) => false); // 게시글 목록 페이지로 이동 및 인자값 전달
                 },
                 icon: Icon(Icons.list_alt) // 게시글 목록 아이콘
               ),

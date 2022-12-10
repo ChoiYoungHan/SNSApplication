@@ -307,9 +307,109 @@ class _FindUserPageState extends State<FindUserPage> {
                                           width: double.infinity, height: double.infinity, // 가로, 세로 무제한
                                           child: TextButton( // 텍스트 버튼 위젯
                                             onPressed: (){ // 버튼을 클릭 시 친구의 이름을 변경하는 팝업화면을 띄울 것임
-
+                                              Navigator.pop(context);
+                                              showDialog(useRootNavigator: false, context: context, builder: (context){
+                                                return Dialog(
+                                                  child: Container(
+                                                    width: 150, height: 150,
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      children: [
+                                                        Expanded(child: Container(
+                                                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                                          alignment: Alignment.center,
+                                                          width: double.infinity, height: double.infinity,
+                                                          child: TextField(
+                                                            textAlign: TextAlign.center,
+                                                            controller: inputName,
+                                                            decoration: InputDecoration(
+                                                              hintText: '변경할 이름을 입력해주세요.'
+                                                            )
+                                                          )
+                                                        ), flex: 2),
+                                                        Expanded(child: Container(
+                                                          width: double.infinity, height: double.infinity,
+                                                          child: Padding(
+                                                            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                            child: ElevatedButton(
+                                                              onPressed: () async {
+                                                                if(inputName.text == ''){
+                                                                  showDialog(useRootNavigator: false, context: context, builder: (context){
+                                                                    return Dialog(
+                                                                      child: Container(
+                                                                        width: 150, height: 150,
+                                                                        child: Column(
+                                                                          mainAxisSize: MainAxisSize.max,
+                                                                          children: [
+                                                                            Expanded(child: Container(
+                                                                              alignment: Alignment.center,
+                                                                              width: double.infinity, height: double.infinity,
+                                                                              child: Text('공백없이 입력해주세요.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                                                            ), flex: 2),
+                                                                            Expanded(child: Container(
+                                                                              width: double.infinity, height: double.infinity,
+                                                                              child: Padding(
+                                                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                                child: ElevatedButton(
+                                                                                  onPressed: (){
+                                                                                    Navigator.pop(context);
+                                                                                  },
+                                                                                  child: Text('확인')
+                                                                                )
+                                                                              )
+                                                                            ), flex: 1)
+                                                                          ]
+                                                                        )
+                                                                      )
+                                                                    );
+                                                                  });
+                                                                } else {
+                                                                  Navigator.pop(context);
+                                                                  await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구이름변경.php?user1=' + widget.userEmail + '&user2=' + userData[index].userEmail + '&Nickname=' + inputName.text));
+                                                                  showDialog(useRootNavigator: false, barrierDismissible: false, context: context, builder: (context){
+                                                                    return Dialog(
+                                                                      child: Container(
+                                                                        width: 150, height: 150,
+                                                                        child: Column(
+                                                                          mainAxisSize: MainAxisSize.max,
+                                                                          children: [
+                                                                            Expanded(child: Container(
+                                                                              alignment: Alignment.center,
+                                                                              width: double.infinity, height: double.infinity,
+                                                                              child: Text('이름 변경이 완료되었습니다.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                                                            ), flex: 2),
+                                                                            Expanded(child: Container(
+                                                                              width: double.infinity, height: double.infinity,
+                                                                              child: Padding(
+                                                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                                child: ElevatedButton(
+                                                                                  onPressed: (){
+                                                                                    Navigator.pop(context);
+                                                                                    Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                                                                  },
+                                                                                  child: Text('확인')
+                                                                                )
+                                                                              )
+                                                                            ), flex: 1)
+                                                                          ]
+                                                                        )
+                                                                      )
+                                                                    );
+                                                                  });
+                                                                  inputName.clear();
+                                                                }
+                                                              },
+                                                              child: Text('확인')
+                                                            )
+                                                          )
+                                                        ), flex: 1)
+                                                      ]
+                                                    )
+                                                  )
+                                                );
+                                              });
                                             },
-                                            child: Text('이름변경', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16, 색상은 회색
+                                            child: Text('이름변경', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)) // 볼드체, 사이즈 16, 색상은 회색
                                           )
                                         ), flex: 1),
                                         Expanded(child: Container(
@@ -323,6 +423,7 @@ class _FindUserPageState extends State<FindUserPage> {
 
                                               // 친구 차단을 완료하면 차단 하였다는 팝업 출력
                                               showDialog(
+                                                barrierDismissible: false,
                                                 context: context,
                                                 builder: (context){
                                                   return Dialog( // Dialog 위젯
@@ -357,7 +458,7 @@ class _FindUserPageState extends State<FindUserPage> {
                                                 }
                                               );
                                             },
-                                            child: Text('차단', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey)) // 볼드체, 사이즈 16, 색상은 회색
+                                            child: Text('차단', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)) // 볼드체, 사이즈 16, 색상은 회색
                                           ),
                                         ), flex: 1)
                                       ]

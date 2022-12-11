@@ -152,36 +152,6 @@ class _PostSearchPageState extends State<PostSearchPage> {
                                 )
                               );
                             });
-                          } else if(Post_Read_Info[0].contains('일치하는 게시글이 없습니다.')){
-                            showDialog(context: context, builder: (context){
-                              return Dialog(
-                                child: Container(
-                                  width: 150, height: 150,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(child: Container(
-                                        alignment: Alignment.center,
-                                        width: double.infinity, height: double.infinity,
-                                        child: Text('일치하는 게시글이 없습니다.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
-                                      ), flex: 2),
-                                      Expanded(child: Container(
-                                        width: double.infinity, height: double.infinity,
-                                        child: Padding(
-                                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                          child: ElevatedButton(
-                                            onPressed: (){
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text('확인')
-                                          ),
-                                        ),
-                                      ), flex: 1)
-                                    ]
-                                  )
-                                )
-                              );
-                            });
                           } else {
                             // 기존의 배열에 아무것도 들어있지 않게 비워줌
                             postUID.clear();

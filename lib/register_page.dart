@@ -48,8 +48,8 @@ class _registerState extends State<register> {
 
   late XFile pickedImage;
 
-  Future<void> uploadQuery(XFile pickedImage) async {
-    var uri = Uri.parse('http://www.teamtoktok.kro.kr/이미지.php');
+  Future<void> uploadQuery(XFile pickedImage, String Email) async {
+    var uri = Uri.parse('http://www.teamtoktok.kro.kr/이미지.php?id=' + Email + '&mode=1');
 
     var request = http.MultipartRequest("POST", uri);
     var pic = await http.MultipartFile.fromPath('image', pickedImage.path);
@@ -119,9 +119,7 @@ class _registerState extends State<register> {
                         _image == null ?
                       IconButton(
                         onPressed: () async {
-                          pickedImage = (await picker.pickImage(source: ImageSource.gallery))!;
-
-                          // getImage(ImageSource.gallery);
+                          getImage(ImageSource.gallery);
                         },
                         icon: Icon(Icons.photo, color: Colors.grey, size: 50)
                       ) : showImage()
@@ -352,7 +350,7 @@ class _registerState extends State<register> {
                                       Expanded(child: Container(
                                         alignment: Alignment.center,
                                         width: double.infinity, height: double.infinity,
-                                        child: Text('이미 존재하는 이메일입니다.',
+                                        child: Text('이미 존재하는 아이디입니다.',
                                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                                       ), flex: 2),
                                       Expanded(child: Container(
@@ -455,6 +453,7 @@ class _registerState extends State<register> {
                                         child: ElevatedButton( // 버튼 위젯
                                           onPressed: (){
                                             Navigator.pop(context);
+                                            uploadQuery(pickedImage, Email);
                                           },
                                           child: Text('확인')
                                         ),
@@ -476,7 +475,7 @@ class _registerState extends State<register> {
                     inputPhone.clear();
                     inputBirthday.clear();
 
-                  }, child: Text('가입신청'))
+                  }, child: Text('가입신청')),
                 ]
               ),
             ),

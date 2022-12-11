@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:application_20221022/post_list.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
+import 'package:image_picker/image_picker.dart';
+
 
 class AddPost_UserEmail{ // 로그인 한 유저의 정보를 받아와 저장할 class 객체 선언
   final String userEmail;
@@ -11,6 +15,7 @@ class AddPost_UserEmail{ // 로그인 한 유저의 정보를 받아와 저장�
 
   AddPost_UserEmail({required this.userEmail, required this.userName, required this.userStateMsg});
 }
+
 
 class add_Post extends StatelessWidget {
   const add_Post({Key? key}) : super(key: key);
@@ -42,6 +47,48 @@ class _AddPostPageState extends State<AddPostPage> {
   // 게시글을 작성할 때의 텍스트 필드 변수
   TextEditingController inputContents = TextEditingController();
 
+
+  File? _image;
+  final picker = ImagePicker();
+
+  late XFile pickedImage;
+
+  Future<void> uploadQuery(XFile pickedImage, String Email) async {
+    var uri = Uri.parse('http://www.teamtoktok.kro.kr/이미지.php?id=' + Email + '&mode=2');
+
+    var request = http.MultipartRequest("POST", uri);
+    var pic = await http.MultipartFile.fromPath('image', pickedImage.path);
+
+    request.files.add(pic);
+
+    var response = await request.send();
+
+    if(response.statusCode == 200){
+      print('image uploaded');
+    } else {
+      print('upload failed');
+    }
+  }
+
+  // 비동기 처리를 통해 갤러리에서 이미지를 가져옴
+  Future getImage(ImageSource imageSource) async {
+    pickedImage = (await picker.pickImage(source: ImageSource.gallery))!;
+
+    setState(() {
+      _image = File(pickedImage!.path);
+    });
+  }
+
+  // 이미지를 보여주는 위젯
+  Widget showImage() {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+        onPressed: () async {
+          getImage(ImageSource.gallery);
+        },
+        child: Center(
+            child: Image.file(File(_image!.path), fit: BoxFit.cover, width: 150, height: 150)));
+  }
 
   @override
   Widget build(BuildContext context) {

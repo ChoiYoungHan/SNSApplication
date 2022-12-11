@@ -27,7 +27,7 @@ class friend_profileScreen extends StatelessWidget {
                 width: double.infinity, height: double.infinity,
                 child: Stack(
                   children: [
-                    Image.asset(profile.BackgroundImage, fit: BoxFit.cover),
+                    Image.network('http://' + profile.BackgroundImage, fit: BoxFit.cover),
                     Container(
                       width: double.infinity, height: double.infinity,
                       child: Column(
@@ -73,7 +73,7 @@ class friend_profileScreen extends StatelessWidget {
                                           padding: EdgeInsets.all(10),
                                           child: ClipRRect(
                                               borderRadius: BorderRadius.circular(35),
-                                              child: Image.asset(profile.userImage, fit: BoxFit.cover)
+                                              child: Image.network('http://' + profile.userImage, fit: BoxFit.cover)
                                           ),
                                         ),
                                       ), flex: 3),

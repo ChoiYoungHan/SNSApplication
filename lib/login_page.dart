@@ -135,143 +135,149 @@ class _login_pageState extends State<login_page> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      ElevatedButton(onPressed: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => register_page()));
-                                      }, child: Text('회원가입')),
-                                      ElevatedButton(
-                                          onPressed: () async {
-                                            setState(() {
-                                              Email = inputEmail.text;
-                                              Password = inputPassword.text;
-                                            });
+                                      Container(
+                                        width: 150,
+                                        child: ElevatedButton(onPressed: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => register_page()));
+                                        }, child: Text('회원가입')),
+                                      ),
+                                      Container(
+                                        width: 150,
+                                        child: ElevatedButton(
+                                            onPressed: () async {
+                                              setState(() {
+                                                Email = inputEmail.text;
+                                                Password = inputPassword.text;
+                                              });
 
-                                            final Login_response = await http.get(Uri.parse(
-                                                'http://www.teamtoktok.kro.kr/로그인.php?id=' + Email + '&password=' + Password
-                                            ));
+                                              final Login_response = await http.get(Uri.parse(
+                                                  'http://www.teamtoktok.kro.kr/로그인.php?id=' + Email + '&password=' + Password
+                                              ));
 
-                                            dom.Document document = parse.parse(Login_response.body);
+                                              dom.Document document = parse.parse(Login_response.body);
 
-                                            setState(() {
-                                              final Login_msg = document.getElementsByClassName('logininfo');
+                                              setState(() {
+                                                final Login_msg = document.getElementsByClassName('logininfo');
 
-                                              Login_read_Message = Login_msg.map((element) => element.getElementsByTagName('tr')[0].innerHtml).toList();
+                                                Login_read_Message = Login_msg.map((element) => element.getElementsByTagName('tr')[0].innerHtml).toList();
 
-                                              Login_current_Message = Login_read_Message[0].replaceAll(RegExp('(<td>|</td>|<br>)'), '');
+                                                Login_current_Message = Login_read_Message[0].replaceAll(RegExp('(<td>|</td>|<br>)'), '');
 
-                                              if(Login_read_Message[0].contains('일치하는 로그인 정보가 없습니다.')){
-                                                showDialog(context: context, builder: (context){return Dialog(
-                                                    child: Container(
-                                                        width: 150,
-                                                        height: 150,
-                                                        child: Column(
-                                                            mainAxisSize: MainAxisSize.max,
-                                                            children: [
-                                                              Expanded(child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    border: Border(bottom: BorderSide(
-                                                                        color: Color(0xffC6C8C6),
-                                                                        width: 1.5
-                                                                    ))
-                                                                ),
-                                                                alignment: Alignment.center,
-                                                                width: double.infinity, height: double.infinity,
-                                                                child: Text('일치하는 회원정보가 없습니다.',
-                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                                                              ), flex: 2),
-                                                              Expanded(child: Container(
+                                                if(Login_read_Message[0].contains('일치하는 로그인 정보가 없습니다.')){
+                                                  showDialog(context: context, builder: (context){return Dialog(
+                                                      child: Container(
+                                                          width: 150,
+                                                          height: 150,
+                                                          child: Column(
+                                                              mainAxisSize: MainAxisSize.max,
+                                                              children: [
+                                                                Expanded(child: Container(
+                                                                  decoration: BoxDecoration(
+                                                                      border: Border(bottom: BorderSide(
+                                                                          color: Color(0xffC6C8C6),
+                                                                          width: 1.5
+                                                                      ))
+                                                                  ),
+                                                                  alignment: Alignment.center,
                                                                   width: double.infinity, height: double.infinity,
-                                                                  child: ElevatedButton(
-                                                                      onPressed: (){
-                                                                        Navigator.pop(context);
-                                                                        inputEmail.clear();
-                                                                        inputPassword.clear();
-                                                                      },
-                                                                      child: Text('확인')
-                                                                  )
-                                                              ), flex: 1)
-                                                            ]
+                                                                  child: Text('일치하는 회원정보가 없습니다.',
+                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                                                ), flex: 2),
+                                                                Expanded(child: Container(
+                                                                    width: double.infinity, height: double.infinity,
+                                                                    child: ElevatedButton(
+                                                                        onPressed: (){
+                                                                          Navigator.pop(context);
+                                                                          inputEmail.clear();
+                                                                          inputPassword.clear();
+                                                                        },
+                                                                        child: Text('확인')
+                                                                    )
+                                                                ), flex: 1)
+                                                              ]
+                                                          )
+                                                      )
+                                                  );});
+                                                } else if (inputEmail.text == '' || inputPassword.text == ''){
+                                                  showDialog(context: context, builder: (context){
+                                                    return Dialog(
+                                                        child: Container(
+                                                            width: 150, height: 150,
+                                                            child: Column(
+                                                                mainAxisSize: MainAxisSize.max,
+                                                                children: [
+                                                                  Expanded(child: Container(
+                                                                      alignment: Alignment.center,
+                                                                      width: double.infinity, height: double.infinity,
+                                                                      child: Text('공백없이 입력해주세요.',
+                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                                                                  ), flex: 2),
+                                                                  Expanded(child: Container(
+                                                                      width: double.infinity, height: double.infinity,
+                                                                      child: Padding(
+                                                                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                        child: ElevatedButton(
+                                                                            onPressed: (){
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            child: Text('확인')
+                                                                        ),
+                                                                      )
+                                                                  ), flex: 1)
+                                                                ]
+                                                            )
                                                         )
-                                                    )
-                                                );});
-                                              } else if (inputEmail.text == '' || inputPassword.text == ''){
-                                                showDialog(context: context, builder: (context){
-                                                  return Dialog(
-                                                      child: Container(
-                                                          width: 150, height: 150,
-                                                          child: Column(
-                                                              mainAxisSize: MainAxisSize.max,
-                                                              children: [
-                                                                Expanded(child: Container(
-                                                                    alignment: Alignment.center,
-                                                                    width: double.infinity, height: double.infinity,
-                                                                    child: Text('공백없이 입력해주세요.',
-                                                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
-                                                                ), flex: 2),
-                                                                Expanded(child: Container(
-                                                                    width: double.infinity, height: double.infinity,
-                                                                    child: Padding(
-                                                                      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                                                      child: ElevatedButton(
-                                                                          onPressed: (){
-                                                                            Navigator.pop(context);
-                                                                          },
-                                                                          child: Text('확인')
-                                                                      ),
-                                                                    )
-                                                                ), flex: 1)
-                                                              ]
-                                                          )
-                                                      )
-                                                  );
-                                                });
-                                              } else {
-                                                Login_Read_id = Login_current_Message.split('::')[0];
-                                                Login_Read_email = Login_current_Message.split('::')[1];
-                                                Login_Read_password = Login_current_Message.split('::')[2];
-                                                Login_Read_name = Login_current_Message.split('::')[3];
-                                                Login_Read_message = Login_current_Message.split('::')[4];
-                                                Login_Read_image = Login_current_Message.split('::')[5];
-                                                Login_Read_phone = Login_current_Message.split('::')[6];
-                                                Login_Read_birthday = Login_current_Message.split('::')[7];
+                                                    );
+                                                  });
+                                                } else {
+                                                  Login_Read_id = Login_current_Message.split('::')[0];
+                                                  Login_Read_email = Login_current_Message.split('::')[1];
+                                                  Login_Read_password = Login_current_Message.split('::')[2];
+                                                  Login_Read_name = Login_current_Message.split('::')[3];
+                                                  Login_Read_message = Login_current_Message.split('::')[4];
+                                                  Login_Read_image = Login_current_Message.split('::')[5];
+                                                  Login_Read_phone = Login_current_Message.split('::')[6];
+                                                  Login_Read_birthday = Login_current_Message.split('::')[7];
 
-                                                showDialog(barrierDismissible: false,context: context, builder: (context){
-                                                  return Dialog(
-                                                      child: Container(
-                                                          width: 150, height: 150,
-                                                          child: Column(
-                                                              mainAxisSize: MainAxisSize.max,
-                                                              children: [
-                                                                Expanded(child: Container(
-                                                                    alignment: Alignment.center,
-                                                                    width: double.infinity, height: double.infinity,
-                                                                    child: Text('로그인에 성공하였습니다.',
-                                                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
-                                                                    )
-                                                                ), flex: 2),
-                                                                Expanded(child: Container(
-                                                                    width: double.infinity, height: double.infinity,
-                                                                    child: Padding(
-                                                                      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                                                      child: ElevatedButton(
-                                                                          onPressed: (){
-                                                                            Navigator.pop(context);
-                                                                            inputEmail.clear();
-                                                                            inputPassword.clear();
-                                                                            Navigator.pushNamedAndRemoveUntil(context, '/friendList', arguments: FriendList_UserEmail(userEmail: Login_Read_email, userName: Login_Read_name, userStateMsg: Login_Read_message), (route) => false);
-                                                                          },
-                                                                          child: Text('확인')
-                                                                      ),
-                                                                    )
-                                                                ), flex: 1)
-                                                              ]
-                                                          )
-                                                      )
-                                                  );
-                                                });
-                                              }
-                                            });
-                                          },
-                                          child: Text('로그인'))
+                                                  showDialog(barrierDismissible: false,context: context, builder: (context){
+                                                    return Dialog(
+                                                        child: Container(
+                                                            width: 150, height: 150,
+                                                            child: Column(
+                                                                mainAxisSize: MainAxisSize.max,
+                                                                children: [
+                                                                  Expanded(child: Container(
+                                                                      alignment: Alignment.center,
+                                                                      width: double.infinity, height: double.infinity,
+                                                                      child: Text('로그인에 성공하였습니다.',
+                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+                                                                      )
+                                                                  ), flex: 2),
+                                                                  Expanded(child: Container(
+                                                                      width: double.infinity, height: double.infinity,
+                                                                      child: Padding(
+                                                                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                        child: ElevatedButton(
+                                                                            onPressed: (){
+                                                                              Navigator.pop(context);
+                                                                              inputEmail.clear();
+                                                                              inputPassword.clear();
+                                                                              Navigator.pushNamedAndRemoveUntil(context, '/friendList', arguments: FriendList_UserEmail(userEmail: Login_Read_email, userName: Login_Read_name, userStateMsg: Login_Read_message), (route) => false);
+                                                                            },
+                                                                            child: Text('확인')
+                                                                        ),
+                                                                      )
+                                                                  ), flex: 1)
+                                                                ]
+                                                            )
+                                                        )
+                                                    );
+                                                  });
+                                                }
+                                              });
+                                            },
+                                            child: Text('로그인')),
+                                      )
                                     ]
                                 ))
                           ]

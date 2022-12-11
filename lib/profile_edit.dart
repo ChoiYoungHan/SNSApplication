@@ -204,38 +204,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 5), // 좌 10 상 5 우 10 하 5의 여백을 줌
                     child: ElevatedButton(
                       onPressed: () async {
-                        if(inputStateMsg.text == ''){
-                          showDialog( // 팝업 화면을 띄우기 위함
-                            context: context,
-                            builder: (context){
-                            return Dialog( // Dialog 위젯
-                              child: Container( // 상자 위젯
-                                width: 150, height: 150, // 가로와 세로 150
-                                child: Column( // 세로 정렬
-                                  mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
-                                  children: [
-                                    Expanded(child: Container( // 상자 위젯
-                                      alignment: Alignment.center, // 글자가 가운데 오도록 정렬
-                                      width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                      child: Text('공백없이 입력해주세요.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체 16
-                                    ), flex: 2),
-                                    Expanded(child: Container(
-                                      padding: EdgeInsets.fromLTRB(10, 5, 10, 5), // 좌 10 상 5 우 10 하 5 의 여백을 줌
-                                      width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                      child: ElevatedButton(
-                                        onPressed: (){
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text('확인')
-                                      ),
-                                    ), flex: 1)
-                                  ],
-                                ),
-                              ),
-                            );
-                            }
-                          );
-                        } else {
                           await http.get(Uri.parse('http://www.teamtoktok.kro.kr/상태메세지변경.php?user=' + widget.userEmail + '&statemessage=' + inputStateMsg.text));
 
                           showDialog( // 팝업 화면을 띄우기 위함
@@ -269,7 +237,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                               );
                             }
                           );
-                        }
                       },
                       child: Text('상태메시지 변경', style: TextStyle(color: Colors.black, fontSize: 16)) // 검정색, 16 사이즈
                     ),

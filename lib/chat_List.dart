@@ -386,7 +386,7 @@ class _chatListPageState extends State<chatListPage> {
                         padding: EdgeInsets.all(7), // 모든 면의 여백을 7만큼 주겠다.
                         child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용하는 위젯
                           borderRadius: BorderRadius.circular(45), // 각진 부분을 45만큼 둥글게
-                          child: Image.asset(chatData[index].chatImage.replaceAll(RegExp('(<td>|<br>|amp;)'), '').trim(), width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채우겠다
+                          child: Image.network('http://' + chatData[index].chatImage.replaceAll(RegExp('(<td>|<br>|amp;)'), '').trim(), width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채우겠다
                         )
                       )
                     ), flex: 2),

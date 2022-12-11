@@ -237,12 +237,6 @@ class _FindUserPageState extends State<FindUserPage> {
                                     mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
                                     children: [
                                       Expanded(child: Container( // 박스 위젯
-                                        decoration: BoxDecoration(
-                                          border: Border(bottom: BorderSide( // 박스의 아래 테두리에 색을 줄 것임
-                                            color: Color(0xffC6C8C6),
-                                            width: 1.5
-                                          ))
-                                        ),
                                         alignment: Alignment.center, // 글자를 가운데로 오도록 함
                                         width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                                         child: Text('일치하는 이름이 없습니다.',
@@ -251,11 +245,14 @@ class _FindUserPageState extends State<FindUserPage> {
                                       ), flex: 2),
                                       Expanded(child: Container( // 박스 위젯
                                         width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                        child: ElevatedButton( // 버튼위젯
-                                          onPressed: (){ // 클릭 시 Dialog위젯을 종료함
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('확인')
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ElevatedButton( // 버튼위젯
+                                            onPressed: (){ // 클릭 시 Dialog위젯을 종료함
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('확인')
+                                          ),
                                         )
                                       ), flex: 1)
                                     ]

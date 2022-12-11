@@ -217,40 +217,91 @@ class _ListViewPageState extends State<ListViewPage> {
                                             });
                                           } else {
                                             Navigator.pop(context);
-                                            await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구추가.php?user1=' + widget.userEmailInfo + '&user2=' + inputFriendEmail.text));
-                                            showDialog(barrierDismissible: false, context: context, builder: (context){
-                                              return Dialog(
-                                                  child: Container(
-                                                      width: 150, height: 150,
-                                                      child: Column(
-                                                          mainAxisSize: MainAxisSize.max,
-                                                          children: [
-                                                            Expanded(child: Container(
-                                                                alignment: Alignment.center,
-                                                                width: double.infinity, height: double.infinity,
-                                                                child: Text('친구추가가 완료되었습니다.',
-                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
-                                                                )
-                                                            ), flex: 2),
-                                                            Expanded(child: Container(
-                                                                width: double.infinity, height: double.infinity,
-                                                                child: Padding(
-                                                                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                                                  child: ElevatedButton(
-                                                                      onPressed: (){
-                                                                        Navigator.pop(context);
-                                                                        getFriendInfo();
-                                                                      },
-                                                                      child: Text('확인')
-                                                                  ),
-                                                                )
-                                                            ), flex: 1)
-                                                          ]
+
+                                            List<String> getInfo = [];
+
+                                            final response = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구추가.php?user1=' + widget.userEmailInfo + '&user2=' + inputFriendEmail.text));
+
+                                            dom.Document document = parse.parse(response.body);
+
+                                            setState(() async {
+                                              final Msg = document.getElementsByClassName('addfriend');
+
+                                              getInfo = Msg.map((element) => element.getElementsByTagName('tr')[0].innerHtml).toList();
+
+                                              String getAll = getInfo[0].replaceAll(RegExp('(<td>|</td>)'), '');
+
+                                              print(getAll);
+
+                                              if(getAll.contains('존재')){
+                                                showDialog(context: context, builder: (context){
+                                                  return Dialog(
+                                                      child: Container(
+                                                          width: 150, height: 150,
+                                                          child: Column(
+                                                              mainAxisSize: MainAxisSize.max,
+                                                              children: [
+                                                                Expanded(child: Container(
+                                                                    alignment: Alignment.center,
+                                                                    width: double.infinity, height: double.infinity,
+                                                                    child: Text('존재하지 않는 사용자입니다.',
+                                                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+                                                                    )
+                                                                ), flex: 2),
+                                                                Expanded(child: Container(
+                                                                    width: double.infinity, height: double.infinity,
+                                                                    child: Padding(
+                                                                      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                      child: ElevatedButton(
+                                                                          onPressed: (){
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          child: Text('확인')
+                                                                      ),
+                                                                    )
+                                                                ), flex: 1)
+                                                              ]
+                                                          )
                                                       )
-                                                  )
-                                              );
+                                                  );
+                                                });
+                                              } else {
+                                                await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구추가.php?user1=' + widget.userEmailInfo + '&user2=' + inputFriendEmail.text));
+                                                showDialog(barrierDismissible: false, context: context, builder: (context){
+                                                  return Dialog(
+                                                      child: Container(
+                                                          width: 150, height: 150,
+                                                          child: Column(
+                                                              mainAxisSize: MainAxisSize.max,
+                                                              children: [
+                                                                Expanded(child: Container(
+                                                                    alignment: Alignment.center,
+                                                                    width: double.infinity, height: double.infinity,
+                                                                    child: Text('친구추가가 완료되었습니다.',
+                                                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+                                                                    )
+                                                                ), flex: 2),
+                                                                Expanded(child: Container(
+                                                                    width: double.infinity, height: double.infinity,
+                                                                    child: Padding(
+                                                                      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                      child: ElevatedButton(
+                                                                          onPressed: (){
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          child: Text('확인')
+                                                                      ),
+                                                                    )
+                                                                ), flex: 1)
+                                                              ]
+                                                          )
+                                                      )
+                                                  );
+                                                });
+                                              }
+                                              getFriendInfo();
+                                              inputFriendName.clear();
                                             });
-                                            inputFriendName.clear();
                                           }
                                         },
                                         child: Text('확인')
@@ -378,7 +429,6 @@ class _ListViewPageState extends State<ListViewPage> {
                                                                           child: ElevatedButton(
                                                                             onPressed: (){
                                                                               Navigator.pop(context);
-                                                                              getFriendInfo();
                                                                             },
                                                                             child: Text('확인')
                                                                           ),
@@ -389,6 +439,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                                                 )
                                                               );
                                                             });
+                                                            getFriendInfo();
                                                             inputFriendName.clear();
                                                           }
                                                         },
@@ -410,9 +461,10 @@ class _ListViewPageState extends State<ListViewPage> {
                                     width: double.infinity, height: double.infinity,
                                     child: TextButton(
                                         onPressed: () async {
+                                          Navigator.pop(context);
                                           final Friend_Delete = await http.get(Uri.parse('http://www.teamtoktok.kro.kr/친구차단.php?user1=' + widget.userEmailInfo + '&user2=' + userData[index].userEmail));
                                           print('http://www.teamtoktok.kro.kr/친구차단.php?user1=' + widget.userEmailInfo + '&user2=' + userData[index].userEmail);
-                                          showDialog(useRootNavigator: false, context: context, builder: (context){
+                                          showDialog(useRootNavigator: false, barrierDismissible: false, context: context, builder: (context){
                                             return Dialog(
                                               child: Container(
                                                 width: 150, height: 150,
@@ -420,24 +472,20 @@ class _ListViewPageState extends State<ListViewPage> {
                                                   mainAxisSize: MainAxisSize.max,
                                                   children: [
                                                     Expanded(child: Container(
-                                                      decoration: BoxDecoration(
-                                                        border: Border(bottom: BorderSide(
-                                                          color: Color(0xffC6C8C6),
-                                                          width: 1.5
-                                                        ))
-                                                      ),
                                                       alignment: Alignment.center,
                                                       width: double.infinity, height: double.infinity,
                                                       child: Text(userData[index].userName + '님을 차단하였습니다.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
                                                     ), flex: 2),
                                                     Expanded(child: Container(
                                                       width: double.infinity, height: double.infinity,
-                                                      child: ElevatedButton(
-                                                        onPressed: (){
-                                                          Navigator.pop(context);
-                                                          Navigator.pushNamed(context, '/friendList', arguments: FriendList_UserEmail(userEmail: widget.userEmailInfo, userName: widget.userNameInfo, userStateMsg: widget.userStateMsgInfo));
-                                                        },
-                                                        child: Text('확인')
+                                                      child: Padding(
+                                                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                        child: ElevatedButton(
+                                                          onPressed: (){
+                                                            Navigator.pop(context);
+                                                          },
+                                                          child: Text('확인')
+                                                        ),
                                                       )
                                                     ), flex: 1)
                                                   ]
@@ -445,6 +493,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                               )
                                             );
                                           });
+                                          getFriendInfo();
                                         },
                                         child: Text('차단', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black))
                                     )
@@ -467,7 +516,7 @@ class _ListViewPageState extends State<ListViewPage> {
                             padding: EdgeInsets.all(10), // 모든 면의 여백을 10
                             child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용
                                 borderRadius: BorderRadius.circular(35), // 각진 부분을 45만큼 둥글게 줄임
-                                child: Image.asset(userData[index].userImage, width: 100, height: 100, fit: BoxFit.cover)
+                                child: Image.network('http://' + userData[index].userImage, width: 100, height: 100, fit: BoxFit.cover)
                             ),
                           ),
                         ),

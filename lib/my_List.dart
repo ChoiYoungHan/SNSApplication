@@ -366,12 +366,6 @@ class _MyListPageState extends State<MyListPage> {
                                                           mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
                                                           children: [
                                                             Expanded(child: Container( // 상자 위젯
-                                                              decoration: BoxDecoration(
-                                                                border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
-                                                                  width: 1.5,
-                                                                  color: Color(0xffC6C8C6)
-                                                                ))
-                                                              ),
                                                               alignment: Alignment.center, // 가운데 정렬
                                                               width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                                                               child: Text('공백없이 입력해주세요.',
@@ -379,13 +373,16 @@ class _MyListPageState extends State<MyListPage> {
                                                             ), flex: 2),
                                                             Expanded(child: Container( // 상자 위젯
                                                               width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                                              child: ElevatedButton( // 버튼 위젯
-                                                                onPressed: (){
-                                                                  Navigator.pop(context);
-                                                                  Delete_inputEmail.clear();
-                                                                  Delete_inputPassword.clear();
-                                                                },
-                                                                child: Text('확인')
+                                                              child: Padding(
+                                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                child: ElevatedButton( // 버튼 위젯
+                                                                  onPressed: (){
+                                                                    Navigator.pop(context);
+                                                                    Delete_inputEmail.clear();
+                                                                    Delete_inputPassword.clear();
+                                                                  },
+                                                                  child: Text('확인')
+                                                                ),
                                                               )
                                                             ), flex: 1)
                                                           ]
@@ -406,12 +403,6 @@ class _MyListPageState extends State<MyListPage> {
                                                           mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
                                                           children: [
                                                             Expanded(child: Container( // 상자 위젯
-                                                              decoration: BoxDecoration(
-                                                                border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
-                                                                  width: 1.5,
-                                                                  color: Color(0xffC6C8C6)
-                                                                ))
-                                                              ),
                                                               alignment: Alignment.center, // 가운데 정렬
                                                               width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                                                               child: Text('로그인한 아이디와 일치하지 않습니다.',
@@ -419,13 +410,16 @@ class _MyListPageState extends State<MyListPage> {
                                                             ), flex: 2),
                                                             Expanded(child: Container( // 상자 위젯
                                                               width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                                              child: ElevatedButton( // 버튼 위젯
-                                                                onPressed: (){
-                                                                  Navigator.pop(context);
-                                                                  Delete_inputEmail.clear();
-                                                                  Delete_inputPassword.clear();
-                                                                },
-                                                                child: Text('확인')
+                                                              child: Padding(
+                                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                child: ElevatedButton( // 버튼 위젯
+                                                                  onPressed: (){
+                                                                    Navigator.pop(context);
+                                                                    Delete_inputEmail.clear();
+                                                                    Delete_inputPassword.clear();
+                                                                  },
+                                                                  child: Text('확인')
+                                                                ),
                                                               )
                                                             ), flex: 1)
                                                           ]
@@ -463,12 +457,6 @@ class _MyListPageState extends State<MyListPage> {
                                                               mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
                                                               children: [
                                                                 Expanded(child: Container( // 상자 위젯
-                                                                  decoration: BoxDecoration(
-                                                                    border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
-                                                                      width: 1.5,
-                                                                      color: Color(0xffC6C8C6)
-                                                                    ))
-                                                                  ),
                                                                   alignment: Alignment.center, // 가운데 정렬
                                                                   width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                                                                   child: Text('회원탈퇴가 완료되었습니다.',
@@ -476,13 +464,16 @@ class _MyListPageState extends State<MyListPage> {
                                                                 ), flex: 2),
                                                                 Expanded(child: Container( // 상자 위젯
                                                                   width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                                                  child: ElevatedButton( // 버튼 위젯
-                                                                    onPressed: (){
-                                                                      Delete_inputEmail.clear();
-                                                                      Delete_inputPassword.clear();
-                                                                      Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
-                                                                    },
-                                                                    child: Text('확인')
+                                                                  child: Padding(
+                                                                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                    child: ElevatedButton( // 버튼 위젯
+                                                                      onPressed: (){
+                                                                        Delete_inputEmail.clear();
+                                                                        Delete_inputPassword.clear();
+                                                                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => login_page()), (route) => false);
+                                                                      },
+                                                                      child: Text('확인')
+                                                                    ),
                                                                   )
                                                                 ), flex: 1)
                                                               ]
@@ -506,12 +497,6 @@ class _MyListPageState extends State<MyListPage> {
                                                           mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
                                                           children: [
                                                             Expanded(child: Container( // 상자 위젯
-                                                              decoration: BoxDecoration(
-                                                                border: Border(bottom: BorderSide( // 상자 위젯의 아래 테두리에 색을 줌
-                                                                  width: 1.5,
-                                                                  color: Color(0xffC6C8C6)
-                                                                ))
-                                                              ),
                                                               alignment: Alignment.center, // 가운데 정렬
                                                               width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                                                               child: Text('비밀번호가 일치하지 않습니다.',
@@ -519,13 +504,16 @@ class _MyListPageState extends State<MyListPage> {
                                                             ), flex: 2),
                                                             Expanded(child: Container( // 상자 위젯
                                                               width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                                                              child: ElevatedButton( // 버튼 위젯
-                                                                onPressed: (){
-                                                                  Delete_inputEmail.clear();
-                                                                  Delete_inputPassword.clear();
-                                                                  Navigator.pop(context);
-                                                                },
-                                                                child: Text('확인')
+                                                              child: Padding(
+                                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                child: ElevatedButton( // 버튼 위젯
+                                                                  onPressed: (){
+                                                                    Delete_inputEmail.clear();
+                                                                    Delete_inputPassword.clear();
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                  child: Text('확인')
+                                                                ),
                                                               )
                                                             ), flex: 1)
                                                           ]
@@ -551,7 +539,7 @@ class _MyListPageState extends State<MyListPage> {
                       ),
                       TextButton(
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => login_page()),(route) => false);
                         },
                         child: Text('로그아웃', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red))
                       )

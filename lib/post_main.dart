@@ -174,7 +174,7 @@ class _PostMainPageState extends State<PostMainPage> {
                                   padding: EdgeInsets.fromLTRB(8,2,8,2), // 왼 8 위 2 우 8 아래 2의 여백을 줌
                                   child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용하는 위젯
                                     borderRadius: BorderRadius.circular(35), // 각진 부분을 35만큼 둥글게
-                                    child: Image.asset(widget.readPostUserImage, fit: BoxFit.cover) // 이미지를 가득 채움
+                                    child: Image.network('http://' + widget.readPostUserImage, fit: BoxFit.cover) // 이미지를 가득 채움
                                   ),
                                 )
                               ), flex: 2),
@@ -300,7 +300,7 @@ class _PostMainPageState extends State<PostMainPage> {
                           width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                           child: Padding( // 여백을 주기 위해 사용하는 위젯
                             padding: EdgeInsets.all(3), // 모든 면의 여백을 3만큼 줌
-                            child: Image.asset(widget.readPostImage, fit: BoxFit.cover) // 이미지를 꽉 채움
+                            child: Image.network('http://' + widget.readPostImage, fit: BoxFit.cover) // 이미지를 꽉 채움
                           ),
                         ), flex: 5)
                       ]
@@ -325,7 +325,7 @@ class _PostMainPageState extends State<PostMainPage> {
                                     padding: EdgeInsets.fromLTRB(8, 2, 8, 2), // 왼 8 위 2 우 8 아래 2의 여백을 줌
                                     child: ClipRRect( // 네모의 각진 부분을 둥글게 하기 위해 사용하는 위젯
                                       borderRadius: BorderRadius.circular(35), // 각진 부분을 35만큼의 여백을 줌
-                                      child: Image.asset(commentData[index].CommentImage, fit: BoxFit.cover) // 이미지를 꽉 채움
+                                      child: Image.network('http://' + commentData[index].CommentImage, fit: BoxFit.cover) // 이미지를 꽉 채움
                                     )
                                   )
                                 ), flex: 2),

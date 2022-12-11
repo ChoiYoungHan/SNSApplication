@@ -193,7 +193,7 @@ class _PostListPageState extends State<PostListPage> {
                               padding: EdgeInsets.all(3), // 모든 면의 여백을 3만큼 줌
                               child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용하는 위젯
                                 borderRadius: BorderRadius.circular(35), // 각진 부분을 35만큼 둥글게
-                                child: Image.asset(postData[index].postUserImage, width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채우겠다
+                                child: Image.network('http://' + postData[index].postUserImage, width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채우겠다
                               )
                             )
                           ), flex: 2),
@@ -233,7 +233,7 @@ class _PostListPageState extends State<PostListPage> {
                     ), flex: 2),
                     Expanded(child: Container( // 상자 위젯
                       width: double.infinity, height: double.infinity, // 가로와 세로 무제한
-                      child: Image.asset(postData[index].postImage, width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채움
+                      child: Image.network('http://' + postData[index].postImage, width: 100, height: 100, fit: BoxFit.cover) // 이미지를 꽉 채움
                     ), flex: 5)
                   ]
                 )

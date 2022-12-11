@@ -236,14 +236,8 @@ class _chatPageState extends State<chatPage> {
                   child: Row( // 가로 정렬 & 텍스트 필드와 아이콘 버튼을 넣어줄 것임
                     mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
                     children: [
-                      Expanded(child: IconButton( // 아이콘 버튼
-                        onPressed: (){ // 아래의 화면이 올라오게 하여 기능을 더 넣을 것임
-
-                        },
-                        icon: Icon(Icons.add_box_outlined, color: Colors.grey) // add 아이콘, 색상은 회색
-                      ), flex: 1),
                       Expanded(child: Padding( // 여백을 줄 때 사용하는 위젯
-                        padding: EdgeInsets.fromLTRB(0, 0, 5, 10), // 왼 0, 위 0, 우 5, 아래 10의 여백을 줌
+                        padding: EdgeInsets.fromLTRB(5, 0, 5, 10), // 왼 0, 위 0, 우 5, 아래 10의 여백을 줌
                         child: TextField( // 텍스트 필드
                           textAlign: TextAlign.center, // 텍스트를 가운데로 정렬함
                           controller: inputMessage, // 입력받은 값을 변수 inputMessage에 저장

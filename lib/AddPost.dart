@@ -139,7 +139,7 @@ class _AddPostPageState extends State<AddPostPage> {
                   );
                 });
               } else {
-                await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시글쓰기.php?user=' + widget.userEmail + '&postimage=assets/sky.jpg&contents=' + inputContents.text));
+                await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시글쓰기.php?user=' + widget.userEmail + '&contents=' + inputContents.text));
 
                 showDialog(useRootNavigator: false, context: context, builder: (context){
                   return Dialog(
@@ -162,6 +162,7 @@ class _AddPostPageState extends State<AddPostPage> {
                                   onPressed: (){
                                     inputContents.clear();
                                     Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                    uploadQuery(pickedImage, widget.userEmail);
                                   },
                                   child: Text('확인')
                                 ),
@@ -202,18 +203,20 @@ class _AddPostPageState extends State<AddPostPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                     onPressed: (){
-
+                      getImage(ImageSource.gallery);
                     },
                     child: Text('이미지 첨부')
                   ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  width: double.infinity, height: 250,
+                  child: _image == null ? null : showImage()
                 )
               ]
             )
           )
         )
-      ),
-      bottomNavigationBar: BottomAppBar(
-
       )
     );
   }

@@ -252,7 +252,7 @@ class _PostSearchPageState extends State<PostSearchPage> {
                                           padding: EdgeInsets.all(3),
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(35),
-                                            child: Image.asset(postData[index].postUserImage, fit: BoxFit.cover)
+                                            child: Image.network('http://' + postData[index].postUserImage.trim(), fit: BoxFit.cover)
                                           )
                                         )
                                       ), flex:  2),
@@ -284,7 +284,7 @@ class _PostSearchPageState extends State<PostSearchPage> {
                                 ), flex: 2),
                                 Expanded(child: Container(
                                   width: double.infinity, height: double.infinity,
-                                  child: Image.asset(postData[index].postImage, fit: BoxFit.cover)
+                                  child: Image.network('http://' + postData[index].postImage.trim(), fit: BoxFit.cover)
                                 ), flex: 5)
                               ]
                             ) 

@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
 
+import 'friendlist.dart';
 import 'main.dart';
 
 class PostList_UserEmail{ // 로그인한 유저의 정보를 받아와 저장할 class 객체 선언

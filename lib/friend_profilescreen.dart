@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
+import 'friendlist.dart';
+
 class friend_profileScreen extends StatelessWidget {
   const friend_profileScreen({Key? key, required this.profile}) : super(key: key);
 

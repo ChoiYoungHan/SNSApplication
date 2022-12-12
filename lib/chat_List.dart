@@ -14,6 +14,7 @@ import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
 
 import 'friend_searchPage.dart';
+import 'friendlist.dart';
 
 class ChatList_UserEmail{ // 로그인한 유정의 정보를 받아와 저장할 class 객체 선언
   final String userEmail;

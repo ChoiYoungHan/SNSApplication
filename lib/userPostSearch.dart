@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
 
+import 'friendlist.dart';
+
 class UserPost_UserEmail {
   final String userEmail;
   final String userName;

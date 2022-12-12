@@ -27,7 +27,7 @@ class profile_edit extends StatelessWidget {
 
     return MaterialApp(
       routes: {
-        'myList' : (context) => my_List() // my_List 페이지로 값을 넘겨주기 위함
+        '/myList' : (context) => my_List() // my_List 페이지로 값을 넘겨주기 위함
       },
       debugShowCheckedModeBanner: false,
       home: ProfileEditPage(userEmail: usEmail.userEmail, userName: usEmail.userName, userStateMsg: usEmail.userStateMsg)
@@ -99,7 +99,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         backgroundColor: Colors.white, // 배경색은 흰색
         leading: IconButton( // 아이콘 버튼 위젯
           onPressed: (){
-            Navigator.pushNamed(context, 'myList', arguments: MyList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+            Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
           },
           icon: Icon(Icons.arrow_back, color: Colors.grey) // 뒤로가기 버튼, 색상은 회색
         ),
@@ -177,7 +177,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         ]
                       )
                   )
-                ), flex: 4),
+                ), flex: 6),
                 Expanded(child: Container( // 상자 위젯
                   width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                   child: Padding( // 여백을 주기 위해 사용하는 위젯

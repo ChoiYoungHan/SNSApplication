@@ -1,8 +1,9 @@
-import 'package:application_20221022/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
+
+import 'main.dart';
 
 class find_emailpassword extends StatelessWidget {
   const find_emailpassword({Key? key}) : super(key: key);

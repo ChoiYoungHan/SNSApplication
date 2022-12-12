@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:application_20221022/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;

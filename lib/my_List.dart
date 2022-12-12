@@ -10,7 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
 
-import 'login_page.dart';
+import 'friendlist.dart';
+
 
 class MyList_UserEmail{ // 로그인한 사용자의 이메일 정보를 담아둘 클래스 객체 선언
   final String userEmail;

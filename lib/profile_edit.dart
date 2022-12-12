@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:application_20221022/my_List.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parse;
 import 'my_List.dart';
+
 
 class ProfileEdit_UserEmil{ // 로그인한 사용자의 정보를 담아둘 클래스 객체 선언
   final String userEmail;
@@ -45,6 +49,48 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   TextEditingController inputName = TextEditingController();
   TextEditingController inputStateMsg = TextEditingController();
 
+  File? _image;
+  final picker = ImagePicker();
+
+  late XFile pickedImage;
+
+  Future<void> uploadQuery(XFile pickedImage, String Email) async {
+    var uri = Uri.parse('http://www.teamtoktok.kro.kr/이미지.php?id=' + Email + '&mode=1');
+
+    var request = http.MultipartRequest("POST", uri);
+    var pic = await http.MultipartFile.fromPath('image', pickedImage.path);
+
+    request.files.add(pic);
+
+    var response = await request.send();
+
+    if(response.statusCode == 200){
+      print('image uploaded');
+    } else {
+      print('upload failed');
+    }
+  }
+
+  // 비동기 처리를 통해 갤러리에서 이미지를 가져옴
+  Future getImage(ImageSource imageSource) async {
+    pickedImage = (await picker.pickImage(source: ImageSource.gallery))!;
+
+    setState(() {
+      _image = File(pickedImage!.path);
+    });
+  }
+
+  // 이미지를 보여주는 위젯
+  Widget showImage() {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+        onPressed: () async {
+          getImage(ImageSource.gallery);
+        },
+        child: Center(
+            child: Image.file(File(_image!.path), fit: BoxFit.cover, width: 150, height: 150)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold( // 상중하로 나눔
@@ -75,14 +121,63 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   ),
                   child: Padding( // 여백을 주기 위해 사용하는 위젯
                     padding: EdgeInsets.all(10), // 모든 면의 여백을 10만큼 줌
-                    child: ElevatedButton( // 버튼 위젯
-                      onPressed: (){
-
-                      },
-                      child: Text('이미지 변경', style: TextStyle(color: Colors.black, fontSize: 16)) // 블랙, 16 사이즈
-                    )
+                    child: 
+                      _image == null ?
+                      ElevatedButton(
+                        onPressed: (){
+                          getImage(ImageSource.gallery);
+                        },
+                        child: Text('이미지 가져오기', style: TextStyle(color: Colors.black, fontSize: 16)))
+                      :
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          showImage(),
+                          Container(
+                            width:double.infinity,
+                            child: ElevatedButton(
+                              onPressed: (){
+                                uploadQuery(pickedImage, widget.userEmail);
+                                showDialog( // 팝업 화면을 띄우기 위함
+                                    useRootNavigator: false,
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context){
+                                      return Dialog( // Dialog 위젯
+                                        child: Container( // 상자 위젯
+                                          width: 150, height: 150, // 가로와 세로 150
+                                          child: Column( // 세로 정렬
+                                            mainAxisSize: MainAxisSize.max, // 남은 영역을 모두 사용
+                                            children: [
+                                              Expanded(child: Container( // 상자 위젯
+                                                  alignment: Alignment.center, // 글자가 가운데 오도록 정렬
+                                                  width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                  child: Text('이미지 변경이 완료되었습니다.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)) // 볼드체 16
+                                              ), flex: 2),
+                                              Expanded(child: Container(
+                                                padding: EdgeInsets.fromLTRB(10, 5, 10, 5), // 좌 10 상 5 우 10 하 5의 여백을 줌
+                                                width: double.infinity, height: double.infinity, // 가로와 세로 무제한
+                                                child: ElevatedButton(
+                                                    onPressed: (){
+                                                      Navigator.pushNamed(context, '/myList', arguments: MyList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
+                                                    },
+                                                    child: Text('확인')
+                                                ),
+                                              ), flex: 1)
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                );
+                              },
+                              child: Text('변경하기', style: TextStyle(color: Colors.black))
+                            )
+                          )
+                        ]
+                      )
                   )
-                ), flex: 2),
+                ), flex: 4),
                 Expanded(child: Container( // 상자 위젯
                   width: double.infinity, height: double.infinity, // 가로와 세로 무제한
                   child: Padding( // 여백을 주기 위해 사용하는 위젯

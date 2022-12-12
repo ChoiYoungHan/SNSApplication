@@ -111,7 +111,9 @@ class _MyListPageState extends State<MyListPage> {
       User_Read_Nickname = User_Split_Info[1];
       User_Read_StateMsg = User_Split_Info[2];
 
-      print(User_Read_Image);
+      print('User_Read_Image' + User_Read_Image);
+      print('User_Read_Nickname' + User_Read_Nickname);
+      print('User_Read_StateMsg' + User_Read_StateMsg);
     });
 
   }
@@ -148,7 +150,7 @@ class _MyListPageState extends State<MyListPage> {
                           padding: EdgeInsets.all(10), // 모든 면의 여백을 10만큼 줌
                           child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용
                             borderRadius: BorderRadius.circular(35), // 네 모서리를 35만큼 둥글게 함
-                            child: Image.network('http://' + User_Read_Image, width: 100, height: 100, fit: BoxFit.cover) // 사진은 꽉 차게
+                            child: Image.network('http://' + User_Read_Image.trim(), width: 100, height: 100, fit: BoxFit.cover) // 사진은 꽉 차게
                           )
                         )
                       ), flex: 4),

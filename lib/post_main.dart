@@ -248,7 +248,7 @@ class _PostMainPageState extends State<PostMainPage> {
                                                                                           child: ElevatedButton( // 버튼 위젯
                                                                                             onPressed: () async {
                                                                                               Navigator.pushNamed(context, '/postList', arguments: PostList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
-                                                                                              await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시글삭제.php?id=' + widget.userEmail + '&postuid=' + widget.readPostUID));
+                                                                                              await http.get(Uri.parse('http://www.teamtoktok.kro.kr/게시글삭제.php?id=' + widget.userEmail + '&postuid=' + widget.readPostUID.trim()));
                                                                                             },
                                                                                             child: Text('확인')
                                                                                           )

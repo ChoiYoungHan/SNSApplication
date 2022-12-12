@@ -288,6 +288,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                                                       child: ElevatedButton(
                                                                           onPressed: (){
                                                                             Navigator.pop(context);
+                                                                            getFriendInfo();
                                                                           },
                                                                           child: Text('확인')
                                                                       ),
@@ -299,7 +300,6 @@ class _ListViewPageState extends State<ListViewPage> {
                                                   );
                                                 });
                                               }
-                                              getFriendInfo();
                                               inputFriendName.clear();
                                             });
                                           }

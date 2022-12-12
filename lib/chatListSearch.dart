@@ -315,7 +315,7 @@ class _ChatListSearchPageState extends State<ChatListSearchPage> {
                                     padding: EdgeInsets.all(13),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(45),
-                                      child: Image.asset(chatData[index].chatImage.replaceAll('<td>', '').trim(), fit: BoxFit.cover)
+                                      child: Image.network('http://' + chatData[index].chatImage.replaceAll('<td>', '').trim(), fit: BoxFit.cover)
                                     ),
                                   )
                                 ), flex: 2),

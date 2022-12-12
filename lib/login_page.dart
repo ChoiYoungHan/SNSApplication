@@ -172,12 +172,6 @@ class _login_pageState extends State<login_page> {
                                                               mainAxisSize: MainAxisSize.max,
                                                               children: [
                                                                 Expanded(child: Container(
-                                                                  decoration: BoxDecoration(
-                                                                      border: Border(bottom: BorderSide(
-                                                                          color: Color(0xffC6C8C6),
-                                                                          width: 1.5
-                                                                      ))
-                                                                  ),
                                                                   alignment: Alignment.center,
                                                                   width: double.infinity, height: double.infinity,
                                                                   child: Text('일치하는 회원정보가 없습니다.',
@@ -185,13 +179,16 @@ class _login_pageState extends State<login_page> {
                                                                 ), flex: 2),
                                                                 Expanded(child: Container(
                                                                     width: double.infinity, height: double.infinity,
-                                                                    child: ElevatedButton(
-                                                                        onPressed: (){
-                                                                          Navigator.pop(context);
-                                                                          inputEmail.clear();
-                                                                          inputPassword.clear();
-                                                                        },
-                                                                        child: Text('확인')
+                                                                    child: Padding(
+                                                                      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                                                      child: ElevatedButton(
+                                                                          onPressed: (){
+                                                                            Navigator.pop(context);
+                                                                            inputEmail.clear();
+                                                                            inputPassword.clear();
+                                                                          },
+                                                                          child: Text('확인')
+                                                                      ),
                                                                     )
                                                                 ), flex: 1)
                                                               ]

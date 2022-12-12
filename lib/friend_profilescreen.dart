@@ -156,28 +156,6 @@ class friend_profileScreen extends StatelessWidget {
                                           ]
                                       )
                                   ),
-                                )),
-                                Expanded(child: Container(
-                                  padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                  child: ElevatedButton(
-                                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
-                                      onPressed: () {
-                                        Navigator.pushNamed(context, '/postUser', arguments: UserPost_UserEmail(userEmail: profile.LoginuserEmail, userName: profile.LoginuserName, userStateMsg: profile.LoginuserStateMsg, postUser: profile.userEmail, postName: profile.userName));
-                                      },
-                                      child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Icon(Icons.list_alt, size: 24, color: Colors.grey),
-                                            Padding(padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                                child: Text('게시글', style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold
-                                                )))
-                                          ]
-                                      )
-                                  ),
                                 ))
                               ],
                             ),

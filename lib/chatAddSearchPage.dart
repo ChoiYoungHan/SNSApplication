@@ -289,7 +289,7 @@ class _chatFindUserPageState extends State<chatFindUserPage> {
                                                         padding: EdgeInsets.all(10), // 모든 면의 여백을 10만큼 줌
                                                         child: ClipRRect( // 네모의 각진 부분을 둥글게 하고 싶을 때 사용하는 위젯
                                                             borderRadius: BorderRadius.circular(35), // 각진 부분을 35만큼 둥글게 줄임
-                                                            child: Image.asset(userData[index].userImage, width: 100, height: 100, fit: BoxFit.cover) // 이미지 삽입, 이미지는 최대로
+                                                            child: Image.network('http://' + userData[index].userImage.trim(), width: 100, height: 100, fit: BoxFit.cover) // 이미지 삽입, 이미지는 최대로
                                                         )
                                                     ),
                                                   ), flex: 3),

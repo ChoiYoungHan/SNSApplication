@@ -80,6 +80,8 @@ class _chatPageState extends State<chatPage> {
 
   void dispose(){
     timer.cancel();
+
+    super.dispose();
   }
 
   void getMsgInfo() async {
@@ -150,8 +152,8 @@ class _chatPageState extends State<chatPage> {
         backgroundColor: Colors.white, // 색상은 흰색
         leading: IconButton( // 아이콘 버튼 (뒤로가기 기능을 넣을 것임)
           onPressed: (){ // 뒤로가기 기능이 들어갈 것임
-            Navigator.pushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
             dispose();
+            Navigator.popAndPushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
           },
           icon: Icon(Icons.arrow_back, color: Colors.grey) // 뒤로가기 모양의 아이콘, 색상은 회색
         ),
@@ -192,8 +194,8 @@ class _chatPageState extends State<chatPage> {
                                     onPressed: () async {
                                       // 채팅방을 나가기 위한 Url 실행
                                       await http.get(Uri.parse('http://www.teamtoktok.kro.kr/채팅방삭제.php?user1=' + widget.userEmail + '&user2=' + widget.OtheruserEmail));
-                                      Navigator.popAndPushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
                                       dispose();
+                                      Navigator.popAndPushNamed(context, '/chatList', arguments: ChatList_UserEmail(userEmail: widget.userEmail, userName: widget.userName, userStateMsg: widget.userStateMsg));
                                     },
                                     child: Text('확인')
                                   ),
@@ -287,9 +289,6 @@ class _chatPageState extends State<chatPage> {
             )
           )
         )
-      ),
-      endDrawer: Drawer( // drawer 위젯, 우측에서 나오게 하기 위해 endDrawer 사용
-
       )
     );
   }
